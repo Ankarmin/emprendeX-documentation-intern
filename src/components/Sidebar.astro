@@ -1,0 +1,105 @@
+---
+import Default from '@astrojs/starlight/components/Sidebar.astro';
+import type { Props } from '@astrojs/starlight/props';
+
+const sidebar = Astro.locals.starlightRoute?.sidebar || [];
+const currentPath = Astro.url.pathname;
+
+// 1. Determinar la categoría activa basada en la URL
+let activeCategory = 'Proyecto'; // Por defecto
+
+if (currentPath.includes('/scrum/') || currentPath.includes('/sprints/')) {
+  activeCategory = 'Scrum';
+} else if (currentPath.includes('/arquitectura/')) {
+  activeCategory = 'Arquitectura';
+} else if (currentPath.includes('/guias/')) {
+  activeCategory = 'Guias';
+}
+
+// 2. Filtrar el sidebar para mostrar SOLO el grupo correspondiente
+const filteredSidebar = sidebar.filter(group => {
+  if (group.type !== 'group') return false; // Ignorar enlaces sueltos como "Inicio"
+  
+  if (activeCategory === 'Proyecto' && group.label === 'El Proyecto') return true;
+  if (activeCategory === 'Scrum' && group.label === 'Metodología Scrum') return true;
+  if (activeCategory === 'Arquitectura' && group.label === 'Documentación Técnica') return true;
+  if (activeCategory === 'Guias' && group.label === 'Guías del Equipo') return true;
+  
+  return false;
+});
+
+// Mutar los locales de Starlight para que el componente por defecto use el sidebar filtrado
+if (Astro.locals.starlightRoute) {
+  Astro.locals.starlightRoute.sidebar = filteredSidebar;
+}
+---
+
+<div class="top-nav-container">
+  <a href="/proyecto/sobre-emprendex/" class={`top-nav-item ${activeCategory === 'Proyecto' ? 'active' : ''}`}>
+    <span class="icon">🚀</span>
+    <span class="label">El Proyecto</span>
+  </a>
+  <a href="/scrum/product-backlog/" class={`top-nav-item ${activeCategory === 'Scrum' ? 'active' : ''}`}>
+    <span class="icon">🔄</span>
+    <span class="label">Scrum & Sprints</span>
+  </a>
+  <a href="/arquitectura/overview/" class={`top-nav-item ${activeCategory === 'Arquitectura' ? 'active' : ''}`}>
+    <span class="icon">💻</span>
+    <span class="label">Arquitectura Técnica</span>
+  </a>
+  <a href="/guias/entorno/" class={`top-nav-item ${activeCategory === 'Guias' ? 'active' : ''}`}>
+    <span class="icon">📚</span>
+    <span class="label">Guías de Equipo</span>
+  </a>
+</div>
+
+<div class="divider"></div>
+
+{/* Aquí renderizamos el sidebar original, pero con los datos filtrados en Astro.locals */}
+<Default {...Astro.props} />
+
+<style>
+  .top-nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-bottom: 1rem;
+  }
+  
+  .top-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .top-nav-item:hover {
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+  }
+  
+  .top-nav-item.active {
+    background-color: var(--sl-color-text-accent);
+    color: var(--sl-color-text-invert);
+    border-color: transparent;
+  }
+  
+  .icon {
+    font-size: 1.1em;
+  }
+  
+  .divider {
+    height: 1px;
+    background-color: var(--sl-color-gray-6);
+    margin-bottom: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+</style>
