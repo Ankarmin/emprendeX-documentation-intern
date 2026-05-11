@@ -1,0 +1,35 @@
+---
+title: Bienvenido a EmprendeX Docs
+description: Documentación oficial del proyecto universitario EmprendeX, desarrollado con metodología Scrum.
+template: splash
+hero:
+  title: "Docs EmprendeX"
+  tagline: Toda la documentación del proyecto universitario en un solo lugar. Navegá por los sprints, el backlog y la arquitectura técnica de forma rápida y ordenada.
+  actions:
+    - text: Ver Sprint Actual
+      link: /scrum/sprints/sprint-1/
+      icon: right-arrow
+      variant: primary
+    - text: Product Backlog
+      link: /scrum/product-backlog/
+      icon: open-book
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## ¿Qué vas a encontrar aquí?
+
+<CardGrid stagger>
+  <Card title="Metodología Scrum" icon="list-format">
+    Toda la información del proceso Scrum: Product Backlog, Sprints y sus ceremonias documentadas.
+  </Card>
+  <Card title="Documentación Técnica" icon="setting">
+    Arquitectura del sistema, decisiones de diseño y guías para los desarrolladores del equipo.
+  </Card>
+  <Card title="Historial de Sprints" icon="document">
+    Revisión de cada Sprint: qué se planificó, qué se entregó y los resultados de la retrospectiva.
+  </Card>
+  <Card title="Siempre actualizado" icon="rocket">
+    El equipo mantiene esta documentación sincronizada con el avance real del proyecto.
+  </Card>
+</CardGrid>
