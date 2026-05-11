@@ -2,7 +2,8 @@
 import Default from '@astrojs/starlight/components/Sidebar.astro';
 import type { Props } from '@astrojs/starlight/props';
 
-const sidebar = Astro.locals.starlightRoute?.sidebar || [];
+const locals = Astro.locals as any;
+const sidebar = locals.starlightRoute?.sidebar || [];
 const currentPath = Astro.url.pathname;
 
 // 1. Determinar la categoría activa basada en la URL
@@ -17,7 +18,7 @@ if (currentPath.includes('/scrum/') || currentPath.includes('/sprints/')) {
 }
 
 // 2. Filtrar el sidebar para mostrar SOLO el grupo correspondiente
-const filteredSidebar = sidebar.filter(group => {
+const filteredSidebar = sidebar.filter((group: any) => {
   if (group.type !== 'group') return false; // Ignorar enlaces sueltos como "Inicio"
   
   if (activeCategory === 'Proyecto' && group.label === 'El Proyecto') return true;
@@ -29,8 +30,8 @@ const filteredSidebar = sidebar.filter(group => {
 });
 
 // Mutar los locales de Starlight para que el componente por defecto use el sidebar filtrado
-if (Astro.locals.starlightRoute) {
-  Astro.locals.starlightRoute.sidebar = filteredSidebar;
+if (locals.starlightRoute) {
+  locals.starlightRoute.sidebar = filteredSidebar;
 }
 ---
 
