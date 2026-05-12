@@ -3,19 +3,51 @@ title: Bienvenido a EmprendeX Docs
 description: Documentación oficial del proyecto universitario EmprendeX, desarrollado con metodología Scrum.
 template: splash
 hero:
-  title: "Docs EmprendeX"
-  tagline: Toda la documentación del proyecto universitario en un solo lugar. Navegá por los sprints, el backlog y la arquitectura técnica de forma rápida y ordenada.
+  title: |
+    <span class="landing-hero-title">
+      <span class="landing-hero-docs">Documentación</span>
+      <span class="landing-hero-brand">
+        <span class="landing-hero-emprende">Emprende</span><span class="landing-hero-x">X</span>
+      </span>
+    </span>
+  tagline: |
+    <span class="landing-hero-tagline">
+      Toda la documentación del proyecto en un solo lugar. Navega por los sprints, el backlog y la arquitectura.
+    </span>
+  image:
+    html: |
+      <div class="landing-hero-visual" aria-hidden="true">
+        <div class="landing-hero-visual__glow"></div>
+        <div class="landing-hero-visual__panel">
+          <span class="landing-hero-visual__eyebrow">Sprint activo</span>
+          <strong>Backlog, decisiones y arquitectura conectadas</strong>
+          <p>Una base documental pensada para revisar avances y mantener al equipo alineado.</p>
+          <div class="landing-hero-visual__chips">
+            <span>8 integrantes</span>
+            <span>Scrum</span>
+            <span>Docs vivas</span>
+          </div>
+        </div>
+        <div class="landing-hero-visual__mini-card">
+          <span class="landing-hero-visual__mini-label">Estado</span>
+          <strong>Documentación lista para el equipo</strong>
+        </div>
+        <div class="landing-hero-visual__ring landing-hero-visual__ring--one"></div>
+        <div class="landing-hero-visual__ring landing-hero-visual__ring--two"></div>
+      </div>
   actions:
     - text: Ver Sprint Actual
-      link: /scrum/sprints/sprint-1/
+      link: /scrum/sprints/sprint-1/sprint-backlog/
       icon: right-arrow
       variant: primary
     - text: Product Backlog
       link: /scrum/product-backlog/
       icon: open-book
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+
 
 ## ¿Qué vas a encontrar aquí?
 

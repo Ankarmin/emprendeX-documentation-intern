@@ -1,0 +1,189 @@
+---
+title: Equipo y Herramientas
+description: Roles del equipo de desarrollo de EmprendeX y herramientas utilizadas para la gestión, diseño y control de versiones.
+---
+
+import { Image } from 'astro:assets';
+import aranciviaPhoto from '../../../assets/members/arancivia.png';
+import arevaloPhoto from '../../../assets/members/arevalo.png';
+import diegoPhoto from '../../../assets/members/diego.png';
+import jimPhoto from '../../../assets/members/jim.png';
+import joshuaPhoto from '../../../assets/members/joshua.png';
+import pinarretaPhoto from '../../../assets/members/piñarreta.png';
+import sebastianPhoto from '../../../assets/members/sebastian.png';
+import yeslyPhoto from '../../../assets/members/yesly.png';
+import canvaLogo from '../../../assets/tools/canva.svg';
+import figmaLogo from '../../../assets/tools/figma.svg';
+import githubLogo from '../../../assets/tools/github.svg';
+import googleDriveLogo from '../../../assets/tools/google-drive.svg';
+import jiraLogo from '../../../assets/tools/jira.svg';
+
+
+## Herramientas del Proyecto
+
+<div class="team-tools-grid">
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={jiraLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Jira</h3>
+    <p>Planificación de épicas, historias, subtareas y seguimiento diario del sprint.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={figmaLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Figma</h3>
+    <p>Mockups de alta fidelidad, wireframes y validación visual de la experiencia.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={githubLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>GitHub</h3>
+    <p>Versionado, ramas por funcionalidad, pull requests y revisión colaborativa.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={canvaLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Canva</h3>
+    <p>Soporte visual para piezas gráficas, identidad del proyecto y materiales de apoyo.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={googleDriveLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Google Drive</h3>
+    <p>Repositorio compartido para documentos, respaldos y recursos del equipo.</p>
+  </article>
+</div>
+
+## Equipo EmprendeX
+
+<div class="team-members-grid">
+  <article class="team-member-card theme-lead">
+    <div class="team-member-card__visual">
+      <div class="team-member-card__photo-frame">
+        <Image src={jimPhoto} alt="Jim Bryan Jordan Segovia Valencia" class="team-member-card__photo" width={320} />
+      </div>
+    </div>
+    <div class="team-member-card__body">
+      <p class="team-member-card__role">Líder de Proyecto</p>
+      <h3>Jim Bryan Jordan Segovia Valencia</h3>
+      <p>Gestiona objetivos, prioriza tareas, controla tiempos y mantiene la integración del equipo en cada sprint.</p>
+    </div>
+  </article>
+
+  <article class="team-member-card theme-ui">
+    <div class="team-member-card__visual">
+      <div class="team-member-card__photo-frame">
+        <Image src={aranciviaPhoto} alt="Christian Gabriel Arancivia Salas" class="team-member-card__photo" width={320} />
+      </div>
+    </div>
+    <div class="team-member-card__body">
+      <p class="team-member-card__role">Diseñador UI</p>
+      <h3>Christian Gabriel Arancivia Salas</h3>
+      <p>Da forma visual al producto con mockups, pantallas, paletas de color y criterios de consistencia estética.</p>
+    </div>
+  </article>
+
+  <article class="team-member-card theme-ux">
+    <div class="team-member-card__visual">
+      <div class="team-member-card__photo-frame">
+        <Image src={arevaloPhoto} alt="Arevalo Mauricio Diego Martin" class="team-member-card__photo" width={320} />
+      </div>
+    </div>
+    <div class="team-member-card__body">
+      <p class="team-member-card__role">Diseñador UX</p>
+      <h3>Arevalo Mauricio Diego Martin</h3>
+      <p>Define flujos de navegación, arquitectura de información y pruebas de usabilidad centradas en la experiencia.</p>
+    </div>
+  </article>
+
+  <article class="team-member-card theme-front">
+    <div class="team-member-card__visual">
+      <div class="team-member-card__photo-frame">
+        <Image src={joshuaPhoto} alt="Chavez Cerna Joshua Nicolas" class="team-member-card__photo" width={320} />
+      </div>
+    </div>
+    <div class="team-member-card__body">
+      <p class="team-member-card__role">Desarrollador Frontend</p>
+      <h3>Chavez Cerna Joshua Nicolas</h3>
+      <p>Convierte los diseños en una interfaz funcional, responsiva e interactiva del lado del cliente.</p>
+    </div>
+  </article>
+
+  <article class="team-member-card theme-back">
+    <div class="team-member-card__visual">
+      <div class="team-member-card__photo-frame">
+        <Image src={pinarretaPhoto} alt="David Sebastián Piñarreta Rojas" class="team-member-card__photo" width={320} />
+      </div>
+    </div>
+    <div class="team-member-card__body">
+      <p class="team-member-card__role">Desarrollador Backend</p>
+      <h3>David Sebastián Piñarreta Rojas</h3>
+      <p>Construye la lógica de negocio, las APIs y la integración segura de los datos del sistema.</p>
+    </div>
+  </article>
+
+  <article class="team-member-card theme-data">
+    <div class="team-member-card__visual">
+      <div class="team-member-card__photo-frame">
+        <Image src={sebastianPhoto} alt="Chicata Serrato Sebastián Joaquin" class="team-member-card__photo" width={320} />
+      </div>
+    </div>
+    <div class="team-member-card__body">
+      <p class="team-member-card__role">Administrador de BD</p>
+      <h3>Chicata Serrato Sebastián Joaquin</h3>
+      <p>Diseña, optimiza y mantiene la base de datos para asegurar integridad y disponibilidad de la información.</p>
+    </div>
+  </article>
+
+  <article class="team-member-card theme-devops">
+    <div class="team-member-card__visual">
+      <div class="team-member-card__photo-frame">
+        <Image src={diegoPhoto} alt="Espinoza Picón Diego Steven Martin" class="team-member-card__photo" width={320} />
+      </div>
+    </div>
+    <div class="team-member-card__body">
+      <p class="team-member-card__role">Ingeniero DevOps / Despliegue</p>
+      <h3>Espinoza Picón Diego Steven Martin</h3>
+      <p>Gestiona infraestructura, automatiza despliegues y sostiene los flujos de integración continua.</p>
+    </div>
+  </article>
+
+  <article class="team-member-card theme-qa">
+    <div class="team-member-card__visual">
+      <div class="team-member-card__photo-frame">
+        <Image src={yeslyPhoto} alt="Yessly Poma de la Cruz" class="team-member-card__photo" width={320} />
+      </div>
+    </div>
+    <div class="team-member-card__body">
+      <p class="team-member-card__role">Calidad y Documentación</p>
+      <h3>Yessly Poma de la Cruz</h3>
+      <p>Ejecuta pruebas, detecta bugs y mantiene actualizados los manuales y la documentación técnica del proyecto.</p>
+    </div>
+  </article>
+</div>
+
+<p class="team-members-grid__note">
+  Ya se integraron las fotos de todos los integrantes del equipo en las tarjetas.
+</p>
+
+## Coordinación del equipo
+
+<div class="team-ops-grid">
+  <article class="team-ops-card">
+    <h3>Canales principales</h3>
+    <p><strong>Jira:</strong> seguimiento diario de tareas, responsables y avance por sprint.</p>
+    <p><strong>GitHub:</strong> gestión de código, revisión de pull requests y versionado continuo.</p>
+    <p><strong>Reuniones de sincronización:</strong> daily scrum y planificación semanal para mantener ritmo y foco.</p>
+  </article>
+  <article class="team-ops-card">
+    <h3>Acuerdos de trabajo</h3>
+    <p><strong>Commits semánticos:</strong> se mantiene un historial claro con prefijos como <code>feat:</code>, <code>fix:</code>, <code>docs:</code> y <code>chore:</code>.</p>
+    <p><strong>Ramas por funcionalidad:</strong> cada cambio importante viaja aislado y se integra con pull requests.</p>
+    <p><strong>Revisión entre pares:</strong> todo cambio significativo pasa por al menos una revisión antes de entrar a la rama principal.</p>
+  </article>
+</div>

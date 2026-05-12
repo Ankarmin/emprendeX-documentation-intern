@@ -17,9 +17,9 @@ export default defineConfig({
       ],
       defaultLocale: 'root',
       locales: {
-        root: { 
-          label: 'Español', 
-          lang: 'es' 
+        root: {
+          label: 'Español',
+          lang: 'es',
         },
       },
       components: {
@@ -31,25 +31,54 @@ export default defineConfig({
           tag: 'script',
           content: `
             (function() {
-              // Función para aplicar la transición con clipPath
-              const triggerTransition = (updateCallback) => {
-                if (!document.startViewTransition) {
+              const storageKey = 'starlight-theme';
+              const systemThemeQuery = window.matchMedia('(prefers-color-scheme: light)');
+
+              const parseThemePreference = (theme) => {
+                return theme === 'dark' || theme === 'light' || theme === 'auto' ? theme : 'auto';
+              };
+
+              const loadStoredThemePreference = () => {
+                return parseThemePreference(typeof localStorage !== 'undefined' && localStorage.getItem(storageKey));
+              };
+
+              const storeThemePreference = (theme) => {
+                if (typeof localStorage === 'undefined') return;
+                localStorage.setItem(storageKey, theme === 'light' || theme === 'dark' ? theme : '');
+              };
+
+              const getSystemTheme = () => {
+                return systemThemeQuery.matches ? 'light' : 'dark';
+              };
+
+              const getEffectiveTheme = (themePreference) => {
+                return themePreference === 'auto' ? getSystemTheme() : themePreference;
+              };
+
+              const getClipPathFrames = (fromTheme, toTheme) => {
+                if (fromTheme === 'dark' && toTheme === 'light') {
+                  return ["inset(100% 0 0 0)", "inset(0 0 0 0)"];
+                }
+
+                return ["inset(0 0 100% 0)", "inset(0 0 0 0)"];
+              };
+
+              const triggerTransition = (fromTheme, toTheme, updateCallback) => {
+                if (fromTheme === toTheme || !document.startViewTransition) {
                   updateCallback();
                   return;
                 }
-                
-                // Iniciar la transición de vista
+
                 const transition = document.startViewTransition(() => {
                   updateCallback();
                 });
-                
-                // Una vez que la transición está lista, animamos el pseudo-elemento
+
                 transition.ready.then(() => {
-                  const animation = document.documentElement.animate(
-                    { 
-                      clipPath: ["inset(0 0 100% 0)", "inset(0 0 0 0)"] 
+                  document.documentElement.animate(
+                    {
+                      clipPath: getClipPathFrames(fromTheme, toTheme)
                     },
-                    { 
+                    {
                       pseudoElement: "::view-transition-new(root)",
                       duration: 600,
                       easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -57,50 +86,46 @@ export default defineConfig({
                     }
                   );
                 }).catch(() => {
-                  // Si falla, continuamos sin animación
+                  // Si falla, continuamos sin animacion
                 });
               };
 
-              // Interceptar cambios de tema en Starlight
-              const setupThemeTransition = () => {
-                // Método 1: Interceptar el evento de click en los botones del selector de tema
-                document.addEventListener('click', (e) => {
-                  const themeBtn = e.target.closest('starlight-theme-select button');
-                  if (!themeBtn) return;
-                  
-                  e.preventDefault();
-                  e.stopPropagation();
-                  
-                  // Obtener el tema actual y el siguiente
-                  const currentTheme = document.documentElement.getAttribute('data-theme');
-                  const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                  
-                  // Aplicar transición
-                  triggerTransition(() => {
-                    document.documentElement.setAttribute('data-theme', nextTheme);
-                    localStorage.setItem('starlight-theme', nextTheme);
-                  });
-                }, true);
+              const syncThemePreference = (themePreference) => {
+                const normalizedTheme = parseThemePreference(themePreference);
+                const effectiveTheme = getEffectiveTheme(normalizedTheme);
 
-                // Método 2: Interceptar el select en móvil
+                window.StarlightThemeProvider?.updatePickers(normalizedTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+                storeThemePreference(normalizedTheme);
+              };
+
+              const applyThemePreference = (themePreference) => {
+                const normalizedTheme = parseThemePreference(themePreference);
+                const currentTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+                const nextTheme = getEffectiveTheme(normalizedTheme);
+
+                triggerTransition(currentTheme, nextTheme, () => {
+                  syncThemePreference(normalizedTheme);
+                });
+              };
+
+              const setupThemeTransition = () => {
                 document.addEventListener('change', (e) => {
                   const themeSelect = e.target.closest('starlight-theme-select select');
                   if (!themeSelect) return;
-                  
-                  const newTheme = e.target.value;
-                  if (!newTheme || newTheme === document.documentElement.getAttribute('data-theme')) return;
-                  
+
                   e.preventDefault();
                   e.stopPropagation();
-                  
-                  triggerTransition(() => {
-                    document.documentElement.setAttribute('data-theme', newTheme);
-                    localStorage.setItem('starlight-theme', newTheme);
-                  });
+
+                  applyThemePreference(themeSelect.value);
                 }, true);
+
+                systemThemeQuery.addEventListener('change', () => {
+                  if (loadStoredThemePreference() !== 'auto') return;
+                  applyThemePreference('auto');
+                });
               };
 
-              // Inicializar cuando el DOM esté listo
               if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', setupThemeTransition);
               } else {
@@ -167,4 +192,3 @@ export default defineConfig({
     }),
   ],
 });
-
