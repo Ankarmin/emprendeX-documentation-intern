@@ -1,0 +1,69 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import logoLight from '../assets/Logo.png';
+import logoDark from '../assets/LogoBlanco.png';
+import docImage from '../assets/Documentación.png';
+import { Image } from 'astro:assets';
+---
+
+<a href="/" class="site-title site-title-link">
+  <div class="logo-wrapper">
+    <Image src={docImage} alt="Documentación" height={48} class="logo-img doc-img" />
+  </div>
+  <div class="logo-wrapper">
+    <Image src={logoLight} alt="EmprendeX" height={48} class="logo-img logo-light" />
+    <Image src={logoDark}  alt="EmprendeX" height={48} class="logo-img logo-dark" />
+  </div>
+</a>
+
+<style>
+  .site-title-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    overflow: visible; /* Asegura que el glow y el movimiento no se corten */
+    padding: 5px 0;
+  }
+
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .logo-img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    will-change: transform, filter;
+    /* Añadimos un pequeño margen interno para que la sombra no se corte con el borde de la imagen */
+    padding: 10px;
+    margin: -10px;
+  }
+
+  /* Animación individual: solo la imagen que tiene el mouse encima */
+  .logo-img:hover {
+    transform: translateY(-4px);
+    /* Glow más pequeño y sutil */
+    filter: drop-shadow(0 0 6px rgba(136, 58, 234, 0.8));
+  }
+
+  /* Glow en modo oscuro, también reducido */
+  :root[data-theme='dark'] .logo-img:hover {
+    filter: drop-shadow(0 0 8px rgba(179, 136, 255, 0.9));
+  }
+
+  /* Control de logos según el tema */
+  .logo-dark { display: none; }
+  :root[data-theme='dark'] .logo-light { display: none; }
+  :root[data-theme='dark'] .logo-dark { display: block; }
+
+  /* Ocultar "Documentación" en pantallas muy pequeñas */
+  @media (max-width: 50rem) {
+    .doc-img {
+      display: none;
+    }
+  }
+</style>
