@@ -1,0 +1,31 @@
+/* Estilos globales personalizados para EmprendeX */
+
+/* Configuración base para View Transitions en cambio de tema */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  /* Importante: Permitir que JS controle la animación */
+  animation: none !important;
+}
+
+/* Estilos para el tema - asegurar transiciones suaves */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Soporte para View Transitions API */
+@supports (view-transition-name: root) {
+  /* El root tiene nombre para poder hacer transiciones */
+  :root {
+    view-transition-name: root;
+  }
+}
