@@ -1,106 +1,373 @@
 ---
-import Default from '@astrojs/starlight/components/Sidebar.astro';
 import type { Props } from '@astrojs/starlight/props';
 
-const locals = Astro.locals as any;
-const sidebar = locals.starlightRoute?.sidebar || [];
 const currentPath = Astro.url.pathname;
 
-// 1. Determinar la categoría activa basada en la URL
-let activeCategory = 'Proyecto'; // Por defecto
+let activeCat = 'proyecto';
+if (currentPath.includes('/scrum/') || currentPath.includes('/sprints/')) activeCat = 'scrum';
+else if (currentPath.includes('/arquitectura/')) activeCat = 'arquitectura';
+else if (currentPath.includes('/guias/')) activeCat = 'guias';
 
-if (currentPath.includes('/scrum/') || currentPath.includes('/sprints/')) {
-  activeCategory = 'Scrum';
-} else if (currentPath.includes('/arquitectura/')) {
-  activeCategory = 'Arquitectura';
-} else if (currentPath.includes('/guias/')) {
-  activeCategory = 'Guias';
+const sidebarData = (Astro.locals as any).starlightRoute?.sidebar || [];
+
+const cats = {
+  proyecto: sidebarData.filter((g: any) => g.type !== 'link' && g.label === 'El Proyecto'),
+  scrum: sidebarData.filter((g: any) => g.type !== 'link' && g.label === 'Metodología Scrum'),
+  arquitectura: sidebarData.filter((g: any) => g.type !== 'link' && g.label === 'Documentación Técnica'),
+  guias: sidebarData.filter((g: any) => g.type !== 'link' && g.label === 'Guías del Equipo'),
+};
+
+const tabs = [
+  { id: 'proyecto', label: 'El Proyecto', icon: 'M1.44 8.855v-.001l3.527-3.516c.34-.344.802-.541 1.285-.548h6.649l.947-.947c3.07-3.07 6.207-3.072 7.62-2.868a1.821 1.821 0 0 1 1.557 1.557c.204 1.413.203 4.55-2.868 7.62l-.946.946v6.649a1.845 1.845 0 0 1-.549 1.286l-3.516 3.528a1.844 1.844 0 0 1-3.11-.944l-.858-4.275-4.52-4.52-2.31-.463-1.964-.394A1.847 1.847 0 0 1 .98 10.693a1.843 1.843 0 0 1 .46-1.838Zm5.379 2.017-3.873-.776L6.32 6.733h4.638l-4.14 4.14Zm8.403-5.655c2.459-2.46 4.856-2.463 5.89-2.33.134 1.035.13 3.432-2.329 5.891l-6.71 6.71-3.561-3.56 6.71-6.711Zm-1.318 15.837-.776-3.873 4.14-4.14v4.639l-3.364 3.374Z' },
+  { id: 'scrum', label: 'Scrum', icon: 'M21.17 2.06A13.1 13.1 0 0 0 19 1.87a12.94 12.94 0 0 0-7 2.05 12.94 12.94 0 0 0-7-2 13.1 13.1 0 0 0-2.17.19 1 1 0 0 0-.83 1v12a1 1 0 0 0 1.17 1 10.9 10.9 0 0 1 8.25 1.91l.12.07h.11a.91.91 0 0 0 .7 0h.11l.12-.07A10.899 10.899 0 0 1 20.83 16 1 1 0 0 0 22 15V3a1 1 0 0 0-.83-.94ZM11 15.35a12.87 12.87 0 0 0-6-1.48H4v-10c.333-.02.667-.02 1 0a10.86 10.86 0 0 1 6 1.8v9.68Zm9-1.44h-1a12.87 12.87 0 0 0-6 1.48V5.67a10.86 10.86 0 0 1 6-1.8c.333-.02.667-.02 1 0v10.04Zm1.17 4.15a13.098 13.098 0 0 0-2.17-.19 12.94 12.94 0 0 0-7 2.05 12.94 12.94 0 0 0-7-2.05c-.727.003-1.453.066-2.17.19A1 1 0 0 0 2 19.21a1 1 0 0 0 1.17.79 10.9 10.9 0 0 1 8.25 1.91 1 1 0 0 0 1.16 0A10.9 10.9 0 0 1 20.83 20a1 1 0 0 0 1.17-.79 1 1 0 0 0-.83-1.15Z' },
+  { id: 'arquitectura', label: 'Arquitectura', icon: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 18a8 8 0 1 1 0-16.001A8 8 0 0 1 12 20Zm-.75-12a.75.75 0 0 0-1.5 0v6a.75.75 0 0 0 1.5 0V8Zm3.5 3a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0v-3Z' },
+  { id: 'guias', label: 'Guías', icon: 'M17 22H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h1a4 4 0 0 1 7.3-2.18c.448.64.692 1.4.7 2.18h3a1 1 0 0 1 1 1v3a4 4 0 0 1 2.18 7.3A3.86 3.86 0 0 1 18 18v3a1 1 0 0 1-1 1ZM5 8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11v-3.18a1 1 0 0 1 1.33-.95 1.77 1.77 0 0 0 1.74-.23 2 2 0 0 0 .93-1.37 2 2 0 0 0-.48-1.59 1.89 1.89 0 0 0-2.17-.55 1 1 0 0 1-1.33-.95V8h-3.2a1 1 0 0 1-1-1.33 1.77 1.77 0 0 0-.23-1.74 1.939 1.939 0 0 0-3-.43A2 2 0 0 0 8 6c.002.23.046.456.13.67A1 1 0 0 1 7.18 8H5Z' },
+];
+
+const caretIcon = `<svg aria-hidden="true" class="caret" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>`;
+
+function flattenSidebar(entries: any[]): any[] {
+  return entries.flatMap((entry) =>
+    entry.type === 'link' ? [entry] : flattenSidebar(entry.entries || [])
+  );
 }
 
-// 2. Filtrar el sidebar para mostrar SOLO el grupo correspondiente
-const filteredSidebar = sidebar.filter((group: any) => {
-  if (group.type !== 'group') return false; // Ignorar enlaces sueltos como "Inicio"
+function renderSublist(entries: any[], nested = false): string {
+  if (!entries || entries.length === 0) return '';
   
-  if (activeCategory === 'Proyecto' && group.label === 'El Proyecto') return true;
-  if (activeCategory === 'Scrum' && group.label === 'Metodología Scrum') return true;
-  if (activeCategory === 'Arquitectura' && group.label === 'Documentación Técnica') return true;
-  if (activeCategory === 'Guias' && group.label === 'Guías del Equipo') return true;
-  
-  return false;
-});
+  return `<ul class="${nested ? '' : 'top-level'}">
+    ${entries.map((entry) => {
+      if (entry.type === 'link') {
+        return `<li>
+          <a href="${entry.href}"${entry.isCurrent ? ' aria-current="page"' : ''}>
+            <span>${entry.label}</span>
+          </a>
+        </li>`;
+      } else {
+        const isOpen = flattenSidebar(entry.entries || []).some((i: any) => i.isCurrent) || !entry.collapsed;
+        return `<li>
+          <details${isOpen ? ' open' : ''}>
+            <summary>
+              <span class="group-label">
+                <span class="large">${entry.label}</span>
+              </span>
+              ${caretIcon}
+            </summary>
+            ${renderSublist(entry.entries || [], true)}
+          </details>
+        </li>`;
+      }
+    }).join('')}
+  </ul>`;
+}
 
-// Mutar los locales de Starlight para que el componente por defecto use el sidebar filtrado
-if (locals.starlightRoute) {
-  locals.starlightRoute.sidebar = filteredSidebar;
+function renderSidebar(groups: any[]): string {
+  const allEntries = groups.flatMap((g: any) => g.entries || g.items || []);
+  return renderSublist(allEntries);
 }
 ---
 
-<div class="top-nav-container">
-  <a href="/proyecto/sobre-emprendex/" class={`top-nav-item ${activeCategory === 'Proyecto' ? 'active' : ''}`}>
-    <span class="icon">🚀</span>
-    <span class="label">El Proyecto</span>
-  </a>
-  <a href="/scrum/product-backlog/" class={`top-nav-item ${activeCategory === 'Scrum' ? 'active' : ''}`}>
-    <span class="icon">🔄</span>
-    <span class="label">Scrum & Sprints</span>
-  </a>
-  <a href="/arquitectura/overview/" class={`top-nav-item ${activeCategory === 'Arquitectura' ? 'active' : ''}`}>
-    <span class="icon">💻</span>
-    <span class="label">Arquitectura Técnica</span>
-  </a>
-  <a href="/guias/entorno/" class={`top-nav-item ${activeCategory === 'Guias' ? 'active' : ''}`}>
-    <span class="icon">📚</span>
-    <span class="label">Guías de Equipo</span>
-  </a>
-</div>
+<tabbed-sidebar>
+  <ul class="tab-list">
+    {tabs.map((tab, i) => (
+      <li>
+        <a
+          href={`#__tab-${tab.id}`}
+          class="tab-link"
+          aria-selected={activeCat === tab.id ? 'true' : undefined}
+          data-initial={activeCat === tab.id ? 'true' : 'false'}
+        >
+          <svg aria-hidden="true" class="tab-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d={tab.icon} clip-rule="evenodd"/>
+          </svg>
+          {tab.label}
+        </a>
+      </li>
+    ))}
+  </ul>
 
-<div class="divider"></div>
+  <div class="panels">
+    {Object.entries(cats).map(([id, groups]) => (
+      <div id={`__tab-${id}`} hidden={id !== activeCat}>
+        <div set:html={renderSidebar(groups)} />
+      </div>
+    ))}
+  </div>
+</tabbed-sidebar>
 
-{/* Aquí renderizamos el sidebar original, pero con los datos filtrados en Astro.locals */}
-<Default {...Astro.props} />
+<script>
+  class TabbedSidebar extends HTMLElement {
+    tabStore: Set<Element>[] = [];
+    panelStore: Set<Element>[] = [];
+
+    constructor() {
+      super();
+      const panels = this.querySelectorAll('.panels > [id]');
+      const list = this.querySelector('.tab-list');
+      const tabs = list?.querySelectorAll('.tab-link') || [];
+      list?.setAttribute('role', 'tablist');
+
+      let initial = 0;
+      const tabArr = Array.from(tabs);
+      tabArr.forEach((tab, i) => {
+        tab.setAttribute('role', 'tab');
+        tab.setAttribute('tabindex', '-1');
+        (tab.parentElement as HTMLElement)?.setAttribute('role', 'presentation');
+        this.tabStore[i] = this.tabStore[i] || new Set();
+        this.tabStore[i].add(tab);
+        if (tab.hasAttribute('data-initial') && (tab as HTMLElement).dataset.initial !== 'false') {
+          initial = i;
+        }
+
+        const clickHandler = (e: Event) => {
+          e.preventDefault();
+          this.switchTab(tab, i);
+        };
+        tab.addEventListener('click', clickHandler);
+        tab.addEventListener('keydown', (e) => {
+          const idx = tabArr.indexOf(e.currentTarget as Element);
+          const next = e.key === 'ArrowLeft' ? idx - 1 : e.key === 'ArrowRight' ? idx + 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabArr.length - 1 : null;
+          if (next !== null && tabArr[next]) {
+            e.preventDefault();
+            this.switchTab(tabArr[next], next);
+            (tabArr[next] as HTMLElement).focus();
+          }
+        });
+      });
+
+      Array.from(panels).forEach((panel, i) => {
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', (tabArr[i] as HTMLElement).id || '');
+        this.panelStore[i] = this.panelStore[i] || new Set();
+        this.panelStore[i].add(panel);
+        if (i !== initial) {
+          (panel as HTMLElement).hidden = true;
+        }
+      });
+
+      (tabArr[initial] as HTMLElement).removeAttribute('tabindex');
+      (tabArr[initial] as HTMLElement).setAttribute('aria-selected', 'true');
+    }
+
+    switchTab(tab: Element, index: number) {
+      this.tabStore.forEach((set) => {
+        set.forEach((t) => {
+          t.removeAttribute('aria-selected');
+          t.setAttribute('tabindex', '-1');
+        });
+      });
+      this.tabStore[index]?.forEach((t) => {
+        t.removeAttribute('tabindex');
+        t.setAttribute('aria-selected', 'true');
+      });
+      this.panelStore.forEach((set) => {
+        set.forEach((p) => { (p as HTMLElement).hidden = true; });
+      });
+      this.panelStore[index]?.forEach((p) => {
+        (p as HTMLElement).hidden = false;
+      });
+      (tab as HTMLElement).focus();
+    }
+  }
+  customElements.define('tabbed-sidebar', TabbedSidebar);
+</script>
 
 <style>
-  .top-nav-container {
+  /* Tabs - idéntico al estilo de Astro Docs */
+  .tab-list {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    padding-bottom: 1rem;
+    gap: 0.125rem;
+    padding: 0.25rem;
+    margin: 0 0 0.5rem 0;
+    list-style: none;
   }
-  
-  .top-nav-item {
+
+  .tab-list li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .tab-link {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.625rem;
     border-radius: 0.5rem;
     color: var(--sl-color-gray-2);
     text-decoration: none;
     font-size: var(--sl-text-sm);
-    font-weight: 600;
-    border: 1px solid transparent;
-    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
-  
-  .top-nav-item:hover {
-    background-color: var(--sl-color-gray-6);
+
+  .tab-link:hover {
+    background: var(--sl-color-gray-7);
     color: var(--sl-color-white);
   }
-  
-  .top-nav-item.active {
-    background-color: var(--sl-color-text-accent);
+
+  .tab-link[aria-selected="true"] {
+    background: var(--sl-color-white);
+    color: var(--sl-color-black);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .tab-icon {
+    width: 1.1em;
+    height: 1.1em;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .tab-link:hover .tab-icon,
+  .tab-link[aria-selected="true"] .tab-icon {
+    opacity: 1;
+  }
+
+  .tab-link[aria-selected="true"] .tab-icon {
+    color: var(--sl-color-accent);
+  }
+
+  /* Panels */
+  .panels {
+    position: relative;
+    min-height: 200px;
+  }
+
+  .panels > [id] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .panels > [id][hidden] {
+    display: none;
+  }
+</style>
+
+<style is:global>
+  /* Sidebar navigation - estilo exacto de Astro Docs */
+  .top-level {
+    --sl-sidebar-item-padding-inline: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .top-level li {
+    overflow-wrap: anywhere;
+    margin: 0;
+  }
+
+  .top-level ul li {
+    margin-inline-start: var(--sl-sidebar-item-padding-inline);
+    border-inline-start: 1px solid var(--sl-color-hairline-light);
+    padding-inline-start: var(--sl-sidebar-item-padding-inline);
+  }
+
+  .top-level > li + li {
+    margin-top: 0.75rem;
+  }
+
+  /* Links */
+  .top-level a {
+    display: block;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: var(--sl-color-gray-2);
+    padding: 0.3em var(--sl-sidebar-item-padding-inline);
+    line-height: 1.4;
+    font-size: var(--sl-text-base);
+  }
+
+  .top-level a:hover,
+  .top-level a:focus {
+    color: var(--sl-color-white);
+  }
+
+  /* Current page - blue background like Astro Docs */
+  .top-level a[aria-current='page'],
+  .top-level a[aria-current='page']:hover,
+  .top-level a[aria-current='page']:focus {
+    font-weight: 600;
     color: var(--sl-color-text-invert);
-    border-color: transparent;
+    background-color: var(--sl-color-text-accent);
   }
-  
-  .icon {
-    font-size: 1.1em;
+
+  @media (min-width: 50rem) {
+    .top-level > li + li {
+      margin-top: 0.5rem;
+    }
+    .top-level a {
+      font-size: var(--sl-text-sm);
+    }
   }
-  
-  .divider {
-    height: 1px;
-    background-color: var(--sl-color-gray-6);
-    margin-bottom: 1rem;
-    margin-left: -1rem;
-    margin-right: -1rem;
+
+  /* Group labels */
+  .top-level .large {
+    font-size: var(--sl-text-lg);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  @media (min-width: 50rem) {
+    .top-level .large {
+      font-size: var(--sl-text-base);
+    }
+  }
+
+  /* Summary / Group headers */
+  .top-level summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2em var(--sl-sidebar-item-padding-inline);
+    line-height: 1.4;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+
+  .top-level summary::marker,
+  .top-level summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .top-level .group-label {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+  }
+
+  /* Caret icon */
+  .top-level .caret {
+    transition: transform 0.2s ease-in-out;
+    flex-shrink: 0;
+  }
+
+  [dir='rtl'] .top-level .caret {
+    transform: rotateZ(180deg);
+  }
+
+  .top-level [open] > summary .caret {
+    transform: rotateZ(90deg);
+  }
+
+  /* Nested lists */
+  .top-level ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Spacing between items with badges or multiple elements */
+  .top-level a > *:not(:last-child),
+  .top-level .group-label > *:not(:last-child) {
+    margin-inline-end: 0.25em;
   }
 </style>
