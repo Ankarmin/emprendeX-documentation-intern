@@ -11,8 +11,8 @@ description: Backlog del Sprint 2 - Ciclo Comercial y Login Social del proyecto 
 
 | Tarea | Responsable | Estado |
 |-------|-------------|--------|
-| Diseñar la pantalla de ficha/detalle de cliente en Figma | Christian Gabriel Arancivia Salas | 📋 To Do |
-| Diseñar la visualización de historial resumido del cliente (pedidos y saldo) | Diego Arevalo Mauricio | 📋 To Do |
+| Diseñar la pantalla de ficha/detalle de cliente en Figma (V14) | Christian Gabriel Arancivia Salas | 📋 To Do |
+| Diseñar la visualización de historial resumido del cliente, pedidos y saldo (V14) | Diego Arevalo Mauricio | 📋 To Do |
 | Crear la vista de detalle de cliente en frontend | Joshua Nicolás Chávez Cerna | 📋 To Do |
 | Implementar el endpoint para obtener los datos completos del cliente | David Sebastián Piñarreta Rojas | 📋 To Do |
 | Validar que la ficha muestre datos, historial de pedidos y saldo pendiente | Yessly Poma de la Cruz | 📋 To Do |
@@ -21,8 +21,8 @@ description: Backlog del Sprint 2 - Ciclo Comercial y Login Social del proyecto 
 
 | Tarea | Responsable | Estado |
 |-------|-------------|--------|
-| Diseñar el flujo de conversión cotización → pedido en Figma | Diego Steven Martin Espinoza Picón | 📋 To Do |
-| Diseñar la confirmación visual de conversión exitosa | Christian Gabriel Arancivia Salas | 📋 To Do |
+| Diseñar el flujo de conversión cotización → pedido en Figma (V15) | Diego Steven Martin Espinoza Picón | 📋 To Do |
+| Diseñar la confirmación visual de conversión exitosa (V15) | Christian Gabriel Arancivia Salas | 📋 To Do |
 | Implementar el botón y la lógica de conversión en frontend | Joshua Nicolás Chávez Cerna | 📋 To Do |
 | Crear la entidad Order a partir de una Quote en backend | David Sebastián Piñarreta Rojas | 📋 To Do |
 | Definir la migración de datos de cotización a pedido en la base de datos | Sebastián Chicata Serrato | 📋 To Do |
@@ -32,8 +32,8 @@ description: Backlog del Sprint 2 - Ciclo Comercial y Login Social del proyecto 
 
 | Tarea | Responsable | Estado |
 |-------|-------------|--------|
-| Diseñar los estados visuales del pedido (pendiente, en proceso, entregado) | Diego Arevalo Mauricio | 📋 To Do |
-| Diseñar el selector de cambio de estado en Figma | Diego Steven Martin Espinoza Picón | 📋 To Do |
+| Diseñar los estados visuales del pedido: pendiente, en proceso, entregado (V16) | Diego Arevalo Mauricio | 📋 To Do |
+| Diseñar el selector de cambio de estado en Figma (V16) | Diego Steven Martin Espinoza Picón | 📋 To Do |
 | Implementar el componente de cambio de estado en frontend | Jim Segovia Valencia | 📋 To Do |
 | Implementar la lógica de transición de estados en backend | David Sebastián Piñarreta Rojas | 📋 To Do |
 | Agregar validación de transiciones permitidas entre estados | Sebastián Chicata Serrato | 📋 To Do |
@@ -43,8 +43,8 @@ description: Backlog del Sprint 2 - Ciclo Comercial y Login Social del proyecto 
 
 | Tarea | Responsable | Estado |
 |-------|-------------|--------|
-| Diseñar la sección de pagos dentro de la ficha del pedido | Christian Gabriel Arancivia Salas | 📋 To Do |
-| Diseñar el formulario de registro de adelanto y visualización de saldo | Diego Arevalo Mauricio | 📋 To Do |
+| Diseñar la sección de pagos dentro de la ficha del pedido (V17) | Christian Gabriel Arancivia Salas | 📋 To Do |
+| Diseñar el formulario de registro de adelanto y visualización de saldo (V17) | Diego Arevalo Mauricio | 📋 To Do |
 | Implementar el formulario de registro de pago en frontend | Joshua Nicolás Chávez Cerna | 📋 To Do |
 | Crear la entidad Payment y su relación con Order en backend | David Sebastián Piñarreta Rojas | 📋 To Do |
 | Definir el cálculo automático del saldo pendiente | Sebastián Chicata Serrato | 📋 To Do |
@@ -54,8 +54,8 @@ description: Backlog del Sprint 2 - Ciclo Comercial y Login Social del proyecto 
 
 | Tarea | Responsable | Estado |
 |-------|-------------|--------|
-| Diseñar la pantalla de login con opción Google en Figma | Diego Steven Martin Espinoza Picón | 📋 To Do |
-| Diseñar el flujo visual de autorización OAuth2 con Google | Diego Arevalo Mauricio | 📋 To Do |
+| Diseñar la pantalla de login con opción Google en Figma (V01) | Diego Steven Martin Espinoza Picón | 📋 To Do |
+| Diseñar el flujo visual de autorización OAuth2 con Google (V01) | Diego Arevalo Mauricio | 📋 To Do |
 | Implementar el botón "Iniciar sesión con Google" en frontend | Jim Segovia Valencia | 📋 To Do |
 | Configurar OAuth2 con Google en backend | David Sebastián Piñarreta Rojas | 📋 To Do |
 | Definir la estructura para asociar cuenta de Google con el perfil existente | Sebastián Chicata Serrato | 📋 To Do |
@@ -74,9 +74,9 @@ description: Backlog del Sprint 2 - Ciclo Comercial y Login Social del proyecto 
 | Gestionar y actualizar el tablero de Jira con el progreso del sprint | Jim Segovia Valencia | 📋 To Do |
 | Coordinar y facilitar las ceremonias Scrum del sprint | Jim Segovia Valencia | 📋 To Do |
 | Revisar y hacer seguimiento a los pull requests del equipo | Jim Segovia Valencia | 📋 To Do |
-| Mantener la consistencia visual entre todas las pantallas del sprint | Christian Gabriel Arancivia Salas | 📋 To Do |
+| Mantener la consistencia visual entre las pantallas del sprint (V14, V15, V16, V17, V01) | Christian Gabriel Arancivia Salas | 📋 To Do |
 | Crear y actualizar la guía de estilos (design system) en Figma | Christian Gabriel Arancivia Salas | 📋 To Do |
-| Documentar los flujos de usuario de las nuevas funcionalidades | Diego Arevalo Mauricio | 📋 To Do |
+| Documentar los flujos de usuario de las nuevas funcionalidades (V14, V15, V16, V17) | Diego Arevalo Mauricio | 📋 To Do |
 | Mantener actualizado el mapa de navegación completo de la app | Diego Arevalo Mauricio | 📋 To Do |
 | Realizar code review de los pull requests del frontend | Joshua Nicolás Chávez Cerna | 📋 To Do |
 | Configurar y mantener el linter y formatter del proyecto frontend | Joshua Nicolás Chávez Cerna | 📋 To Do |
