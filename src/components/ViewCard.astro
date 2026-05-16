@@ -1,0 +1,400 @@
+---
+import ViewPreview from "./ViewPreview.astro";
+import type { DocumentedView } from "../data/mobileViews";
+
+interface Props {
+  view: DocumentedView;
+}
+
+const { view } = Astro.props;
+const carouselId = `carousel-${view.code}`;
+---
+
+<article class="view-card">
+  <header class="view-header">
+    <div>
+      <span class="view-code">{view.code}</span>
+      <p class="view-title">{view.title}</p>
+    </div>
+    <p>{view.summary}</p>
+  </header>
+
+  <div class="preview-carousel" id={carouselId}>
+    <button
+      class="carousel-arrow carousel-prev"
+      type="button"
+      aria-label="Vista anterior"
+      data-carousel={carouselId}
+      data-dir="prev"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <div class="carousel-viewport">
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <ViewPreview
+            code={view.code}
+            title={view.title}
+            platform="mobile"
+            preview={view.mobile}
+          />
+        </div>
+        <div class="carousel-slide carousel-slide--desktop">
+          <ViewPreview
+            code={view.code}
+            title={view.title}
+            platform="web"
+            preview={view.web}
+          />
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="carousel-arrow carousel-next"
+      type="button"
+      aria-label="Vista siguiente"
+      data-carousel={carouselId}
+      data-dir="next"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <footer class="view-meta">
+    {
+      view.epic && (
+        <p>
+          <strong>Epica:</strong> <a href={view.epic.href}>{view.epic.id}</a> -{" "}
+          {view.epic.name}
+        </p>
+      )
+    }
+
+    {
+      view.story && (
+        <p>
+          <strong>Historia de usuario:</strong>{" "}
+          <a href={view.story.href}>{view.story.id}</a> - {view.story.name}
+        </p>
+      )
+    }
+
+    {
+      view.notes && (
+        <p>
+          <strong>Nota:</strong> {view.notes}
+        </p>
+      )
+    }
+  </footer>
+</article>
+
+<script>
+  function initViewCarousels() {
+    document.querySelectorAll(".preview-carousel").forEach((carousel) => {
+      if (carousel.dataset.carouselReady === "true") return;
+
+      const track = carousel.querySelector(".carousel-track");
+      const realSlides = Array.from(carousel.querySelectorAll(".carousel-slide"));
+      const total = realSlides.length;
+
+      if (!track || total === 0) return;
+
+      carousel.dataset.carouselReady = "true";
+
+      const firstClone = realSlides[0].cloneNode(true);
+      const lastClone = realSlides[total - 1].cloneNode(true);
+
+      firstClone.dataset.clone = "true";
+      lastClone.dataset.clone = "true";
+
+      track.prepend(lastClone);
+      track.append(firstClone);
+
+      let index = 1;
+      let isTransitioning = false;
+
+      function getLogicalIndex() {
+        return (index - 1 + total) % total;
+      }
+
+      function updateActiveState() {
+        const logicalIndex = getLogicalIndex();
+
+        realSlides.forEach((slide, slideIndex) => {
+          slide.classList.toggle("is-active", slideIndex === logicalIndex);
+        });
+      }
+
+      function render(animate = true) {
+        track.style.transition = animate
+          ? "transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1)"
+          : "none";
+        track.style.transform = `translateX(-${index * 100}%)`;
+        updateActiveState();
+      }
+
+      function goTo(nextIndex) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        index = nextIndex;
+        render(true);
+      }
+
+      track.addEventListener("transitionend", () => {
+        if (index === 0) {
+          index = total;
+          render(false);
+        } else if (index === total + 1) {
+          index = 1;
+          render(false);
+        }
+
+        isTransitioning = false;
+        updateActiveState();
+      });
+
+      carousel.querySelectorAll(".carousel-arrow").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const dir = btn.dataset.dir;
+          goTo(dir === "next" ? index + 1 : index - 1);
+        });
+      });
+
+      render(false);
+    });
+  }
+
+  initViewCarousels();
+  document.addEventListener("astro:page-load", initViewCarousels);
+</script>
+
+<style>
+  .view-card {
+    display: grid;
+    gap: 1.25rem;
+    margin: 1rem 0 2rem;
+    padding: 1.4rem;
+    border: 1px solid
+      color-mix(
+        in srgb,
+        var(--sl-color-accent) 18%,
+        var(--sl-color-hairline) 82%
+      );
+    border-radius: 1.4rem;
+    background: radial-gradient(
+        circle at top right,
+        rgba(124, 58, 237, 0.08),
+        transparent 28%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.96),
+        rgba(248, 250, 252, 0.96)
+      );
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  }
+
+  .view-header {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .view-header p,
+  .view-meta p {
+    margin: 0;
+  }
+
+  .view-title {
+    margin-top: 0.35rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--sl-color-white);
+  }
+
+  .view-code {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6d28d9;
+    background: rgba(124, 58, 237, 0.12);
+  }
+
+  /* ── Carousel ── */
+
+  .preview-carousel {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .carousel-viewport {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.4rem;
+    padding: 0.2rem 0.75rem;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      rgba(0, 0, 0, 0.25) 0.85rem,
+      rgba(0, 0, 0, 0.88) 1.65rem,
+      #000 2.4rem,
+      #000 calc(100% - 2.4rem),
+      rgba(0, 0, 0, 0.88) calc(100% - 1.65rem),
+      rgba(0, 0, 0, 0.25) calc(100% - 0.85rem),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      rgba(0, 0, 0, 0.25) 0.85rem,
+      rgba(0, 0, 0, 0.88) 1.65rem,
+      #000 2.4rem,
+      #000 calc(100% - 2.4rem),
+      rgba(0, 0, 0, 0.88) calc(100% - 1.65rem),
+      rgba(0, 0, 0, 0.25) calc(100% - 0.85rem),
+      transparent 100%
+    );
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 0.35rem 0.4rem 0.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel-slide--desktop {
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel-slide :global(.preview-card.mobile) {
+    width: min(100%, clamp(11.5rem, 24vw, 14rem));
+  }
+
+  .carousel-slide--desktop :global(.preview-card) {
+    width: 100%;
+    max-width: 62rem;
+  }
+
+  .carousel-slide--desktop :global(.preview-frame.web) {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ── Arrows ── */
+
+  .carousel-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgba(124, 58, 237, 0.18);
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.08);
+    color: #7c3aed;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+
+  .carousel-arrow:hover {
+    background: rgba(124, 58, 237, 0.18);
+    transform: scale(1.08);
+  }
+
+  .carousel-arrow:active {
+    transform: scale(0.95);
+  }
+
+  /* ── Meta footer ── */
+
+  .view-meta {
+    display: grid;
+    gap: 0.55rem;
+    padding-top: 0.3rem;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+
+  .view-meta strong {
+    color: var(--sl-color-text-accent);
+  }
+
+  /* ── Responsive ── */
+
+  @media (max-width: 50rem) {
+    .view-card {
+      padding: 1rem;
+    }
+
+    .preview-carousel {
+      gap: 0.55rem;
+    }
+
+    .carousel-arrow {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .carousel-viewport {
+      padding: 0.15rem 0.3rem;
+      -webkit-mask-image: linear-gradient(
+        90deg,
+        transparent 0,
+        rgba(0, 0, 0, 0.32) 0.45rem,
+        rgba(0, 0, 0, 0.9) 0.85rem,
+        #000 1.25rem,
+        #000 calc(100% - 1.25rem),
+        rgba(0, 0, 0, 0.9) calc(100% - 0.85rem),
+        rgba(0, 0, 0, 0.32) calc(100% - 0.45rem),
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        90deg,
+        transparent 0,
+        rgba(0, 0, 0, 0.32) 0.45rem,
+        rgba(0, 0, 0, 0.9) 0.85rem,
+        #000 1.25rem,
+        #000 calc(100% - 1.25rem),
+        rgba(0, 0, 0, 0.9) calc(100% - 0.85rem),
+        rgba(0, 0, 0, 0.32) calc(100% - 0.45rem),
+        transparent 100%
+      );
+    }
+
+    .carousel-slide {
+      padding-inline: 0.2rem;
+    }
+
+    .carousel-slide :global(.preview-card.mobile) {
+      width: min(100%, 12.25rem);
+    }
+
+    .carousel-slide--desktop :global(.preview-card) {
+      max-width: 100%;
+    }
+
+    .carousel-slide--desktop :global(.preview-frame.web) {
+      aspect-ratio: 16 / 10;
+    }
+  }
+</style>

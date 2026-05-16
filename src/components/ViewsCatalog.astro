@@ -1,0 +1,23 @@
+---
+import ViewCard from './ViewCard.astro';
+import type { DocumentedView } from '../data/mobileViews';
+
+interface Props {
+  views: DocumentedView[];
+}
+
+const { views } = Astro.props;
+---
+
+<section class="views-catalog">
+  {views.map((view) => (
+    <ViewCard view={view} />
+  ))}
+</section>
+
+<style>
+  .views-catalog {
+    display: grid;
+    gap: 1rem;
+  }
+</style>

@@ -1,0 +1,517 @@
+---
+import type { ViewPlatformPreview } from '../data/mobileViews';
+
+interface Props {
+  code: string;
+  title: string;
+  platform: 'mobile' | 'web';
+  preview: ViewPlatformPreview;
+}
+
+const { code, title, platform, preview } = Astro.props;
+const frameLabel = platform === 'mobile' ? 'Vista movil' : 'Vista web';
+const previewAlt = preview.alt ?? `${frameLabel} de ${code} - ${title}`;
+---
+
+<figure class={`preview-card ${platform}`}>
+  <figcaption>
+    <span>{preview.caption}</span>
+  </figcaption>
+
+  {preview.image ? (
+    <img src={preview.image} alt={previewAlt} loading="lazy" />
+  ) : (
+    <div class={`preview-frame ${platform}`} aria-label={previewAlt}>
+      <div class={`chrome ${platform}`}>
+        {platform === 'mobile' ? (
+          <span class="mobile-notch" />
+        ) : (
+          <>
+            <span class="browser-dot red" />
+            <span class="browser-dot amber" />
+            <span class="browser-dot green" />
+            <span class="browser-bar" />
+          </>
+        )}
+      </div>
+
+      <div class={`preview-body ${preview.variant}`}>
+        <header>
+          <span class="eyebrow">{code}</span>
+          <strong>{title}</strong>
+          <small>{frameLabel}</small>
+        </header>
+
+        {preview.variant === 'auth' && (
+          <>
+            <div class="hero-illustration" />
+            <div class="field-stack">
+              <span />
+              <span />
+            </div>
+            <div class="primary-button" />
+          </>
+        )}
+
+        {preview.variant === 'intro' && (
+          <>
+            <div class="headline-block">
+              <span />
+              <span />
+            </div>
+            <div class="info-card">
+              <span class="icon-chip" />
+              <div>
+                <span />
+                <span />
+              </div>
+            </div>
+            <div class="primary-button" />
+          </>
+        )}
+
+        {preview.variant === 'modules' && (
+          <>
+            <div class="headline-block compact">
+              <span />
+            </div>
+            <div class="toggle-list">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <div class="primary-button" />
+          </>
+        )}
+
+        {preview.variant === 'dashboard' && (
+          <>
+            <div class="stat-grid">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <div class="list-card">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div class="tab-bar">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </>
+        )}
+
+        {preview.variant === 'list' && (
+          <>
+            <div class="search-bar" />
+            <div class="list-card">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <div class="tab-bar">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </>
+        )}
+
+        {preview.variant === 'calendar' && (
+          <>
+            <div class="calendar-grid">
+              {Array.from({ length: 14 }).map(() => <span />)}
+            </div>
+            <div class="list-card small">
+              <span />
+              <span />
+            </div>
+          </>
+        )}
+
+        {preview.variant === 'form' && (
+          <>
+            <div class="field-stack">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <div class="info-card helper">
+              <span class="icon-chip" />
+              <div>
+                <span />
+                <span />
+              </div>
+            </div>
+            <div class="primary-button" />
+          </>
+        )}
+
+        {preview.variant === 'paywall' && (
+          <>
+            <div class="crown-badge" />
+            <div class="headline-block compact">
+              <span />
+              <span />
+            </div>
+            <div class="price-grid">
+              <span />
+              <span />
+            </div>
+            <div class="primary-button" />
+          </>
+        )}
+
+        {preview.variant === 'menu' && (
+          <>
+            <div class="menu-header">
+              <span class="avatar-dot" />
+              <div>
+                <span />
+                <span />
+              </div>
+            </div>
+            <div class="menu-list">
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )}
+</figure>
+
+<style>
+  .preview-card {
+    display: grid;
+    gap: 0.9rem;
+    margin: 0;
+  }
+
+  .preview-card figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.98rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    color: #24163d;
+  }
+
+  .preview-card figcaption span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: min(100%, 13rem);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.12), rgba(124, 58, 237, 0.06));
+    border: 1px solid rgba(124, 58, 237, 0.14);
+  }
+
+  .preview-card img {
+    width: 100%;
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-hairline);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
+    object-fit: cover;
+  }
+
+  .preview-frame {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.9rem;
+    border: 1px solid color-mix(in srgb, var(--sl-color-accent) 28%, white 72%);
+    background:
+      radial-gradient(circle at top left, rgba(124, 58, 237, 0.14), transparent 38%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98));
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
+    overflow: hidden;
+  }
+
+  .preview-frame.mobile {
+    border-radius: 1.75rem;
+    aspect-ratio: 9 / 16;
+  }
+
+  .preview-frame.web {
+    border-radius: 1.25rem;
+    aspect-ratio: 16 / 10;
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    min-height: 1rem;
+  }
+
+  .chrome.mobile {
+    justify-content: center;
+  }
+
+  .mobile-notch {
+    width: 4rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: #0f172a;
+  }
+
+  .chrome.web {
+    gap: 0.35rem;
+  }
+
+  .browser-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 999px;
+  }
+
+  .browser-dot.red { background: #f87171; }
+  .browser-dot.amber { background: #fbbf24; }
+  .browser-dot.green { background: #4ade80; }
+
+  .browser-bar {
+    flex: 1;
+    height: 0.8rem;
+    margin-left: 0.35rem;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.18);
+  }
+
+  .preview-body {
+    display: grid;
+    gap: 0.75rem;
+    min-height: 0;
+    height: 100%;
+    padding: 0.9rem;
+    border-radius: 1.1rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f5f3ff 100%);
+  }
+
+  .preview-body header {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .preview-body strong {
+    font-size: 0.92rem;
+    color: #22153a;
+  }
+
+  .preview-body small,
+  .eyebrow {
+    color: #7c3aed;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-illustration,
+  .crown-badge {
+    justify-self: center;
+    width: min(45%, 5.2rem);
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 35% 35%, #fde68a, #f59e0b 65%),
+      #fef3c7;
+  }
+
+  .hero-illustration {
+    background:
+      radial-gradient(circle at 35% 35%, #c4b5fd, #7c3aed 65%),
+      #ede9fe;
+  }
+
+  .headline-block,
+  .field-stack,
+  .toggle-list,
+  .list-card,
+  .menu-list,
+  .calendar-grid,
+  .price-grid,
+  .stat-grid {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .headline-block span,
+  .field-stack span,
+  .toggle-list span,
+  .list-card span,
+  .menu-list span,
+  .price-grid span,
+  .menu-header span,
+  .calendar-grid span,
+  .stat-grid span,
+  .search-bar,
+  .primary-button,
+  .info-card,
+  .avatar-dot,
+  .icon-chip {
+    display: block;
+    border-radius: 0.75rem;
+  }
+
+  .headline-block span,
+  .menu-header span {
+    height: 0.6rem;
+    background: rgba(124, 58, 237, 0.18);
+  }
+
+  .headline-block span:last-child {
+    width: 75%;
+  }
+
+  .headline-block.compact span:last-child {
+    width: 55%;
+  }
+
+  .field-stack span,
+  .search-bar {
+    height: 0.95rem;
+    background: rgba(148, 163, 184, 0.18);
+  }
+
+  .toggle-list span,
+  .list-card span,
+  .menu-list span {
+    height: 1rem;
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.12), rgba(148, 163, 184, 0.14));
+  }
+
+  .list-card.small span {
+    height: 0.85rem;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .calendar-grid span {
+    aspect-ratio: 1;
+    background: rgba(124, 58, 237, 0.1);
+    border-radius: 0.45rem;
+  }
+
+  .stat-grid,
+  .price-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat-grid span,
+  .price-grid span {
+    min-height: 3rem;
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.15), rgba(168, 85, 247, 0.08));
+  }
+
+  .info-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.55rem;
+    padding: 0.7rem;
+    background: rgba(124, 58, 237, 0.08);
+  }
+
+  .info-card.helper {
+    align-items: start;
+  }
+
+  .info-card div {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .info-card div span {
+    height: 0.55rem;
+    background: rgba(124, 58, 237, 0.14);
+    border-radius: 999px;
+  }
+
+  .icon-chip,
+  .avatar-dot {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #a78bfa, #7c3aed);
+  }
+
+  .menu-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.55rem;
+    align-items: center;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  }
+
+  .menu-header div {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .tab-bar {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.35rem;
+    margin-top: auto;
+  }
+
+  .tab-bar span {
+    height: 0.65rem;
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.22);
+  }
+
+  .primary-button {
+    height: 1.05rem;
+    margin-top: auto;
+    background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+  }
+
+  @media (max-width: 50rem) {
+    .preview-card {
+      gap: 0.7rem;
+    }
+
+    .preview-card figcaption {
+      font-size: 0.92rem;
+    }
+
+    .preview-card figcaption span {
+      min-width: min(100%, 11.5rem);
+      padding: 0.35rem 0.75rem;
+    }
+
+    .preview-frame.mobile {
+      padding: 0.7rem;
+    }
+
+    .preview-frame.web {
+      aspect-ratio: 4 / 3;
+      padding: 0.85rem;
+    }
+
+    .preview-body {
+      padding: 0.75rem;
+    }
+
+    .preview-body strong {
+      font-size: 0.85rem;
+    }
+  }
+</style>

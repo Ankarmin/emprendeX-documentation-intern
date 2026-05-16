@@ -1,0 +1,67 @@
+---
+title: Vistas
+description: Catalogo visual de vistas de la app movil de EmprendeX, con codigo, referencia visual y trazabilidad funcional.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import ViewCard from '../../../../components/ViewCard.astro';
+import { mobileViews } from '../../../../data/mobileViews';
+
+## Sinopsis
+
+Esta seccion centraliza las vistas documentadas del frontend movil para que el equipo pueda identificar rapidamente:
+
+- el codigo de cada vista (`V01`, `V02`, `V03`, etc.),
+- una referencia visual movil y web,
+- y, cuando exista, la epica o historia de usuario a la que pertenece.
+
+<Aside type="note" title="Como mantener esta seccion">
+  La galeria ya quedo preparada para crecer. Si luego agregan capturas reales, solo necesitan asignar la ruta de imagen en `src/data/mobileViews.ts` para reemplazar los previews generados.
+</Aside>
+
+## Convencion usada
+
+- `Vxx` identifica de forma unica cada vista documentada.
+- La relacion con epica e historia de usuario es opcional: si una vista todavia no esta trazada en backlog, puede quedar solo con una nota descriptiva.
+- Los previews actuales funcionan como referencia visual documental y pueden sustituirse por mockups o screenshots reales cuando esten disponibles.
+
+## Catalogo de vistas
+
+### V01 - Inicio de sesion
+<ViewCard view={mobileViews[0]} />
+
+### V02 - Presentacion 1
+<ViewCard view={mobileViews[1]} />
+
+### V03 - Presentacion 2
+<ViewCard view={mobileViews[2]} />
+
+### V04 - Presentacion 3
+<ViewCard view={mobileViews[3]} />
+
+### V05 - Modulos disponibles
+<ViewCard view={mobileViews[4]} />
+
+### V06 - Dashboard
+<ViewCard view={mobileViews[5]} />
+
+### V07 - Lista de operaciones
+<ViewCard view={mobileViews[6]} />
+
+### V08 - Lista de clientes
+<ViewCard view={mobileViews[7]} />
+
+### V09 - Calendario
+<ViewCard view={mobileViews[8]} />
+
+### V10 - Plan Pro
+<ViewCard view={mobileViews[9]} />
+
+### V11 - Onboarding del negocio
+<ViewCard view={mobileViews[10]} />
+
+### V12 - Registro de cliente
+<ViewCard view={mobileViews[11]} />
+
+### V13 - Menu desplegable
+<ViewCard view={mobileViews[12]} />

@@ -170,6 +170,7 @@ export default defineConfig({
                 { label: 'Navegación (Expo Router)', link: '/arquitectura/frontend/navegacion/' },
                 { label: 'Gestión de Estado', link: '/arquitectura/frontend/estado/' },
                 { label: 'Componentes UI', link: '/arquitectura/frontend/componentes/' },
+                { label: 'Vistas', link: '/arquitectura/frontend/vistas/' },
               ],
             },
             {
