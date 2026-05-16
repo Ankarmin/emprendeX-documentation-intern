@@ -5,6 +5,8 @@ description: Backlog del Sprint 1 - Construcción del MVP del proyecto EmprendeX
 
 ## 🚀 Sprint 1: Construcción del MVP
 
+> Nota histórica: este backlog refleja el alcance definido durante el Sprint 1. La dirección actual del producto evolucionó posteriormente hacia una arquitectura con backend en la nube sobre Railway y PostgreSQL.
+
 ### Alcance del MVP
 
 La primera fase del proyecto se concentró en demostrar valor real de forma rápida y técnicamente alcanzable:

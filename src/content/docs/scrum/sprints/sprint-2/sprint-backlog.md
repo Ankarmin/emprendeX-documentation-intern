@@ -74,10 +74,10 @@ description: Backlog del Sprint 2 - Ciclo Comercial y Login Social del proyecto 
 | Gestionar y actualizar el tablero de Jira con el progreso del sprint | Jim Segovia Valencia | 📋 To Do |
 | Coordinar y facilitar las ceremonias Scrum del sprint | Jim Segovia Valencia | 📋 To Do |
 | Revisar y hacer seguimiento a los pull requests del equipo | Jim Segovia Valencia | 📋 To Do |
-| Mantener la consistencia visual entre las pantallas del sprint (V14, V15, V16, V17, V01) | Christian Gabriel Arancivia Salas | 📋 To Do |
-| Crear y actualizar la guía de estilos (design system) en Figma | Christian Gabriel Arancivia Salas | 📋 To Do |
-| Documentar los flujos de usuario de las nuevas funcionalidades (V14, V15, V16, V17) | Diego Arevalo Mauricio | 📋 To Do |
-| Mantener actualizado el mapa de navegación completo de la app | Diego Arevalo Mauricio | 📋 To Do |
+| Mantener la consistencia visual entre las pantallas del sprint (V14, V15, V16, V17, V01) | Diego Arevalo Mauricio | 📋 To Do |
+| Crear y actualizar la guía de estilos (design system) en Figma | Diego Arevalo Mauricio | 📋 To Do |
+| Documentar los flujos de usuario de las nuevas funcionalidades (V14, V15, V16, V17) | Christian Gabriel Arancivia Salas | 📋 To Do |
+| Mantener actualizado el mapa de navegación completo de la app | Christian Gabriel Arancivia Salas | 📋 To Do |
 | Realizar code review de los pull requests del frontend | Joshua Nicolás Chávez Cerna | 📋 To Do |
 | Configurar y mantener el linter y formatter del proyecto frontend | Joshua Nicolás Chávez Cerna | 📋 To Do |
 | Documentar los nuevos endpoints de la API con ejemplos de uso | David Sebastián Piñarreta Rojas | 📋 To Do |

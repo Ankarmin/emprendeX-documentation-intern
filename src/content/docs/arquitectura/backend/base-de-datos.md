@@ -5,21 +5,25 @@ description: Modelo de datos y tecnología de base de datos utilizada en el back
 
 import { Aside } from '@astrojs/starlight/components';
 
-<Aside type="caution" title="En definición">
-  La tecnología y el modelo de datos de la base de datos se están definiendo. Esta sección se completará durante el Sprint correspondiente.
+<Aside type="note" title="Alcance actual">
+  La infraestructura principal ya fue definida: EmprendeX utilizará PostgreSQL como motor de base de datos y Railway como plataforma de despliegue. El modelado específico de entidades del negocio se documentará en una iteración posterior.
 </Aside>
 
 ## Tecnología Seleccionada
 
 | Campo | Detalle |
 |-------|---------|
-| **Motor** | (PostgreSQL / MySQL / MongoDB — definir) |
-| **ORM / ODM** | (Prisma / Sequelize / Mongoose — definir) |
-| **Hosting** | (Railway / Supabase / PlanetScale — definir) |
+| **Motor** | PostgreSQL |
+| **ORM / ODM** | Por definir |
+| **Hosting** | Railway |
 
 ---
 
 ## Modelo de Datos (Borrador)
+
+<Aside type="caution" title="Modelo pendiente de ajuste">
+  El detalle de entidades mostrado en esta sección es referencial y será reemplazado por el modelo específico de EmprendeX en una próxima actualización de la documentación.
+</Aside>
 
 ### Entidad: `User`
 

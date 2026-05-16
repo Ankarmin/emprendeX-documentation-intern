@@ -34,9 +34,9 @@ EmprendeX centraliza la operación diaria del negocio en un único entorno, con 
 
 - Organiza clientes, catálogo, pedidos, cotizaciones y pagos desde una sola aplicación.
 - Permite que cada negocio configure su panel principal y el orden de sus módulos.
-- Funciona bajo una lógica **local-first**, adecuada para un MVP rápido y usable sin depender de servidores externos.
+- Opera sobre una arquitectura con **backend en la nube**, lo que permite centralizar la información del negocio desde el inicio.
 - Expone un camino claro de monetización mediante **módulos premium por suscripción**.
-- Se diseña para crecer por etapas sin desechar el trabajo realizado en el MVP.
+- Se diseña para crecer por etapas sin desechar el trabajo realizado en el MVP, incorporando medidas de resiliencia ante problemas de conexión en el Sprint 3.
 
 ---
 
@@ -47,7 +47,7 @@ El producto se concibe bajo una lógica **freemium** que permite al emprendedor 
 | Plan | Descripción |
 |------|-------------|
 | **Base (Gratuito)** | Incluye funciones esenciales para iniciar: registro del negocio, dashboard modular, gestión de clientes, catálogo básico, cotizaciones simples y resumen de pendientes. |
-| **Premium (Suscripción)** | Desbloquea módulos avanzados mediante paywalls visibles. En fases posteriores incluirá respaldo en Google Drive, sincronización multi-dispositivo, analítica avanzada, alquileres y pedidos recurrentes. |
+| **Premium (Suscripción)** | Desbloquea módulos avanzados mediante paywalls visibles. En fases posteriores incluirá analítica avanzada, alquileres, pedidos recurrentes y mejoras de resiliencia ante conectividad según la evolución del producto. |
 
 Esta estrategia de monetización permite validar la adopción del producto antes de implementar pasarelas de pago complejas, reduciendo el riesgo técnico y comercial del MVP.
 

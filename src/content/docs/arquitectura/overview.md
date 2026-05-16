@@ -5,29 +5,29 @@ description: Stack tecnológico, diseño modular y organización del repositorio
 
 ## Stack Tecnológico
 
-La selección tecnológica prioriza la velocidad de implementación, una curva de aprendizaje razonable y compatibilidad multiplataforma (móvil y web). La aplicación funciona como una solución de cliente enriquecido con almacenamiento local en esta primera fase.
+La selección tecnológica prioriza la velocidad de implementación, una curva de aprendizaje razonable y compatibilidad multiplataforma (móvil y web). La aplicación se construye sobre una arquitectura con cliente enriquecido y backend en la nube para centralizar la operación del negocio desde sus primeras etapas.
 
 | Capa | Tecnología | Justificación |
 |------|-----------|---------------|
 | **Interfaz principal** | React Native + Expo + React Native Web | Permite una base común para móvil y web sin duplicar código. |
 | **Lenguaje y estilos** | TypeScript + TailwindCSS (NativeWind) | Mejora la legibilidad, el tipado estático y la mantenibilidad del proyecto. |
-| **Persistencia local** | SQLite / Almacenamiento local abstraído por repositorios | Asegura el funcionamiento del MVP sin servidor central, permitiendo operar offline. |
+| **Persistencia y datos** | PostgreSQL en Railway | Centraliza la información del negocio en la nube y prepara la base para el crecimiento del producto. |
 | **Diseño visual y prototipos** | Figma + Canva | Figma para mockups interactivos y flujos de alta fidelidad; Canva para assets visuales y materiales de presentación. |
 | **Control de versiones** | Git + GitHub | Flujo colaborativo con ramas, pull requests y revisión de código en equipo. |
 | **Gestión del trabajo** | Jira | Planificación de historias, tareas, sprints y seguimiento del avance bajo metodología Scrum. |
-| **Backend (fase inicial)** | Next.js | Inicialización del proyecto backend para futura evolución de la plataforma. |
+| **Backend** | Next.js desplegado en Railway | Provee la capa de APIs y servicios remotos para la aplicación móvil y futura versión web. |
 
 ---
 
 ## Diseño Modular
 
-La arquitectura responde a tres principios fundamentales: **modularidad**, **local-first** y **crecimiento por capacidades**.
+La arquitectura responde a tres principios fundamentales: **modularidad**, **escalabilidad cloud** y **crecimiento por capacidades**.
 
 ### Principios Arquitectónicos
 
 1. **Modularidad:** La aplicación no presenta un conjunto fijo de pantallas, sino un catálogo de módulos con estados de disponibilidad, visibilidad y orden. Cada emprendedor configura su tablero y su menú principal eligiendo los módulos que realmente necesita.
 
-2. **Local-first:** La persistencia se realiza de forma local en el dispositivo durante el MVP. Una capa de abstracción de datos permitirá migrar posteriormente hacia respaldo en Google Drive o sincronización con nube sin reescribir la lógica de presentación.
+2. **Escalabilidad cloud:** La persistencia principal se apoya en un backend en la nube con Railway y PostgreSQL. La separación por capas permite evolucionar la aplicación sin reescribir la lógica de presentación y deja preparada la base para incorporar medidas de resiliencia ante problemas de conectividad en el Sprint 3.
 
 3. **Crecimiento por capacidades:** El núcleo del MVP puede ampliarse en futuras iteraciones sin rehacer el producto. La monetización se modela desde el inicio mediante estados de módulo: libre, visible bloqueado y premium activo.
 
@@ -39,7 +39,7 @@ La arquitectura responde a tres principios fundamentales: **modularidad**, **loc
 | **Gestor de módulos** | Controla qué módulos están visibles, activos, bloqueados o reordenados en el tablero del negocio. |
 | **Casos de uso / servicios** | Implementa reglas como registrar cliente, crear catálogo, generar cotización o actualizar estados. |
 | **Dominio del negocio** | Define entidades como negocio, módulo, cliente, producto, cotización, pedido y pago. |
-| **Persistencia local** | Guarda la información del negocio en almacenamiento local del dispositivo con repositorios desacoplados. |
+| **Persistencia y acceso a datos** | Gestiona el acceso a la información del negocio a través de servicios remotos y repositorios desacoplados del resto de la aplicación. |
 | **Gestor de plan y paywalls** | Evalúa qué funciones están libres, cuáles quedan bloqueadas y cómo se representan en la UI. |
 
 ---
@@ -89,4 +89,4 @@ App
         └── Drawer: Menú lateral con configuración de módulos (HU-03, HU-04)
 ```
 
-Esta estructura evidencia una construcción técnica pensada para escalar: la separación entre presentación, lógica de negocio y persistencia facilita que el equipo trabaje en paralelo y que futuras integraciones (backend remoto, sincronización, pasarelas de pago) se incorporen sin refactorizaciones profundas.
+Esta estructura evidencia una construcción técnica pensada para escalar: la separación entre presentación, lógica de negocio y acceso a datos facilita que el equipo trabaje en paralelo y que futuras integraciones, incluidas mejoras de resiliencia de conectividad previstas para el Sprint 3 y pasarelas de pago, se incorporen sin refactorizaciones profundas.
