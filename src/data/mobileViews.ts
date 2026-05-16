@@ -35,6 +35,7 @@ export interface DocumentedView {
 
 const backlogHref = '/scrum/product-backlog/';
 const sprintBacklogHref = '/scrum/sprints/sprint-1/sprint-backlog/';
+const sprint2BacklogHref = '/scrum/sprints/sprint-2/sprint-backlog/';
 
 export const mobileViews: DocumentedView[] = [
   {
@@ -153,5 +154,41 @@ export const mobileViews: DocumentedView[] = [
     web: { caption: 'Referencia web', variant: 'menu' },
     epic: { id: 'EP-02', name: 'Dashboard modular y navegacion personalizada', href: backlogHref },
     story: { id: 'HU-04', name: 'Ordenamiento de modulos del menu principal', href: sprintBacklogHref },
+  },
+  {
+    code: 'V14',
+    title: 'Ficha de cliente',
+    summary: 'Pantalla de detalle del cliente con datos de contacto, historial de pedidos y saldo pendiente.',
+    mobile: { caption: 'Vista movil', variant: 'list' },
+    web: { caption: 'Referencia web', variant: 'list' },
+    epic: { id: 'EP-03', name: 'Gestion de clientes', href: backlogHref },
+    story: { id: 'HU-06', name: 'Ver ficha basica de un cliente', href: sprint2BacklogHref },
+  },
+  {
+    code: 'V15',
+    title: 'Conversion cotizacion a pedido',
+    summary: 'Flujo para convertir una cotizacion aprobada en un pedido formal con confirmacion visual.',
+    mobile: { caption: 'Vista movil', variant: 'form' },
+    web: { caption: 'Referencia web', variant: 'form' },
+    epic: { id: 'EP-05', name: 'Cotizaciones y pedidos', href: backlogHref },
+    story: { id: 'HU-10', name: 'Convertir cotizacion aprobada en pedido', href: sprint2BacklogHref },
+  },
+  {
+    code: 'V16',
+    title: 'Cambio de estado del pedido',
+    summary: 'Selector visual para cambiar el estado de un pedido entre pendiente, en proceso y entregado.',
+    mobile: { caption: 'Vista movil', variant: 'form' },
+    web: { caption: 'Referencia web', variant: 'form' },
+    epic: { id: 'EP-06', name: 'Pagos, seguimiento y agenda', href: backlogHref },
+    story: { id: 'HU-11', name: 'Actualizar el estado de un pedido', href: sprint2BacklogHref },
+  },
+  {
+    code: 'V17',
+    title: 'Registro de adelantos',
+    summary: 'Formulario para registrar adelantos y visualizar el saldo pendiente de un pedido.',
+    mobile: { caption: 'Vista movil', variant: 'form' },
+    web: { caption: 'Referencia web', variant: 'form' },
+    epic: { id: 'EP-06', name: 'Pagos, seguimiento y agenda', href: backlogHref },
+    story: { id: 'HU-12', name: 'Registrar adelantos y saldos pendientes', href: sprint2BacklogHref },
   },
 ];
