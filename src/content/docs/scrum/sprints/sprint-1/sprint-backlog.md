@@ -5,6 +5,29 @@ description: Backlog del Sprint 1 - Construcción del MVP del proyecto EmprendeX
 
 ## 🚀 Sprint 1: Construcción del MVP
 
+### Alcance del MVP
+
+La primera fase del proyecto se concentró en demostrar valor real de forma rápida y técnicamente alcanzable:
+
+**Incluyó el MVP:**
+
+- Perfil básico del negocio y acceso local en el dispositivo.
+- Selección y ordenamiento de módulos en el dashboard y menú principal.
+- Gestión de clientes.
+- Gestión de productos o servicios.
+- Creación básica de cotizaciones y base del flujo de pedido.
+- Resumen de pendientes y próximas acciones en el tablero principal.
+- Visualización de módulos premium bloqueados mediante reglas locales de plan.
+
+**Quedó fuera del MVP del Sprint 1:**
+
+- Backend centralizado y autenticación remota.
+- Pagos de suscripción reales con pasarela externa.
+- Sincronización multiusuario o entre múltiples dispositivos en tiempo real.
+- Respaldo automático a Google Drive.
+- Alquileres, suscripciones recurrentes, analítica avanzada y portal del cliente.
+- Mensajería integrada con WhatsApp, correo o notificaciones push en producción.
+
 ### Sprint Backlog
 
 #### Historia: HU-01 — Registro de datos básicos del negocio

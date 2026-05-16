@@ -28,6 +28,7 @@ Las historias de usuario están organizadas por épicas y priorizadas según su 
 | **HU-13** | Como emprendedor quiero ver un resumen de pendientes y próximos compromisos en el tablero principal para organizar mi jornada. | Media | En Progreso |
 | **HU-14** | Como emprendedor quiero visualizar módulos premium bloqueados para entender qué funciones adicionales podría activar con una suscripción. | Media | En Progreso |
 | **HU-15** | Como emprendedor quiero poder ingresar a la aplicación mediante un correo personal. | Media | En Progreso |
+| **HU-16** | Como emprendedor quiero iniciar sesión con mi cuenta de Google para tener practicidad en el inicio de sesión. | Media | Por Hacer |
 
 ---
 
@@ -35,7 +36,7 @@ Las historias de usuario están organizadas por épicas y priorizadas según su 
 
 | ID | Épica | Historias Incluidas |
 |----|-------|---------------------|
-| **EP-01** | Inicio y configuración base del negocio | HU-01, HU-02, HU-15 |
+| **EP-01** | Inicio y configuración base del negocio | HU-01, HU-02, HU-15, HU-16 |
 | **EP-02** | Dashboard modular y navegación personalizada | HU-03, HU-04 |
 | **EP-03** | Gestión de clientes | HU-05, HU-06 |
 | **EP-04** | Gestión de catálogo | HU-07, HU-08 |
@@ -54,3 +55,5 @@ Las historias fueron introducidas al backlog de la siguiente manera:
 - **Sprint 1 (MVP):** Se comprometieron las historias prioritarias para construir la primera versión navegable del producto. Según la planificación del Documento de Arquitectura, las historias seleccionadas fueron: **HU-01, HU-02, HU-03, HU-04, HU-05, HU-07, HU-08, HU-09, HU-13, HU-14**. Adicionalmente, el equipo incorporó la historia **HU-15** (ingreso mediante correo personal) para cerrar el flujo de autenticación del MVP.
 
 Las historias **HU-06, HU-10, HU-11 y HU-12** quedaron previstas para la siguiente iteración, una vez estabilizados el dashboard, la configuración modular, el registro de clientes y el catálogo inicial.
+
+- **Sprint 2 (Ciclo Comercial y Login Social):** Se comprometieron las historias pendientes de iteraciones anteriores junto con la nueva historia de inicio de sesión con Google: **HU-06, HU-10, HU-11, HU-12, HU-16**. El objetivo es completar el ciclo comercial (cotización → pedido → estado → cobro) y facilitar el acceso mediante autenticación social.
