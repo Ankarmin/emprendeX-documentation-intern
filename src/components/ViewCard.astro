@@ -100,74 +100,34 @@ const carouselId = `carousel-${view.code}`;
     document.querySelectorAll(".preview-carousel").forEach((carousel) => {
       if (carousel.dataset.carouselReady === "true") return;
 
-      const track = carousel.querySelector(".carousel-track");
       const realSlides = Array.from(carousel.querySelectorAll(".carousel-slide"));
       const total = realSlides.length;
 
-      if (!track || total === 0) return;
+      if (total === 0) return;
 
       carousel.dataset.carouselReady = "true";
-
-      const firstClone = realSlides[0].cloneNode(true);
-      const lastClone = realSlides[total - 1].cloneNode(true);
-
-      firstClone.dataset.clone = "true";
-      lastClone.dataset.clone = "true";
-
-      track.prepend(lastClone);
-      track.append(firstClone);
-
-      let index = 1;
-      let isTransitioning = false;
-
-      function getLogicalIndex() {
-        return (index - 1 + total) % total;
-      }
+      let index = 0;
 
       function updateActiveState() {
-        const logicalIndex = getLogicalIndex();
-
         realSlides.forEach((slide, slideIndex) => {
-          slide.classList.toggle("is-active", slideIndex === logicalIndex);
+          slide.classList.toggle("is-active", slideIndex === index);
+          slide.toggleAttribute("hidden", slideIndex !== index);
         });
       }
 
-      function render(animate = true) {
-        track.style.transition = animate
-          ? "transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1)"
-          : "none";
-        track.style.transform = `translateX(-${index * 100}%)`;
+      function goTo(direction) {
+        index = (index + direction + total) % total;
         updateActiveState();
       }
-
-      function goTo(nextIndex) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        index = nextIndex;
-        render(true);
-      }
-
-      track.addEventListener("transitionend", () => {
-        if (index === 0) {
-          index = total;
-          render(false);
-        } else if (index === total + 1) {
-          index = 1;
-          render(false);
-        }
-
-        isTransitioning = false;
-        updateActiveState();
-      });
 
       carousel.querySelectorAll(".carousel-arrow").forEach((btn) => {
         btn.addEventListener("click", () => {
           const dir = btn.dataset.dir;
-          goTo(dir === "next" ? index + 1 : index - 1);
+          goTo(dir === "next" ? 1 : -1);
         });
       });
 
-      render(false);
+      updateActiveState();
     });
   }
 
@@ -245,55 +205,63 @@ const carouselId = `carousel-${view.code}`;
     overflow: hidden;
     border-radius: 1.4rem;
     padding: 0.2rem 0.75rem;
-    -webkit-mask-image: linear-gradient(
+    isolation: isolate;
+  }
+
+  .carousel-viewport::before,
+  .carousel-viewport::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3.25rem;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .carousel-viewport::before {
+    left: 0;
+    background: linear-gradient(
       90deg,
-      transparent 0,
-      rgba(0, 0, 0, 0.25) 0.85rem,
-      rgba(0, 0, 0, 0.88) 1.65rem,
-      #000 2.4rem,
-      #000 calc(100% - 2.4rem),
-      rgba(0, 0, 0, 0.88) calc(100% - 1.65rem),
-      rgba(0, 0, 0, 0.25) calc(100% - 0.85rem),
+      rgba(248, 250, 252, 0.98) 0%,
+      rgba(248, 250, 252, 0.9) 38%,
+      rgba(248, 250, 252, 0.45) 68%,
       transparent 100%
     );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0,
-      rgba(0, 0, 0, 0.25) 0.85rem,
-      rgba(0, 0, 0, 0.88) 1.65rem,
-      #000 2.4rem,
-      #000 calc(100% - 2.4rem),
-      rgba(0, 0, 0, 0.88) calc(100% - 1.65rem),
-      rgba(0, 0, 0, 0.25) calc(100% - 0.85rem),
+  }
+
+  .carousel-viewport::after {
+    right: 0;
+    background: linear-gradient(
+      270deg,
+      rgba(248, 250, 252, 0.98) 0%,
+      rgba(248, 250, 252, 0.9) 38%,
+      rgba(248, 250, 252, 0.45) 68%,
       transparent 100%
     );
   }
 
   .carousel-track {
-    display: flex;
-    transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+    display: block;
   }
 
   .carousel-slide {
-    min-width: 100%;
-    flex-shrink: 0;
     padding: 0.35rem 0.4rem 0.5rem;
+  }
+
+  .carousel-slide[hidden] {
+    display: none !important;
+  }
+
+  .carousel-slide.is-active {
     display: flex;
     justify-content: center;
+    animation: carousel-fade-in 0.28s ease;
   }
 
   .carousel-slide--desktop {
     display: flex;
     justify-content: center;
-  }
-
-  .carousel-slide :global(.preview-card.mobile) {
-    width: min(100%, clamp(11.5rem, 24vw, 14rem));
-  }
-
-  .carousel-slide--desktop :global(.preview-card) {
-    width: 100%;
-    max-width: 62rem;
   }
 
   .carousel-slide--desktop :global(.preview-frame.web) {
@@ -339,6 +307,17 @@ const carouselId = `carousel-${view.code}`;
     color: var(--sl-color-text-accent);
   }
 
+  @keyframes carousel-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   /* ── Responsive ── */
 
   @media (max-width: 50rem) {
@@ -357,40 +336,15 @@ const carouselId = `carousel-${view.code}`;
 
     .carousel-viewport {
       padding: 0.15rem 0.3rem;
-      -webkit-mask-image: linear-gradient(
-        90deg,
-        transparent 0,
-        rgba(0, 0, 0, 0.32) 0.45rem,
-        rgba(0, 0, 0, 0.9) 0.85rem,
-        #000 1.25rem,
-        #000 calc(100% - 1.25rem),
-        rgba(0, 0, 0, 0.9) calc(100% - 0.85rem),
-        rgba(0, 0, 0, 0.32) calc(100% - 0.45rem),
-        transparent 100%
-      );
-      mask-image: linear-gradient(
-        90deg,
-        transparent 0,
-        rgba(0, 0, 0, 0.32) 0.45rem,
-        rgba(0, 0, 0, 0.9) 0.85rem,
-        #000 1.25rem,
-        #000 calc(100% - 1.25rem),
-        rgba(0, 0, 0, 0.9) calc(100% - 0.85rem),
-        rgba(0, 0, 0, 0.32) calc(100% - 0.45rem),
-        transparent 100%
-      );
+    }
+
+    .carousel-viewport::before,
+    .carousel-viewport::after {
+      width: 1.4rem;
     }
 
     .carousel-slide {
       padding-inline: 0.2rem;
-    }
-
-    .carousel-slide :global(.preview-card.mobile) {
-      width: min(100%, 12.25rem);
-    }
-
-    .carousel-slide--desktop :global(.preview-card) {
-      max-width: 100%;
     }
 
     .carousel-slide--desktop :global(.preview-frame.web) {
