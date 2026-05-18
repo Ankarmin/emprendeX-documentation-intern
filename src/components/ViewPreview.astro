@@ -14,12 +14,45 @@ const previewAlt = preview.alt ?? `${frameLabel} de ${code} - ${title}`;
 ---
 
 <figure class={`preview-card ${platform}`}>
-  <figcaption>
-    <span>{preview.caption}</span>
-  </figcaption>
-
-  {preview.image ? (
-    <img src={preview.image} alt={previewAlt} loading="lazy" />
+  {preview.images && preview.images.length > 0 ? (
+    preview.images.length === 1 ? (
+      <img src={preview.images[0]} alt={previewAlt} loading="lazy" />
+    ) : (
+      <div class="image-carousel" data-image-carousel>
+        <div class="image-track">
+          {preview.images.map((img, i) => (
+            <img
+              src={img}
+              alt={`${previewAlt} ${i + 1}`}
+              loading="lazy"
+              data-image-index={i}
+            />
+          ))}
+        </div>
+        <div class="image-controls">
+          <div class="image-dots">
+            {preview.images.map((_, i) => (
+              <button
+                class="image-dot"
+                data-image-index={i}
+                aria-label={`Imagen ${i + 1} de ${previewAlt}`}
+              />
+            ))}
+          </div>
+          <div class="image-selector" aria-label={`Selector de imagenes para ${previewAlt}`}>
+            {preview.images.map((_, i) => (
+              <button
+                class="image-selector-button"
+                data-image-index={i}
+                type="button"
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   ) : (
     <div class={`preview-frame ${platform}`} aria-label={previewAlt}>
       <div class={`chrome ${platform}`}>
@@ -39,7 +72,6 @@ const previewAlt = preview.alt ?? `${frameLabel} de ${code} - ${title}`;
         <header>
           <span class="eyebrow">{code}</span>
           <strong>{title}</strong>
-          <small>{frameLabel}</small>
         </header>
 
         {preview.variant === 'auth' && (
@@ -199,32 +231,23 @@ const previewAlt = preview.alt ?? `${frameLabel} de ${code} - ${title}`;
     display: grid;
     gap: 0.9rem;
     margin: 0;
+    justify-items: center;
+    box-sizing: border-box;
   }
 
-  .preview-card figcaption {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 0.98rem;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    color: #24163d;
+  .preview-card.mobile {
+    width: min(100%, clamp(15rem, 31vw, 18.5rem));
   }
 
-  .preview-card figcaption span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: min(100%, 13rem);
-    padding: 0.4rem 0.9rem;
-    border-radius: 999px;
-    background: linear-gradient(180deg, rgba(124, 58, 237, 0.12), rgba(124, 58, 237, 0.06));
-    border: 1px solid rgba(124, 58, 237, 0.14);
+  .preview-card.web {
+    width: min(100%, 62rem);
   }
 
   .preview-card img {
+    display: block;
     width: 100%;
+    margin-inline: auto;
+    box-sizing: border-box;
     border-radius: 1rem;
     border: 1px solid var(--sl-color-hairline);
     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
@@ -234,6 +257,9 @@ const previewAlt = preview.alt ?? `${frameLabel} de ${code} - ${title}`;
   .preview-frame {
     display: grid;
     gap: 0.75rem;
+    width: 100%;
+    margin-inline: auto;
+    box-sizing: border-box;
     padding: 0.9rem;
     border: 1px solid color-mix(in srgb, var(--sl-color-accent) 28%, white 72%);
     background:
@@ -483,22 +509,151 @@ const previewAlt = preview.alt ?? `${frameLabel} de ${code} - ${title}`;
     background: linear-gradient(90deg, #7c3aed, #8b5cf6);
   }
 
+  .image-carousel {
+    position: relative;
+    width: 100%;
+    margin-inline: auto;
+    box-sizing: border-box;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--sl-color-hairline);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
+  }
+
+  .image-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .image-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .image-track img {
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    object-fit: cover;
+  }
+
+  .image-controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.9rem;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+  }
+
+  .image-dots {
+    display: none;
+  }
+
+  .image-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(124, 58, 237, 0.24);
+    background: rgba(124, 58, 237, 0.12);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    padding: 0;
+  }
+
+  .image-dot.active {
+    background: #7c3aed;
+    border-color: #7c3aed;
+    transform: scale(1.3);
+  }
+
+  .image-dot:hover {
+    background: rgba(124, 58, 237, 0.35);
+  }
+
+  .image-selector {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(2.2rem, 2.2rem);
+    justify-content: center;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.76);
+    border: 1px solid rgba(124, 58, 237, 0.12);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+    backdrop-filter: blur(10px);
+  }
+
+  .image-selector-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    border: 1px solid rgba(124, 58, 237, 0.16);
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.08);
+    color: #6d28d9;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.15s, border-color 0.2s;
+  }
+
+  .image-selector-button:hover {
+    background: rgba(124, 58, 237, 0.16);
+    transform: translateY(-1px);
+  }
+
+  .image-selector-button.active {
+    background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 10px 22px rgba(124, 58, 237, 0.22);
+  }
+
   @media (max-width: 50rem) {
     .preview-card {
       gap: 0.7rem;
     }
 
-    .preview-card figcaption {
-      font-size: 0.92rem;
+    .preview-card.mobile {
+      width: min(100%, 15.25rem);
     }
 
-    .preview-card figcaption span {
-      min-width: min(100%, 11.5rem);
-      padding: 0.35rem 0.75rem;
+    .preview-card.web {
+      width: 100%;
     }
 
     .preview-frame.mobile {
       padding: 0.7rem;
+    }
+
+    .image-controls {
+      bottom: 0.7rem;
+    }
+
+    .image-selector {
+      gap: 0.45rem;
+      padding: 0.4rem 0.45rem;
+      grid-auto-columns: minmax(2rem, 2rem);
+    }
+
+    .image-selector-button {
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
     }
 
     .preview-frame.web {
@@ -515,3 +670,45 @@ const previewAlt = preview.alt ?? `${frameLabel} de ${code} - ${title}`;
     }
   }
 </style>
+
+<script>
+  function initImageCarousels() {
+    document.querySelectorAll('[data-image-carousel]').forEach((carousel) => {
+      if (carousel.dataset.carouselReady === 'true') return;
+      carousel.dataset.carouselReady = 'true';
+
+      const track = carousel.querySelector('.image-track');
+      const controls = carousel.querySelectorAll('[data-image-index]');
+      const slides = carousel.querySelectorAll('.image-track img');
+
+      if (!track || !controls.length || !slides.length) return;
+
+      function setActive(index) {
+        controls.forEach((control) => {
+          const controlIndex = parseInt(control.dataset.imageIndex || '0', 10);
+          control.classList.toggle('active', controlIndex === index);
+        });
+      }
+
+      track.addEventListener('scroll', () => {
+        const scrollPos = track.scrollLeft;
+        const slideWidth = track.clientWidth;
+        const activeIndex = Math.round(scrollPos / slideWidth);
+        setActive(activeIndex);
+      }, { passive: true });
+
+      controls.forEach((control) => {
+        control.addEventListener('click', () => {
+          const idx = parseInt(control.dataset.imageIndex || '0', 10);
+          track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' });
+          setActive(idx);
+        });
+      });
+
+      setActive(0);
+    });
+  }
+
+  initImageCarousels();
+  document.addEventListener('astro:page-load', initImageCarousels);
+</script>

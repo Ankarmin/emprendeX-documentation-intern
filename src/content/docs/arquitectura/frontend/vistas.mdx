@@ -16,64 +16,67 @@ Esta seccion centraliza las vistas documentadas del frontend movil para que el e
 - y, cuando exista, la epica o historia de usuario a la que pertenece.
 
 <Aside type="note" title="Como mantener esta seccion">
-  La galeria ya quedo preparada para crecer. Si luego agregan capturas reales, solo necesitan asignar la ruta de imagen en `src/data/mobileViews.ts` para reemplazar los previews generados.
+  La galeria ya quedo preparada para crecer. Las imagenes se gestionan desde `public/Views/` y se asignan en `src/data/mobileViews.ts`. Para vistas con multiples capturas, el componente genera automaticamente un mini-carrusel con navegacion por dots.
 </Aside>
 
 ## Convencion usada
 
 - `Vxx` identifica de forma unica cada vista documentada.
 - La relacion con epica e historia de usuario es opcional: si una vista todavia no esta trazada en backlog, puede quedar solo con una nota descriptiva.
-- Los previews actuales funcionan como referencia visual documental y pueden sustituirse por mockups o screenshots reales cuando esten disponibles.
+- Los previews actuales pueden sustituirse por mockups o screenshots reales cuando esten disponibles.
 
 ## Catalogo de vistas
 
-### V01 - Inicio de sesion
+### V01 - Login
 <ViewCard view={mobileViews[0]} />
 
-### V02 - Presentacion 1
+### V02 - Crear Cuenta
 <ViewCard view={mobileViews[1]} />
 
-### V03 - Presentacion 2
+### V03 - Elegir Modulos
 <ViewCard view={mobileViews[2]} />
 
-### V04 - Presentacion 3
+### V04 - Dashboard
 <ViewCard view={mobileViews[3]} />
 
-### V05 - Modulos disponibles
+### V05 - Operaciones (Todas)
 <ViewCard view={mobileViews[4]} />
 
-### V06 - Dashboard
+### V06 - Operaciones (Pedidos)
 <ViewCard view={mobileViews[5]} />
 
-### V07 - Lista de operaciones
+### V07 - Operaciones (Cotizaciones)
 <ViewCard view={mobileViews[6]} />
 
-### V08 - Lista de clientes
+### V08 - Operacion
 <ViewCard view={mobileViews[7]} />
 
-### V09 - Calendario
+### V09 - Cliente Lista
 <ViewCard view={mobileViews[8]} />
 
-### V10 - Plan Pro
+### V10 - Cliente Detalle
 <ViewCard view={mobileViews[9]} />
 
-### V11 - Onboarding del negocio
+### V11 - Registrar Cliente
 <ViewCard view={mobileViews[10]} />
 
-### V12 - Registro de cliente
+### V12 - Configuracion
 <ViewCard view={mobileViews[11]} />
 
-### V13 - Menu desplegable
+### V13 - Productos y Servicios
 <ViewCard view={mobileViews[12]} />
 
-### V14 - Ficha de cliente
+### V14 - Cotizaciones
 <ViewCard view={mobileViews[13]} />
 
-### V15 - Conversion cotizacion a pedido
+### V15 - Nueva Cotizacion
 <ViewCard view={mobileViews[14]} />
 
-### V16 - Cambio de estado del pedido
+### V16 - Contabilidad
 <ViewCard view={mobileViews[15]} />
 
-### V17 - Registro de adelantos
+### V17 - Agregar Pago
 <ViewCard view={mobileViews[16]} />
+
+### V18 - Menu Lateral
+<ViewCard view={mobileViews[17]} />
