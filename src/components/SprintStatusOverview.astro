@@ -1,0 +1,329 @@
+---
+interface Segment {
+  label: string;
+  value: number;
+  color: string;
+  description: string;
+}
+
+interface Stat {
+  label: string;
+  value: number | string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  completionLabel?: string;
+  completionPercent: number;
+  segments: Segment[];
+  stats?: Stat[];
+  note?: string;
+}
+
+const {
+  title = 'Status overview',
+  subtitle = 'Estado general de los elementos revisados en la Sprint Review.',
+  completionLabel = 'Done',
+  completionPercent,
+  segments,
+  stats = [],
+  note,
+} = Astro.props;
+
+const radius = 86;
+const circumference = 2 * Math.PI * radius;
+const total = segments.reduce((sum, segment) => sum + segment.value, 0);
+const gap = 7;
+
+let consumed = 0;
+
+const preparedSegments = segments.map((segment, index) => {
+  const rawLength = total > 0 ? (segment.value / total) * circumference : 0;
+  const dash = Math.max(rawLength - gap, 0);
+  const offset = consumed + index * gap;
+  consumed += rawLength;
+
+  return {
+    ...segment,
+    dash,
+    offset,
+    delay: `${0.18 + index * 0.18}s`,
+  };
+});
+---
+
+<section class="status-overview-card">
+  {stats.length > 0 && (
+    <div class="status-overview-card__stats" aria-label="Métricas del sprint">
+      {stats.map((stat) => (
+        <article class="status-stat">
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </article>
+      ))}
+    </div>
+  )}
+
+  <div class="status-overview-card__body">
+    <div class="status-overview-card__chart">
+      <svg viewBox="0 0 240 240" class="status-donut" aria-hidden="true">
+        <circle class="status-donut__track" cx="120" cy="120" r={radius} />
+        {preparedSegments.map((segment) => (
+          <circle
+            class="status-donut__segment"
+            cx="120"
+            cy="120"
+            r={radius}
+            style={`--segment-color:${segment.color}; --segment-dash:${segment.dash}; --segment-offset:${segment.offset}; --segment-delay:${segment.delay}; --segment-circumference:${circumference};`}
+          />
+        ))}
+      </svg>
+
+      <div class="status-donut__center">
+        <strong>{completionPercent}%</strong>
+        <span>{completionLabel}</span>
+      </div>
+    </div>
+
+    <div class="status-overview-card__content">
+      <p class="status-overview-card__eyebrow">{title}</p>
+      <h3>{completionPercent}% del trabajo visible quedó completado</h3>
+      <p class="status-overview-card__subtitle">{subtitle}</p>
+
+      <ul class="status-overview-card__legend">
+        {preparedSegments.map((segment) => (
+          <li>
+            <span class="status-overview-card__dot" style={`--dot-color:${segment.color};`}></span>
+            <div>
+              <strong>{segment.label}: {segment.value}</strong>
+              <span>{segment.description}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      {note && <p class="status-overview-card__note">{note}</p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .status-overview-card {
+    --surface: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(247, 241, 255, 0.92));
+    --border: rgba(122, 60, 255, 0.16);
+    --shadow: 0 24px 60px rgba(40, 18, 87, 0.12);
+    --text-strong: #1f2440;
+    --text-soft: #5f6484;
+    --track: rgba(122, 60, 255, 0.08);
+    margin: 1.5rem 0 2rem;
+    padding: 1.2rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .status-overview-card__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .status-stat {
+    padding: 0.95rem 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(122, 60, 255, 0.14);
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .status-stat strong {
+    display: block;
+    color: var(--text-strong);
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+
+  .status-stat span {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--text-soft);
+    font-size: 0.92rem;
+  }
+
+  .status-overview-card__body {
+    display: grid;
+    grid-template-columns: minmax(230px, 290px) minmax(0, 1fr);
+    gap: 1.4rem;
+    align-items: center;
+  }
+
+  .status-overview-card__chart {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 280px;
+    border-radius: 26px;
+    background:
+      radial-gradient(circle at center, rgba(255, 255, 255, 0.96) 0 38%, rgba(122, 60, 255, 0.08) 39%, rgba(122, 60, 255, 0.02) 72%, transparent 73%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(245, 238, 255, 0.66));
+  }
+
+  .status-donut {
+    width: min(100%, 240px);
+    transform: rotate(-90deg);
+    filter: drop-shadow(0 10px 28px rgba(122, 60, 255, 0.14));
+  }
+
+  .status-donut__track,
+  .status-donut__segment {
+    fill: none;
+    stroke-width: 22;
+    stroke-linecap: round;
+  }
+
+  .status-donut__track {
+    stroke: var(--track);
+  }
+
+  .status-donut__segment {
+    stroke: var(--segment-color);
+    stroke-dasharray: 0 var(--segment-circumference);
+    stroke-dashoffset: calc(var(--segment-circumference) - var(--segment-offset));
+    animation: donut-fill 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--segment-delay);
+  }
+
+  .status-donut__center {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+  }
+
+  .status-donut__center strong {
+    color: var(--text-strong);
+    font-size: clamp(2rem, 4vw, 2.55rem);
+    line-height: 1;
+  }
+
+  .status-donut__center span {
+    margin-top: 0.3rem;
+    color: var(--text-soft);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .status-overview-card__eyebrow {
+    margin: 0 0 0.45rem;
+    color: #7a3cff;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .status-overview-card__content h3 {
+    margin: 0;
+    color: var(--text-strong);
+    font-size: clamp(1.35rem, 2.3vw, 1.8rem);
+    line-height: 1.15;
+  }
+
+  .status-overview-card__subtitle,
+  .status-overview-card__note {
+    color: var(--text-soft);
+  }
+
+  .status-overview-card__subtitle {
+    margin: 0.7rem 0 1rem;
+  }
+
+  .status-overview-card__legend {
+    display: grid;
+    gap: 0.9rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .status-overview-card__legend li {
+    display: grid;
+    grid-template-columns: 14px minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  .status-overview-card__dot {
+    width: 14px;
+    height: 14px;
+    margin-top: 0.22rem;
+    border-radius: 999px;
+    background: var(--dot-color);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--dot-color) 18%, transparent);
+  }
+
+  .status-overview-card__legend strong,
+  .status-overview-card__legend span {
+    display: block;
+  }
+
+  .status-overview-card__legend strong {
+    color: var(--text-strong);
+    font-size: 0.98rem;
+  }
+
+  .status-overview-card__legend span {
+    color: var(--text-soft);
+    font-size: 0.92rem;
+    margin-top: 0.12rem;
+  }
+
+  .status-overview-card__note {
+    margin: 1rem 0 0;
+    font-size: 0.9rem;
+  }
+
+  :global(html[data-theme='dark']) .status-overview-card {
+    --surface: linear-gradient(155deg, rgba(29, 24, 44, 0.96), rgba(24, 21, 37, 0.98));
+    --border: rgba(184, 156, 255, 0.18);
+    --shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+    --text-strong: #f5f0ff;
+    --text-soft: #c0bad8;
+    --track: rgba(255, 255, 255, 0.08);
+  }
+
+  :global(html[data-theme='dark']) .status-stat {
+    border-color: rgba(184, 156, 255, 0.16);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  :global(html[data-theme='dark']) .status-overview-card__chart {
+    background:
+      radial-gradient(circle at center, rgba(31, 24, 49, 0.98) 0 38%, rgba(184, 156, 255, 0.11) 39%, rgba(184, 156, 255, 0.03) 72%, transparent 73%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  }
+
+  @keyframes donut-fill {
+    to {
+      stroke-dasharray: var(--segment-dash) calc(var(--segment-circumference) - var(--segment-dash));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .status-overview-card__body {
+      grid-template-columns: 1fr;
+    }
+
+    .status-overview-card__chart {
+      min-height: 250px;
+    }
+  }
+</style>

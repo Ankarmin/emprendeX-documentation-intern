@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## ¿Qué es Expo Router?
 
-**Expo Router** es el sistema de navegación de EmprendeX. Funciona con **file-based routing**, lo que significa que la estructura de archivos dentro de la carpeta `app/` define directamente las rutas de la aplicación, de forma similar a Next.js.
+**Expo Router** es el sistema de navegación de EmprendeX. Funciona con **file-based routing**, lo que significa que la estructura de archivos dentro de la carpeta `app/` define directamente las rutas de la aplicación.
 
 <Aside type="tip" title="File-Based Routing">
   Crear un archivo `app/perfil.tsx` automáticamente crea la ruta `/perfil` en la aplicación. No hay que registrar rutas manualmente.

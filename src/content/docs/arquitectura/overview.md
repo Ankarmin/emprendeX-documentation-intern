@@ -15,7 +15,7 @@ La selección tecnológica prioriza la velocidad de implementación, una curva d
 | **Diseño visual y prototipos** | Figma + Canva | Figma para mockups interactivos y flujos de alta fidelidad; Canva para assets visuales y materiales de presentación. |
 | **Control de versiones** | Git + GitHub | Flujo colaborativo con ramas, pull requests y revisión de código en equipo. |
 | **Gestión del trabajo** | Jira | Planificación de historias, tareas, sprints y seguimiento del avance bajo metodología Scrum. |
-| **Backend** | Next.js desplegado en Railway | Provee la capa de APIs y servicios remotos para la aplicación móvil y futura versión web. |
+| **Backend** | NestJS desplegado en Railway | Provee la capa de APIs y servicios remotos para la aplicación móvil y futura versión web. |
 
 ---
 
@@ -27,7 +27,7 @@ La arquitectura responde a tres principios fundamentales: **modularidad**, **esc
 
 1. **Modularidad:** La aplicación no presenta un conjunto fijo de pantallas, sino un catálogo de módulos con estados de disponibilidad, visibilidad y orden. Cada emprendedor configura su tablero y su menú principal eligiendo los módulos que realmente necesita.
 
-2. **Escalabilidad cloud:** La persistencia principal se apoya en un backend en la nube con Railway y PostgreSQL. La separación por capas permite evolucionar la aplicación sin reescribir la lógica de presentación y deja preparada la base para incorporar medidas de resiliencia ante problemas de conectividad en el Sprint 3.
+2. **Escalabilidad cloud:** La persistencia principal se apoya en un backend en la nube con Railway y PostgreSQL. La separación por capas permite evolucionar la aplicación sin reescribir la lógica de presentación.
 
 3. **Crecimiento por capacidades:** El núcleo del MVP puede ampliarse en futuras iteraciones sin rehacer el producto. La monetización se modela desde el inicio mediante estados de módulo: libre, visible bloqueado y premium activo.
 
@@ -89,4 +89,4 @@ App
         └── Drawer: Menú lateral con configuración de módulos (HU-03, HU-04)
 ```
 
-Esta estructura evidencia una construcción técnica pensada para escalar: la separación entre presentación, lógica de negocio y acceso a datos facilita que el equipo trabaje en paralelo y que futuras integraciones, incluidas mejoras de resiliencia de conectividad previstas para el Sprint 3 y pasarelas de pago, se incorporen sin refactorizaciones profundas.
+Esta estructura evidencia una construcción técnica pensada para escalar: la separación entre presentación, lógica de negocio y acceso a datos facilita que el equipo trabaje en paralelo y que futuras integraciones, incluidas pasarelas de pago, se incorporen sin refactorizaciones profundas.

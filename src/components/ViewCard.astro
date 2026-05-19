@@ -137,6 +137,13 @@ const carouselId = `carousel-${view.code}`;
 
 <style>
   .view-card {
+    --view-card-bg-top: rgba(255, 255, 255, 0.96);
+    --view-card-bg-bottom: rgba(248, 250, 252, 0.96);
+    --view-card-glow: rgba(124, 58, 237, 0.08);
+    --view-card-shadow: 0 22px 46px rgba(15, 23, 42, 0.08);
+    --view-fade-solid: rgba(248, 250, 252, 0.96);
+    --view-fade-soft: rgba(248, 250, 252, 0.7);
+    --view-fade-bottom: rgba(248, 250, 252, 0.9);
     display: grid;
     gap: 1.25rem;
     margin: 1rem 0 2rem;
@@ -147,18 +154,18 @@ const carouselId = `carousel-${view.code}`;
         var(--sl-color-accent) 18%,
         var(--sl-color-hairline) 82%
       );
-    border-radius: 1.4rem;
+    border-radius: 2.75rem;
     background: radial-gradient(
         circle at top right,
-        rgba(124, 58, 237, 0.08),
+        var(--view-card-glow),
         transparent 28%
       ),
       linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.96),
-        rgba(248, 250, 252, 0.96)
+        var(--view-card-bg-top),
+        var(--view-card-bg-bottom)
       );
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    box-shadow: var(--view-card-shadow);
   }
 
   .view-header {
@@ -202,47 +209,65 @@ const carouselId = `carousel-${view.code}`;
 
   .carousel-viewport {
     position: relative;
-    overflow: hidden;
-    border-radius: 1.4rem;
-    padding: 0.2rem 0.75rem;
+    overflow: visible;
+    border-radius: 2.45rem;
+    padding: 0.35rem 1rem 1rem;
     isolation: isolate;
   }
 
   .carousel-viewport::before,
-  .carousel-viewport::after {
+  .carousel-viewport::after,
+  .carousel-track::after {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 3.25rem;
     z-index: 2;
     pointer-events: none;
   }
 
   .carousel-viewport::before {
     left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4rem;
     background: linear-gradient(
       90deg,
-      rgba(248, 250, 252, 0.98) 0%,
-      rgba(248, 250, 252, 0.9) 38%,
-      rgba(248, 250, 252, 0.45) 68%,
+      var(--view-fade-solid) 0%,
+      var(--view-fade-soft) 42%,
       transparent 100%
     );
+    filter: blur(10px);
   }
 
   .carousel-viewport::after {
     right: 0;
+    top: 0;
+    bottom: 0;
+    width: 4rem;
     background: linear-gradient(
       270deg,
-      rgba(248, 250, 252, 0.98) 0%,
-      rgba(248, 250, 252, 0.9) 38%,
-      rgba(248, 250, 252, 0.45) 68%,
+      var(--view-fade-solid) 0%,
+      var(--view-fade-soft) 42%,
       transparent 100%
     );
+    filter: blur(10px);
   }
 
   .carousel-track {
     display: block;
+    position: relative;
+  }
+
+  .carousel-track::after {
+    left: 8%;
+    right: 8%;
+    bottom: -0.2rem;
+    height: 2.5rem;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--view-fade-bottom) 100%
+    );
+    filter: blur(12px);
   }
 
   .carousel-slide {
@@ -307,6 +332,27 @@ const carouselId = `carousel-${view.code}`;
     color: var(--sl-color-text-accent);
   }
 
+  html[data-theme='dark'] .view-card {
+    --view-card-bg-top: rgba(16, 23, 42, 0.96);
+    --view-card-bg-bottom: rgba(10, 16, 32, 0.96);
+    --view-card-glow: rgba(124, 58, 237, 0.18);
+    --view-card-shadow: 0 24px 48px rgba(0, 0, 0, 0.34);
+    --view-fade-solid: rgba(10, 16, 32, 0.96);
+    --view-fade-soft: rgba(10, 16, 32, 0.72);
+    --view-fade-bottom: rgba(10, 16, 32, 0.88);
+    border-color: rgba(167, 139, 250, 0.16);
+  }
+
+  html[data-theme='dark'] .carousel-arrow {
+    border-color: rgba(167, 139, 250, 0.22);
+    background: rgba(124, 58, 237, 0.16);
+    color: #c4b5fd;
+  }
+
+  html[data-theme='dark'] .carousel-arrow:hover {
+    background: rgba(124, 58, 237, 0.26);
+  }
+
   @keyframes carousel-fade-in {
     from {
       opacity: 0;
@@ -335,12 +381,18 @@ const carouselId = `carousel-${view.code}`;
     }
 
     .carousel-viewport {
-      padding: 0.15rem 0.3rem;
+      padding: 0.25rem 0.45rem 0.9rem;
     }
 
     .carousel-viewport::before,
     .carousel-viewport::after {
-      width: 1.4rem;
+      width: 2rem;
+    }
+
+    .carousel-track::after {
+      left: 5%;
+      right: 5%;
+      height: 2rem;
     }
 
     .carousel-slide {

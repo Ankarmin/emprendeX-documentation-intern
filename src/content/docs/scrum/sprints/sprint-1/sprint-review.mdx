@@ -1,0 +1,96 @@
+---
+title: Sprint Review
+description: Revisión del Sprint 1 - Construcción del MVP del proyecto EmprendeX.
+---
+
+import SprintStatusOverview from '../../../../../components/SprintStatusOverview.astro';
+
+
+## Sprint 1: Construcción del MVP
+
+### Sprint Review
+
+Durante la Sprint Review del Sprint 1 se presentó el avance general del MVP usando el tablero de Jira y la web de documentación del proyecto. La revisión permitió validar tanto el progreso funcional del producto como la organización del trabajo del equipo.
+
+### Resultado general del sprint
+
+Según el tablero revisado en la reunión, el sprint cerró con un avance visible y consistente:
+
+- `35` elementos completados en los últimos 7 días.
+- `77` elementos actualizados en los últimos 7 días.
+- `57` elementos creados en los últimos 7 días.
+- `6` elementos próximos a vencer.
+- El resumen de estado mostró aproximadamente `50%` de trabajo completado.
+- Dentro de ese corte, se observaron `43` elementos en estado `Done` y `23` elementos en estado `To Do`.
+
+<SprintStatusOverview
+  completionPercent={50}
+  completionLabel="Done"
+  title="Status overview"
+  subtitle="Recreación del gráfico de estado mostrado en Jira durante la Sprint Review del Sprint 1."
+  stats={[
+    { label: 'Completados (7 días)', value: 35 },
+    { label: 'Actualizados (7 días)', value: 77 },
+    { label: 'Creados (7 días)', value: 57 },
+    { label: 'Próximos a vencer', value: 6 },
+  ]}
+  segments={[
+    {
+      label: 'Done',
+      value: 43,
+      color: '#ff9f1a',
+      description: 'Elementos cerrados y completados dentro del corte mostrado en Jira.',
+    },
+    {
+      label: 'In Progress',
+      value: 20,
+      color: '#cfe49c',
+      description: 'Trabajo en estados intermedios para reflejar el 50% global visto en la review.',
+    },
+    {
+      label: 'To Do',
+      value: 23,
+      color: '#d8c0ff',
+      description: 'Elementos todavía pendientes al momento de la reunión.',
+    },
+  ]}
+  note="La distribución del segmento intermedio se reconstruyó visualmente a partir del gráfico observado en Jira durante la reunión."
+/>
+
+Estos resultados mostraron que el equipo logró construir una base funcional del MVP, aunque todavía quedaron tareas de integración y validaciones pendientes para los siguientes sprints.
+
+### Incremento presentado
+
+Durante la demostración se revisaron los principales entregables del Sprint 1:
+
+- Registro de datos básicos del negocio.
+- Acceso a la aplicación.
+- Selección y ordenamiento de módulos visibles.
+- Registro de clientes.
+- Gestión base de productos y servicios.
+- Creación inicial de cotizaciones.
+- Base del dashboard principal.
+- Visualización de módulos premium bloqueados.
+- Primera versión funcional de la web de documentación del proyecto.
+
+La demostración de la documentación fue especialmente valiosa porque permitió centralizar backlog, arquitectura, decisiones y avance del sprint en un solo espacio accesible para el equipo.
+
+### Evidencia de la reunión
+
+![Reunión del Sprint Review mostrando los resultados del sprint en Jira](/evidence/sprint-1/sprint-1-review-meet-jira.jpeg)
+
+_Evidencia de la reunión del equipo durante la revisión de resultados del Sprint 1 en Jira._
+
+![Reunión del Sprint Review mostrando la web de documentación del proyecto](/evidence/sprint-1/sprint-1-review-meet-docs.jpeg)
+
+_Evidencia de la reunión del equipo durante la presentación de la documentación web del proyecto._
+
+### Observaciones de la revisión
+
+- El equipo evidenció un buen ritmo de construcción del MVP en frontend, documentación y organización del tablero.
+- La web de documentación aportó claridad para presentar el estado del proyecto y dejó una base útil para el comité de mantenimiento.
+- Las tareas restantes se concentraron principalmente en cierres técnicos, validaciones y componentes de backend todavía en progreso.
+
+### Cierre de la review
+
+Como conclusión, el Sprint 1 dejó un incremento útil, navegable y demostrable, además de una mejor visibilidad del proyecto para el equipo. Los hallazgos de esta revisión sirvieron como insumo para reforzar la coordinación técnica y orientar el trabajo del siguiente sprint.
