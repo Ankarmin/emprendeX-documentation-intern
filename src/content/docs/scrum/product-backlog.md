@@ -14,7 +14,7 @@ Las historias de usuario están organizadas por épicas y priorizadas según su 
 | ID | Historia de Usuario | Prioridad | Estado General |
 |----|---------------------|-----------|----------------|
 | **HU-01** | Como emprendedor quiero registrar los datos básicos de mi negocio para personalizar la aplicación desde el primer uso. | Alta | En Progreso |
-| **HU-02** | Como emprendedor quiero acceder a mi espacio local en el dispositivo para usar la app sin depender de un servidor externo. | Alta | En Progreso |
+| **HU-02** | Como emprendedor quiero poder usar la aplicación sin conexión a internet para continuar operando cuando no tenga acceso a red. | Media | Pendiente |
 | **HU-03** | Como emprendedor quiero elegir qué módulos estarán visibles en mi dashboard para trabajar solo con lo que necesito. | Alta | En Progreso |
 | **HU-04** | Como emprendedor quiero visualizar y ordenar los módulos del menú principal para priorizar mi flujo de trabajo. | Alta | En Progreso |
 | **HU-05** | Como emprendedor quiero registrar clientes para mantener organizada mi base de contactos. | Media | En Progreso |
@@ -36,13 +36,14 @@ Las historias de usuario están organizadas por épicas y priorizadas según su 
 
 | ID | Épica | Historias Incluidas |
 |----|-------|---------------------|
-| **EP-01** | Inicio y configuración base del negocio | HU-01, HU-02, HU-15, HU-16 |
+| **EP-01** | Inicio y configuración base del negocio | HU-01, HU-15, HU-16 |
 | **EP-02** | Dashboard modular y navegación personalizada | HU-03, HU-04 |
 | **EP-03** | Gestión de clientes | HU-05, HU-06 |
 | **EP-04** | Gestión de catálogo | HU-07, HU-08 |
 | **EP-05** | Cotizaciones y pedidos | HU-09, HU-10 |
 | **EP-06** | Pagos, seguimiento y agenda | HU-11, HU-12, HU-13 |
 | **EP-07** | Freemium y visibilidad de módulos premium | HU-14 |
+| **EP-08** | Resiliencia y modo offline | HU-02 |
 
 ---
 
@@ -52,8 +53,8 @@ Las historias fueron introducidas al backlog de la siguiente manera:
 
 - **Sprint 0 (Fase de Cimientos):** Se definieron las bases del proyecto: idea del negocio, arquitectura técnica, prototipos iniciales y configuración de herramientas. No se desarrollaron historias de usuario funcionales en este sprint; su propósito fue preparar el terreno para el desarrollo del MVP.
 
-- **Sprint 1 (MVP):** Se comprometieron las historias prioritarias para construir la primera versión navegable del producto. Según la planificación del Documento de Arquitectura, las historias seleccionadas fueron: **HU-01, HU-02, HU-03, HU-04, HU-05, HU-07, HU-08, HU-09, HU-13, HU-14**. Adicionalmente, el equipo incorporó la historia **HU-15** (ingreso mediante correo personal) para cerrar el flujo de autenticación del MVP.
+- **Sprint 1 (MVP):** Se comprometieron las historias prioritarias para construir la primera versión navegable del producto. Según la planificación del Documento de Arquitectura, las historias seleccionadas fueron: **HU-01, HU-03, HU-04, HU-05, HU-07, HU-08, HU-09, HU-13, HU-14**. Adicionalmente, el equipo incorporó la historia **HU-15** (ingreso mediante correo personal) para cerrar el flujo de autenticación del MVP.
 
-Las historias **HU-06, HU-10, HU-11 y HU-12** quedaron previstas para la siguiente iteración, una vez estabilizados el dashboard, la configuración modular, el registro de clientes y el catálogo inicial.
+Las historias **HU-02, HU-06, HU-10, HU-11 y HU-12** quedaron previstas para iteraciones futuras, una vez estabilizados el dashboard, la configuración modular, el registro de clientes y el catálogo inicial.
 
 - **Sprint 2 (Ciclo Comercial y Login Social):** Se comprometieron las historias pendientes de iteraciones anteriores junto con la nueva historia de inicio de sesión con Google: **HU-06, HU-10, HU-11, HU-12, HU-16**. El objetivo es completar el ciclo comercial (cotización → pedido → estado → cobro) y facilitar el acceso mediante autenticación social.

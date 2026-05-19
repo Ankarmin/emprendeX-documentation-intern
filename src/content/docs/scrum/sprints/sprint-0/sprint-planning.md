@@ -21,7 +21,7 @@ Dado que el Sprint 0 fue una fase de preparación, no se comprometieron historia
 | **T-02** | Redacción de la primera versión del Documento de Arquitectura | Documentación |
 | **T-03** | Extracción de requisitos y análisis de negocios | Análisis |
 | **T-04** | Abstracción del proyecto para modelado lógico de la base de datos | Diseño técnico |
-| **T-05** | Inicialización del proyecto backend utilizando Next.js | Desarrollo técnico |
+| **T-05** | Inicialización del proyecto backend utilizando NestJS | Desarrollo técnico |
 | **T-06** | Configuración de los pipelines de CI/CD | DevOps |
 | **T-07** | Diseño en Figma de prototipos mockups iniciales | Diseño |
 | **T-08** | Inicialización y maquetación base del frontend | Desarrollo técnico |

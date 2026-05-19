@@ -50,7 +50,7 @@ A continuación se presenta el inventario completo de historias de usuario prior
 | ID | Historia de Usuario | Prioridad | Estado |
 |----|---------------------|-----------|--------|
 | **HU-01** | Como emprendedor quiero registrar los datos básicos de mi negocio para personalizar la aplicación. | Alta | En Progreso |
-| **HU-02** | Como emprendedor quiero acceder a mi espacio local para usar la app sin depender de un servidor externo. | Alta | En Progreso |
+| **HU-02** | Como emprendedor quiero poder usar la aplicación sin conexión a internet para continuar operando cuando no tenga acceso a red. | Media | Pendiente |
 | **HU-03** | Como emprendedor quiero elegir qué módulos estarán visibles en mi dashboard. | Alta | En Progreso |
 | **HU-04** | Como emprendedor quiero visualizar y ordenar los módulos del menú principal. | Alta | En Progreso |
 | **HU-05** | Como emprendedor quiero registrar clientes para mantener organizada mi base de contactos. | Media | En Progreso |
@@ -98,7 +98,7 @@ Dado que el Sprint 0 fue una fase de preparación, no se comprometieron historia
 | T-02 | Redacción de la primera versión del Documento de Arquitectura | Documentación |
 | T-03 | Extracción de requisitos y análisis de negocios | Análisis |
 | T-04 | Abstracción del proyecto para modelado lógico de la base de datos | Diseño técnico |
-| T-05 | Inicialización del proyecto backend utilizando Next.js | Desarrollo técnico |
+| T-05 | Inicialización del proyecto backend utilizando NestJS | Desarrollo técnico |
 | T-06 | Configuración de los pipelines de CI/CD | DevOps |
 | T-07 | Diseño en Figma de prototipos mockups iniciales | Diseño |
 | T-08 | Inicialización y maquetación base del frontend | Desarrollo técnico |
@@ -113,7 +113,7 @@ Dado que el Sprint 0 fue una fase de preparación, no se comprometieron historia
 | Redacción de la primera versión del Documento de Arquitectura | Jim Segovia Valencia | ✅ Done |
 | Extracción de requisitos y análisis de negocios | Yessly Poma de la Cruz | ✅ Done |
 | Abstracción del proyecto para modelado lógico de la base de datos | Sebastián Chicata Serrato | ✅ Done |
-| Inicialización del proyecto backend utilizando Next.js | David Sebastián Piñarreta Rojas | ✅ Done |
+| Inicialización del proyecto backend utilizando NestJS | David Sebastián Piñarreta Rojas | ✅ Done |
 | Configuración de los pipelines de CI/CD | David Sebastián Piñarreta Rojas | ✅ Done |
 | Diseño en Figma de prototipos mockups iniciales | Christian Gabriel Arancivia Salas | ✅ Done |
 | Inicialización y maquetación base del frontend | Joshua Nicolás Chávez Cerna | ✅ Done |
@@ -139,21 +139,20 @@ Dado que el Sprint 0 fue una fase de preparación, no se comprometieron historia
 
 **Duración:** 1 semana  
 **Estado:** En Progreso  
-**Objetivo:** Construir una primera versión navegable de la aplicación con configuración del negocio, acceso local, dashboard modular, gestión base de clientes y catálogo, cotización simple, resumen inicial del tablero y visibilidad de módulos premium bloqueados.
+**Objetivo:** Construir una primera versión navegable de la aplicación con configuración del negocio, dashboard modular, gestión base de clientes y catálogo, cotización simple, resumen inicial del tablero y visibilidad de módulos premium bloqueados.
 
 ---
 
 #### 📁 1. Sprint Planning
 
 **Sprint Goal:**  
-> Entregar un MVP funcional que demuestre la propuesta de valor central del producto: un centro operativo local para microemprendedores con arquitectura modular y visibilidad del modelo freemium.
+> Entregar un MVP funcional que demuestre la propuesta de valor central del producto: un centro operativo para microemprendedores con arquitectura modular y visibilidad del modelo freemium.
 
 **Historias Comprometidas:**
 
 | ID | Historia de Usuario | Épica |
 |----|---------------------|-------|
 | **HU-01** | Como emprendedor quiero registrar los datos básicos de mi negocio para personalizar la aplicación. | EP-01 |
-| **HU-02** | Como emprendedor quiero acceder a mi espacio local en el dispositivo para usar la app sin depender de un servidor externo. | EP-01 |
 | **HU-03** | Como emprendedor quiero elegir qué módulos estarán visibles en mi dashboard para trabajar solo con lo que necesito. | EP-02 |
 | **HU-04** | Como emprendedor quiero visualizar y ordenar los módulos del menú principal para priorizar mi flujo de trabajo. | EP-02 |
 | **HU-05** | Como emprendedor quiero registrar clientes para mantener organizada mi base de contactos. | EP-03 |
@@ -174,15 +173,8 @@ Dado que el Sprint 0 fue una fase de preparación, no se comprometieron historia
 |-------|-------------|--------|
 | Diseñar las pantallas de onboarding para el registro de nombre, rubro y moneda en Figma | Diego Steven Martin Espinoza Picón | ✅ Done |
 | Construir el formulario de onboarding y capturar los datos del negocio | Joshua Nicolás Chávez Cerna | ✅ Done |
-| Definir la estructura de la entidad BusinessProfile y preparar la persistencia local | Sebastián Chicata Serrato | 🔄 In Progress |
+| Definir la estructura de la entidad BusinessProfile y preparar la persistencia en la nube | Sebastián Chicata Serrato | 🔄 In Progress |
 | Validar que el nombre, rubro y moneda se guarden y persistan correctamente en la interfaz | Yessly Poma de la Cruz | 📋 To Do |
-
-##### Historia: HU-02 — Acceso local sin servidor externo
-
-| Tarea | Responsable | Estado |
-|-------|-------------|--------|
-| Implementar la lógica para que la aplicación recupere el perfil creado y conserve la información almacenada al iniciar sesión | Jim Segovia Valencia | 📋 To Do |
-| Simular cierres y aperturas de la app para asegurar que no se dependa de un servidor externo y los datos se mantengan | Yessly Poma de la Cruz | 📋 To Do |
 
 ##### Historia: HU-03 — Selección de módulos visibles en el dashboard
 
@@ -425,7 +417,7 @@ Dado que el Sprint 0 fue una fase de preparación, no se comprometieron historia
 
 | Métrica | Sprint 0 | Sprint 1 | Sprint 2 |
 |---------|----------|----------|----------|
-| **Historias comprometidas** | 0 (tareas de preparación) | 11 | 5 |
+| **Historias comprometidas** | 0 (tareas de preparación) | 10 | 5 |
 | **Tareas completadas** | 8 / 8 | En progreso | 0 / 52 |
 | **Estado general** | ✅ Terminado | 🔄 En Progreso | 📋 Por Iniciar |
 

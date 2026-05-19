@@ -16,48 +16,9 @@ import canvaLogo from '../../../assets/tools/canva.svg';
 import figmaLogo from '../../../assets/tools/figma.svg';
 import githubLogo from '../../../assets/tools/github.svg';
 import googleDriveLogo from '../../../assets/tools/google-drive.svg';
+import googleMeetLogo from '../../../assets/tools/google-meet.svg';
 import jiraLogo from '../../../assets/tools/jira.svg';
 
-
-## Herramientas del Proyecto
-
-<div class="team-tools-grid">
-  <article class="team-tool-card">
-    <span class="team-tool-card__icon">
-      <img src={jiraLogo.src} alt="" loading="lazy" />
-    </span>
-    <h3>Jira</h3>
-    <p>Planificación de épicas, historias, subtareas y seguimiento diario del sprint.</p>
-  </article>
-  <article class="team-tool-card">
-    <span class="team-tool-card__icon">
-      <img src={figmaLogo.src} alt="" loading="lazy" />
-    </span>
-    <h3>Figma</h3>
-    <p>Mockups de alta fidelidad, wireframes y validación visual de la experiencia.</p>
-  </article>
-  <article class="team-tool-card">
-    <span class="team-tool-card__icon">
-      <img src={githubLogo.src} alt="" loading="lazy" />
-    </span>
-    <h3>GitHub</h3>
-    <p>Versionado, ramas por funcionalidad, pull requests y revisión colaborativa.</p>
-  </article>
-  <article class="team-tool-card">
-    <span class="team-tool-card__icon">
-      <img src={canvaLogo.src} alt="" loading="lazy" />
-    </span>
-    <h3>Canva</h3>
-    <p>Soporte visual para piezas gráficas, identidad del proyecto y materiales de apoyo.</p>
-  </article>
-  <article class="team-tool-card">
-    <span class="team-tool-card__icon">
-      <img src={googleDriveLogo.src} alt="" loading="lazy" />
-    </span>
-    <h3>Google Drive</h3>
-    <p>Repositorio compartido para documentos, respaldos y recursos del equipo.</p>
-  </article>
-</div>
 
 ## Equipo EmprendeX
 
@@ -171,19 +132,69 @@ import jiraLogo from '../../../assets/tools/jira.svg';
   Ya se integraron las fotos de todos los integrantes del equipo en las tarjetas.
 </p>
 
-## Coordinación del equipo
+## Herramientas del Proyecto
+
+<div class="team-tools-grid">
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={jiraLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Jira</h3>
+    <p>Planificación de épicas, historias, subtareas y seguimiento diario del sprint.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={figmaLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Figma</h3>
+    <p>Mockups de alta fidelidad, wireframes y validación visual de la experiencia.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={githubLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>GitHub</h3>
+    <p>Versionado, ramas por funcionalidad, pull requests y revisión colaborativa.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={googleMeetLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Google Meet</h3>
+    <p>Reuniones de sincronización, daily scrum, sprint planning y revisiones con el equipo y stakeholders.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={canvaLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Canva</h3>
+    <p>Soporte visual para piezas gráficas, identidad del proyecto y materiales de apoyo.</p>
+  </article>
+  <article class="team-tool-card">
+    <span class="team-tool-card__icon">
+      <img src={googleDriveLogo.src} alt="" loading="lazy" />
+    </span>
+    <h3>Google Drive</h3>
+    <p>Repositorio compartido para documentos, respaldos y recursos del equipo.</p>
+  </article>
+</div>
+
+## Roles en la Gestión de la Configuración (SCM)
 
 <div class="team-ops-grid">
   <article class="team-ops-card">
-    <h3>Canales principales</h3>
-    <p><strong>Jira:</strong> seguimiento diario de tareas, responsables y avance por sprint.</p>
-    <p><strong>GitHub:</strong> gestión de código, revisión de pull requests y versionado continuo.</p>
-    <p><strong>Reuniones de sincronización:</strong> daily scrum y planificación semanal para mantener ritmo y foco.</p>
+    <h3>Comité de Control de Cambios (CCB)</h3>
+    <p><strong>Responsables:</strong> Jim Segovia, Joshua Chávez, David Piñarreta y Diego Espinoza.</p>
+    <p>Evalúan, aprueban o rechazan las solicitudes de cambio que impactan la línea base del proyecto. Deciden la viabilidad técnica, el impacto en cronograma y los riesgos de cada modificación propuesta.</p>
   </article>
   <article class="team-ops-card">
-    <h3>Acuerdos de trabajo</h3>
-    <p><strong>Commits semánticos:</strong> se mantiene un historial claro con prefijos como <code>feat:</code>, <code>fix:</code>, <code>docs:</code> y <code>chore:</code>.</p>
-    <p><strong>Ramas por funcionalidad:</strong> cada cambio importante viaja aislado y se integra con pull requests.</p>
-    <p><strong>Revisión entre pares:</strong> todo cambio significativo pasa por al menos una revisión antes de entrar a la rama principal.</p>
+    <h3>Bibliotecario</h3>
+    <p><strong>Responsables:</strong> Christian Arancivia, Diego Arévalo, Sebastián Chicata y Yessly Poma.</p>
+    <p>Administran los repositorios de trabajo, controlan las versiones de los ítems de configuración y mantienen actualizado el inventario documental del proyecto.</p>
+  </article>
+  <article class="team-ops-card">
+    <h3>Gestor de la Gestión de la Configuración</h3>
+    <p><strong>Responsables:</strong> Jim Segovia y David Piñarreta.</p>
+    <p>Definen el plan de SCM, establecen las líneas base, auditan el cumplimiento de los procesos de gestión de configuración y aseguran la trazabilidad de todos los artefactos del proyecto.</p>
   </article>
 </div>

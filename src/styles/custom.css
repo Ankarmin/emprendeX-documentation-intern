@@ -40,6 +40,19 @@ html {
   --ex-shadow-soft: 0 24px 60px rgba(26, 35, 68, 0.16);
 }
 
+starlight-toc a[aria-current='true'],
+starlight-toc a[aria-current='true']:hover,
+starlight-toc a[aria-current='true']:focus,
+.right-sidebar-panel :where(a[aria-current='true']),
+.right-sidebar-panel :where(a[aria-current='true']):hover,
+.right-sidebar-panel :where(a[aria-current='true']):focus {
+  color: var(--ex-brand-purple);
+}
+
+mobile-starlight-toc a[aria-current='true']::after {
+  background-color: var(--ex-brand-purple);
+}
+
 html[data-has-hero] main .content-panel:first-child .sl-container {
   max-width: 78rem;
 }
@@ -704,3 +717,19 @@ html[data-theme='dark'] .team-member-card__body h3 {
     height: 8.2rem;
   }
 }
+
+/* Logo en Resumen Ejecutivo */
+.emprendex-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.emprendex-logo {
+  height: 80px;
+  width: auto;
+}
+
+.emprendex-logo-dark { display: none; }
+:root[data-theme='dark'] .emprendex-logo-light { display: none; }
+:root[data-theme='dark'] .emprendex-logo-dark { display: block; }
