@@ -205,7 +205,7 @@ export default defineConfig({
           items: [
             { label: 'Arquitectura General', link: '/arquitectura/overview/' },
             {
-              label: 'Frontend (App Móvil)',
+              label: 'Frontend',
               items: [
                 { label: 'Navegación (Expo Router)', link: '/arquitectura/frontend/navegacion/' },
                 { label: 'Gestión de Estado', link: '/arquitectura/frontend/estado/' },
@@ -220,6 +220,13 @@ export default defineConfig({
                 { label: 'Base de Datos', link: '/arquitectura/backend/base-de-datos/' },
               ],
             },
+          ],
+        },
+        {
+          label: 'SCM',
+          items: [
+            { label: 'Gestión de Configuración', link: '/scm/' },
+            { label: 'Trazabilidad con GitHub', link: '/scm/trazabilidad/' },
           ],
         },
         {

@@ -1,0 +1,730 @@
+---
+title: Trazabilidad con GitHub
+description: Matriz de trazabilidad completa de la Versión 2 de EmprendeX, conectando cada funcionalidad con sus commits reales en GitHub.
+---
+
+import ScmTraceabilityTable from '../../../../components/ScmTraceabilityTable.astro';
+
+export const traceRows = [
+  {
+    id: 'F01 - Fundación del proyecto',
+    references: [
+      {
+        label: 'Backend: chore: inicializar proyecto backend NestJS',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/b1d699b',
+        note: 'Commit fundacional del backend',
+      },
+      {
+        label: 'Backend: chore: configuración inicial de dependencias y estructura',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/cf93e17',
+        note: 'Estructura base del proyecto backend',
+      },
+      {
+        label: 'Mobile: chore: inicializar proyecto React Native / Expo',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/0a3fe65',
+        note: 'Commit fundacional del mobile',
+      },
+      {
+        label: 'Mobile: chore: configuración de dependencias y estructura base',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/10399f0',
+        note: 'Configuración inicial del proyecto mobile',
+      },
+      {
+        label: 'Mobile: chore: configuración de entorno y tooling inicial',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/1cb056e',
+        note: 'Tooling y entorno de desarrollo mobile',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F02 - Navegación y Layout',
+    references: [
+      {
+        label: 'Mobile: feat(nav): implementar estructura de navegación principal',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/52e2f5c',
+        note: 'Base de navegación de la app',
+      },
+      {
+        label: 'Mobile: feat(layout): crear layout base con drawer de navegación',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/a0a4de5',
+        note: 'Estructura de layout principal',
+      },
+      {
+        label: 'Mobile: feat(drawer): implementar menú lateral de navegación',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/d8aa4f1',
+        note: 'Menú lateral con accesos a módulos',
+      },
+      {
+        label: 'Mobile: merge: integrar ramas de características',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/35e37d9',
+        note: 'Merge de ramas de desarrollo',
+      },
+      {
+        label: 'Mobile: feat(anim): agregar animaciones al drawer de navegación',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/006eb41',
+        note: 'Transiciones animadas en navegación',
+      },
+      {
+        label: 'Mobile: feat(nav): unificar navegación y flujo de cotizaciones',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/1e99825',
+        note: 'Refactor de navegación principal',
+      },
+      {
+        label: 'Mobile: fix(ui): corregir navegación de retroceso y superposición',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/156bc2e',
+        note: 'Fix de navegación (Sprint 1)',
+      },
+      {
+        label: 'Mobile: style(tabs): mejora de estilos y colores en pestañas',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/8307ab3',
+        note: 'Mejoras visuales en tabs',
+      },
+      {
+        label: 'Mobile: style(ui): homogeneizar headers, paddings y limpiar imports',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/0cc657e',
+        note: 'Estandarización de UI',
+      },
+      {
+        label: 'Mobile: feat(layout): actualizar botón central desplegable',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/e0d87a8',
+        note: 'FAB y navegación central',
+      },
+      {
+        label: 'Mobile: merge: integrar cambios de main',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/aec7b9e',
+        note: 'Merge de main',
+      },
+      {
+        label: 'Mobile: merge: integrar ramas de desarrollo',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/dce7078',
+        note: 'Merge de features',
+      },
+      {
+        label: 'Mobile: feat(fab): animación radial y dispersión baja de menú',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/814bfc5',
+        note: 'Animación del FAB con 3 acciones',
+      },
+      {
+        label: 'Mobile: feat(catalog): añadir control de stock y gestión de unidades',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/5f1c80c',
+        note: 'Stock y unidades en catálogo',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F03 - Autenticación y Sesión',
+    references: [
+      {
+        label: 'Backend: feat(auth): implementar endpoints de autenticación JWT',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/6cb93ad',
+        note: 'Sistema de autenticación base',
+      },
+      {
+        label: 'Backend: feat(auth): alinear registro y login con nuevo esquema',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/8116518',
+        note: 'Adaptación de auth al modelo normalizado',
+      },
+      {
+        label: 'Backend: feat(users): adaptar usuario y sesión al modelo normalizado',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/500c5da',
+        note: 'Usuario y sesión normalizados',
+      },
+      {
+        label: 'Mobile: feat(auth): crear cliente de sesión y pantallas de login',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/bb65530',
+        note: 'Pantallas de autenticación mobile',
+      },
+      {
+        label: 'Mobile: feat(account): mostrar datos reales de sesión en drawer',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/569df2a',
+        note: 'Sesión en UI',
+      },
+      {
+        label: 'Mobile: fix(auth): corregir guardado de sesión y errores de login',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/44766bf',
+        note: 'Corrección de bugs de sesión',
+      },
+      {
+        label: 'Mobile: feat(auth): implementar pantalla de registro de usuario',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/5750725',
+        note: 'Registro de usuario e integración auth',
+      },
+      {
+        label: 'Mobile: feat(auth): agregar campos al registro y corregir lag',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/3a23446',
+        note: 'Correcciones en registro',
+      },
+      {
+        label: 'Mobile: feat(auth): alinear payloads mobile con esquema normalizado',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/83b245a',
+        note: 'Adaptación al backend normalizado',
+      },
+      {
+        label: 'Mobile: feat(auth): ajustar cliente móvil al contrato normalizado',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/b53c210',
+        note: 'Cliente auth normalizado',
+      },
+      {
+        label: 'Mobile: feat(account): mostrar identidad normalizada en drawer',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/27896a5',
+        note: 'Identidad de usuario en UI',
+      },
+      {
+        label: 'Mobile: feat(core): agregar api client para peticiones HTTP',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/b8dad00',
+        note: 'Cliente HTTP base para API',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F04 - Onboarding y Configuración Inicial',
+    references: [
+      {
+        label: 'Backend: feat(onboarding): implementar endpoint de configuración de negocio',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/d38cff2',
+        note: 'Configuración inicial del negocio',
+      },
+      {
+        label: 'Backend: feat(onboarding): agregar selección de módulos del sistema',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/c5ac77b',
+        note: 'Selección de módulos para el negocio',
+      },
+      {
+        label: 'Backend: fix(onboarding): asignar módulos básicos por defecto',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/7e51627',
+        note: 'Corrección de módulos por defecto (Sprint 1)',
+      },
+      {
+        label: 'Backend: fix(onboarding): mostrar pantalla de módulos solo una vez al registrarse',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/dfd68b6',
+        note: 'Bug de pantalla repetida corregido',
+      },
+      {
+        label: 'Mobile: feat(onboarding): implementar pantalla de bienvenida',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/9a2275d',
+        note: 'Pantalla inicial del onboarding',
+      },
+      {
+        label: 'Mobile: feat(onboarding): crear formulario de datos del negocio',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/8841e3e',
+        note: 'Formulario de registro del negocio',
+      },
+      {
+        label: 'Mobile: feat(onboarding): implementar selección de módulos',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/6f41eb0',
+        note: 'Pantalla de selección de módulos',
+      },
+      {
+        label: 'Mobile: feat(onboarding): integrar flujo con backend',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/0566587',
+        note: 'Conexión onboarding con API',
+      },
+      {
+        label: 'Mobile: feat(onboarding): ajustar registro al nuevo payload',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/7364004',
+        note: 'Validación de datos del negocio',
+      },
+      {
+        label: 'Mobile: feat(modules): activar solo la navegación seleccionada',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/8d116e9',
+        note: 'Navegación condicionada por módulos',
+      },
+      {
+        label: 'Mobile: refactor(modules): simplificar selección inicial de módulos',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/0201e1f',
+        note: 'Simplificación de onboarding',
+      },
+      {
+        label: 'Mobile: feat(onboarding): actualizar lógica de onboarding',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/9158b78',
+        note: 'Actualización de flujo de onboarding',
+      },
+      {
+        label: 'Mobile: feat(onboarding): cambiar texto del botón a Continuar',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/6f48691',
+        note: 'Ajuste funcional y visual del onboarding',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F05 - Catálogo (Productos y Servicios)',
+    references: [
+      {
+        label: 'Backend: feat(catalog): crear entidad de productos y servicios',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/3969a3e',
+        note: 'Entidad base del catálogo',
+      },
+      {
+        label: 'Backend: feat(catalog): implementar endpoint de creación de productos',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/7876b20',
+        note: 'Endpoints del catálogo',
+      },
+      {
+        label: 'Backend: feat(catalog): sembrar unidades y categorías por negocio',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/4913a54',
+        note: 'Datos semilla del catálogo',
+      },
+      {
+        label: 'Backend: test(catalog): aislar módulo en pruebas e2e',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/c7518fe',
+        note: 'Tests del catálogo',
+      },
+      {
+        label: 'Backend: feat(products): exponer CRUD real del módulo',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/ef0c417',
+        note: 'CRUD de productos y servicios',
+      },
+      {
+        label: 'Backend: fix(products): hacer idempotente la migración y semillas',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/18c8e42',
+        note: 'Corrección de migraciones',
+      },
+      {
+        label: 'Backend: test(products): actualizar mock del módulo en e2e',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/0fa2a24',
+        note: 'Tests actualizados',
+      },
+      {
+        label: 'Backend: feat(catalog): ajustar esquema base y referencias de items',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/4b96492',
+        note: 'Ajustes de esquema',
+      },
+      {
+        label: 'Backend: refactor(catalog): ajustar referencias del catálogo',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/404c705',
+        note: 'Refactor de referencias',
+      },
+      {
+        label: 'Backend: fix(catalog): corregir validación de módulo de productos',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/56464b4',
+        note: 'Bug de validación corregido',
+      },
+      {
+        label: 'Backend: fix(catalog): permitir crear unidades y categorías al guardar',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/2f1211b',
+        note: 'Fix de creación de unidades',
+      },
+      {
+        label: 'Backend: feat(catalog): agregar CRUD de unidades y categorías por negocio',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/0befdc2',
+        note: 'CRUD completo de catálogo',
+      },
+      {
+        label: 'Mobile: feat(catalog): implementar pantalla de listado de productos',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/c295862',
+        note: 'Listado de productos mobile',
+      },
+      {
+        label: 'Mobile: fix(catalog): corregir encabezado de catálogo',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/5c82adf',
+        note: 'Corrección de UI en catálogo',
+      },
+      {
+        label: 'Mobile: fix(products): mejorar layout y ocultar tabs dinámicos',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/cbad7ec',
+        note: 'Mejora de layout de productos',
+      },
+      {
+        label: 'Mobile: feat(products): modificar y estilizar pantalla de nuevo producto',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/92ba97a',
+        note: 'Formulario de nuevo producto',
+      },
+      {
+        label: 'Mobile: feat(catalog): agregar cliente móvil del catálogo',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/74c53c9',
+        note: 'Cliente de catálogo mobile',
+      },
+      {
+        label: 'Mobile: feat(catalog): conectar listado y detalle de items',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/d39e76e',
+        note: 'Listado y detalle conectados',
+      },
+      {
+        label: 'Mobile: feat(catalog): conectar alta de productos y servicios',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/2aeb451',
+        note: 'Alta de productos conectada',
+      },
+      {
+        label: 'Mobile: refactor(products): renombrar cliente móvil de productos',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/06c7fc9',
+        note: 'Renombrado de módulo',
+      },
+      {
+        label: 'Mobile: feat(products): conectar listado, detalle y edición',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/d4abcab',
+        note: 'CRUD completo en mobile',
+      },
+      {
+        label: 'Mobile: feat(products): gestor desplegable para unidad/categoría',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/49bb152',
+        note: 'Selector de unidad y categoría',
+      },
+      {
+        label: 'Mobile: feat(products): actualizar gestión de productos',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/f20025e',
+        note: 'Actualización de gestión',
+      },
+      {
+        label: 'Mobile: fix(products): enviar nombres al crear unidades y categorías custom',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/9a3504d',
+        note: 'Fix de envío de datos',
+      },
+      {
+        label: 'Mobile: fix(products): persistir unidades y categorías al agregarlas',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/66aced0',
+        note: 'Persistencia de unidades',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F06 - Clientes',
+    references: [
+      {
+        label: 'Backend: feat(customers): agregar módulo de clientes',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/57801e7',
+        note: 'Módulo de clientes backend',
+      },
+      {
+        label: 'Mobile: feat(clients): integrar buscador interno y estandarizar cabecera',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/7842ebf',
+        note: 'Buscador y UI de clientes',
+      },
+      {
+        label: 'Mobile: feat(clients): integrar módulo de clientes con el backend',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/293d51a',
+        note: 'Integración con API',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F07 - Planes y Suscripciones',
+    references: [
+      {
+        label: 'Backend: feat(plans): agregar módulo de planes',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/a89fd7f',
+        note: 'Módulo de planes backend',
+      },
+      {
+        label: 'Mobile: feat(plans): bloquear módulo calendario para usuarios premium',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/d93cfd8',
+        note: 'Paywall de módulos premium',
+      },
+      {
+        label: 'Mobile: feat(account): mostrar el plan activo del usuario',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/9b1b754',
+        note: 'Plan en perfil',
+      },
+      {
+        label: 'Mobile: feat(plans): integrar planes con el backend',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/77e651a',
+        note: 'Integración de planes',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F08 - Calendario',
+    references: [
+      {
+        label: 'Backend: feat(calendar): agregar módulo de calendario',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/b3c4334',
+        note: 'Módulo de calendario backend',
+      },
+      {
+        label: 'Mobile: feat(calendar): integrar calendario con el backend',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/0493064',
+        note: 'Integración con API',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F09 - Operaciones y Cotizaciones',
+    references: [
+      {
+        label: 'Backend: feat(sales): mapear cotizaciones, pedidos y pagos',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/2d4fbf3',
+        note: 'Entidades de ventas',
+      },
+      {
+        label: 'Mobile: feat(ops): agregar pantalla de Nueva Operación',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/90a2a9a',
+        note: 'Formulario de nueva operación',
+      },
+      {
+        label: 'Mobile: feat(ops): usar productos-servicios reales en cotizaciones',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/18cbba3',
+        note: 'Cotizaciones con datos reales',
+      },
+      {
+        label: 'Mobile: feat(ops): separar productos y servicios en cotizaciones',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/a6f4562',
+        note: 'Separación de items en cotización',
+      },
+      {
+        label: 'Mobile: feat(ops): actualizar vistas de operaciones',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/e58db52',
+        note: 'Actualización de vistas',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F10 - Ventas',
+    references: [
+      {
+        label: 'Backend: feat(sales): agregar módulo de ventas',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/fb0c150',
+        note: 'Módulo de ventas backend',
+      },
+      {
+        label: 'Mobile: feat(sales): integrar cotizaciones con el backend',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/e318bb8',
+        note: 'Integración de ventas',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F11 - Reportes',
+    references: [
+      {
+        label: 'Backend: feat(reports): agregar módulo de reportes',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/1f229e0',
+        note: 'Módulo de reportes backend',
+      },
+      {
+        label: 'Mobile: feat(reports): integrar reportes con el backend',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/66cb67f',
+        note: 'Integración de reportes',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F12 - Finanzas y Contabilidad',
+    references: [
+      {
+        label: 'Backend: feat(finance): agregar módulo de finanzas',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/ba453fb',
+        note: 'Módulo de finanzas backend',
+      },
+      {
+        label: 'Backend: feat(finance): mapear categorías y gastos',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/f9723ba',
+        note: 'Entidades de finanzas',
+      },
+      {
+        label: 'Mobile: feat(payments): agregar vista de nuevo pago',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/3a1c95f',
+        note: 'Formulario de pago',
+      },
+      {
+        label: 'Mobile: refactor(accounting): evolucionar pagos a contabilidad unificada',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/f23bcb0',
+        note: 'Refactor a contabilidad',
+      },
+      {
+        label: 'Mobile: refactor(accounting): simplificar registro de pagos y gastos',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/f46d294',
+        note: 'Simplificación de registro',
+      },
+      {
+        label: 'Mobile: feat(accounting): integrar contabilidad con el backend',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/03cdcd3',
+        note: 'Integración contable',
+      },
+      {
+        label: 'Mobile: feat(modules): actualizar contabilidad y estilizado Pro en sidebar',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/10e2757',
+        note: 'Estilo premium en sidebar',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F13 - Base de Datos y Esquema',
+    references: [
+      {
+        label: 'Backend: feat(users): configurar base de la app y capa de persistencia',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/7ec0440',
+        note: 'Persistencia y configuración base',
+      },
+      {
+        label: 'Backend: feat(schema): agregar entidades base del dominio',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/69d3525',
+        note: 'Entidades del dominio',
+      },
+      {
+        label: 'Backend: feat(migration): reemplazar esquema inicial por modelo normalizado',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/8323b8a',
+        note: 'Migración al modelo normalizado',
+      },
+      {
+        label: 'Backend: feat(seeds): poblar cuentas de prueba y suscripciones',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/982a27e',
+        note: 'Datos semilla',
+      },
+      {
+        label: 'Backend: refactor(database): externalizar esquema y mapear 22 tablas',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/d6cfbbc',
+        note: 'Externalización de esquema',
+      },
+      {
+        label: 'Backend: revert: revertir externalización de esquema',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/6c3b8f4',
+        note: 'Revert de cambio',
+      },
+      {
+        label: 'Backend: chore(database): quitar migraciones y semillas internas',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/97558af',
+        note: 'Limpieza de migraciones',
+      },
+      {
+        label: 'Backend: refactor(database): alinear entidades base con Railway',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/8c53074',
+        note: 'Alineación con Railway',
+      },
+      {
+        label: 'Backend: refactor(database): registrar entidades externas en TypeORM',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/1b297f5',
+        note: 'Registro de entidades',
+      },
+      {
+        label: 'Backend: chore(deploy): relanzar despliegue y migración',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/38a54fa',
+        note: 'Despliegue',
+      },
+      {
+        label: 'Backend: fix(database): habilitar synchronize en entorno de desarrollo',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/61d8e3b',
+        note: 'Sync en desarrollo',
+      },
+      {
+        label: 'Backend: fix(schema): corregir longitudes de columnas description y code',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/7bc3b69',
+        note: 'Corrección de longitudes',
+      },
+      {
+        label: 'Backend: fix(schema): agregar constraints unique para llaves foráneas',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/aa5ce4e',
+        note: 'Constraints unique',
+      },
+      {
+        label: 'Backend: fix(schema): agregar constraints check de validación',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/f6b2768',
+        note: 'Constraints de validación',
+      },
+      {
+        label: 'Backend: test: aislar dependencias e2e de la app',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/d1534e6',
+        note: 'Aislamiento de tests',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F14 - Infraestructura y DevOps',
+    references: [
+      {
+        label: 'Backend: chore(workspace): mostrar todos los archivos',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/80b5965',
+        note: 'Workspace',
+      },
+      {
+        label: 'Backend: style(ci): normalizar formato requerido por prettier',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/8f5664f',
+        note: 'Formato de código',
+      },
+      {
+        label: 'Backend: feat(app): integrar nuevos módulos y actualizar tests e2e',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/f87da81',
+        note: 'Integración de módulos',
+      },
+      {
+        label: 'Mobile: feat(ci-cd): configuración del pipeline CI y carpeta CD',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/899306b',
+        note: 'Pipeline CI/CD',
+      },
+      {
+        label: 'Mobile: merge: PR #2 CI/CD pipeline a main',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/3af51e4',
+        note: 'Merge de CI/CD',
+      },
+      {
+        label: 'Mobile: fix(testing): configurar jest para VSCode',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/2f09947',
+        note: 'Configuración de testing',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F15 - UX, Estilos y Mejoras',
+    references: [
+      {
+        label: 'Backend: docs: documentar configuración del backend y APIs de onboarding',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/af88a1c',
+        note: 'Documentación del backend',
+      },
+      {
+        label: 'Backend: chore(skills): agregar bundle de guías NestJS',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/c5ffc1c',
+        note: 'Skills NestJS',
+      },
+      {
+        label: 'Backend: chore(skills): agregar bundles de guías Node.js',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/c1e128e',
+        note: 'Skills Node.js',
+      },
+      {
+        label: 'Backend: chore(skills): agregar guía de tipos avanzados TypeScript',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/42ad656',
+        note: 'Skills TypeScript',
+      },
+      {
+        label: 'Backend: chore(skills): registrar lock del registro de skills',
+        url: 'https://github.com/Ankarmin/emprendeX-backend/commit/ede0d4a',
+        note: 'Registro de skills',
+      },
+      {
+        label: 'Mobile: feat(i18n): implementar caracteres en español',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/0433216',
+        note: 'Idioma español',
+      },
+      {
+        label: 'Mobile: feat(ui): implementar buscador en operaciones y correcciones',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/6950e74',
+        note: 'Buscador y correcciones',
+      },
+      {
+        label: 'Mobile: feat(brand): implementar logos oficiales en login y dashboard',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/11362bd',
+        note: 'Logos oficiales',
+      },
+      {
+        label: 'Mobile: docs(skills): agregar skill de convención de commits',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/a21f36e',
+        note: 'Guía de commits',
+      },
+      {
+        label: 'Mobile: feat(config): permitir eliminar y agregar módulos desde configuración',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/7d7594d',
+        note: 'Gestión de módulos',
+      },
+    ],
+    status: 'Completado en main',
+  },
+];
+
+## Trazabilidad con GitHub
+
+La siguiente matriz conecta cada funcionalidad de la Versión 2 con su evidencia real en GitHub. Se incluyen **todos los commits** de los repositorios [`emprendeX-backend`](https://github.com/Ankarmin/emprendeX-backend/commits/main/) y [`emprendeX-mobile`](https://github.com/JimSegovia/emprendeX-mobile/commits/main/) hasta el **19 de mayo de 2026**.
+
+<ScmTraceabilityTable rows={traceRows} />

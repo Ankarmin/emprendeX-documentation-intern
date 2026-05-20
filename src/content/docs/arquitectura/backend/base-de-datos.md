@@ -3,8 +3,6 @@ title: Base de Datos
 description: Modelo de datos y tecnología de base de datos utilizada en el backend de EmprendeX.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-
 <Aside type="note" title="Alcance actual">
   La infraestructura principal ya fue definida: EmprendeX utilizará PostgreSQL como motor de base de datos y Railway como plataforma de despliegue. El modelado específico de entidades del negocio se documentará en una iteración posterior.
 </Aside>
@@ -14,7 +12,7 @@ import { Aside } from '@astrojs/starlight/components';
 | Campo | Detalle |
 |-------|---------|
 | **Motor** | PostgreSQL |
-| **ORM / ODM** | Por definir |
+| **ORM / ODM** | TypeORM |
 | **Hosting** | Railway |
 
 ---

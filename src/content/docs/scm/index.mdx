@@ -1,0 +1,293 @@
+---
+title: SCM
+description: Gestión de Configuración y Control de Cambios del proyecto EmprendeX, con énfasis en la Versión 2 del sistema.
+---
+
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## SCM: Gestión de Configuración y Control de Cambios
+
+La gestión de configuración en EmprendeX se apoyó en repositorios GitHub, control disciplinado sobre `main`, documentación viva del proyecto y una línea base académica explícita para la **Versión 2** del sistema. Este módulo reúne el estado del entorno controlado, la línea base vigente y el flujo de cambio adoptado. La trazabilidad completa con GitHub se encuentra en la página [Trazabilidad con GitHub](/scm/trazabilidad/).
+
+<Aside type="tip" title="Informe Final de SCM (C6)">
+  Esta página consolida la evidencia principal de la disciplina de **Gestión de Configuración y Control de Cambios** para EmprendeX. En términos académicos, funciona como el **Informe Final de SCM**, conectando planificación, línea base, control de cambios y versión liberada. La **trazabilidad con GitHub** se documenta por separado en [Trazabilidad con GitHub](/scm/trazabilidad/).
+</Aside>
+
+<Tabs>
+  <TabItem label="Entorno y Planificación">
+    ### C1 y C4: Planificación SCM y ambiente controlado
+
+    El objetivo del SCM en EmprendeX fue mantener un ambiente de trabajo controlado sobre los artefactos más sensibles del proyecto: código fuente, documentación, diseño y configuración técnica. Para ello se definieron repositorios principales, una rama de integración estable y una práctica de actualización documental como parte del cierre de cambios relevantes.
+
+    <div class="scm-info-grid">
+      <article class="scm-info-card">
+        <h4>Herramientas base</h4>
+        <ul>
+          <li><strong>Git:</strong> versionado local y control histórico de cambios.</li>
+          <li><strong>GitHub:</strong> integración sobre `main`, commits y pull requests.</li>
+          <li><strong>Documentación web:</strong> evidencia consolidada del estado del proyecto.</li>
+          <li><strong>Figma:</strong> respaldo visual de prototipos y referencias de interfaz.</li>
+        </ul>
+      </article>
+      <article class="scm-info-card">
+        <h4>Artefactos bajo configuración</h4>
+        <ul>
+          <li>Código del backend.</li>
+          <li>Código de la app móvil.</li>
+          <li>Documentación del proyecto.</li>
+          <li>Diseños base y referencias de UI en Figma.</li>
+          <li>Workflows y configuraciones técnicas de integración.</li>
+        </ul>
+      </article>
+    </div>
+
+    | Ambiente | Propósito | Repositorios / Artefactos | Control aplicado |
+    |---|---|---|---|
+    | Desarrollo | Construcción diaria de funcionalidades, pruebas y ajustes | `Ankarmin/emprendeX-backend`, `JimSegovia/emprendeX-mobile`, sitio de documentación y Figma | Commits frecuentes, integración progresiva y revisión del equipo |
+    | Baseline académica / producción documental | Mostrar el estado estable y demostrable de la Versión 2 | Estado actual de `main` al cierre del Sprint 1 y documentación publicada | Corte explícito de línea base y trazabilidad por commit / PR |
+
+    El ambiente controlado se sostuvo con una regla simple y verificable: el trabajo se desarrolla y se consolida mediante evidencia versionada, y el estado de referencia del sistema se comunica a través de la rama `main` y de esta documentación actualizada.
+  </TabItem>
+
+  <TabItem label="Líneas Base">
+    ### C2 y C3: Definición y seguimiento de la línea base
+
+    La **Línea Base V2** de EmprendeX se definió como el estado de los repositorios al cierre del **Sprint 1** (~17 de mayo de 2026 para el alcance frontend, ~18 de mayo para el alcance backend). Esta línea base representa el conjunto de artefactos que componen la versión académica demostrable del sistema.
+
+    <div class="scm-release-card">
+      <div>
+        <span class="scm-release-card__eyebrow">Línea base vigente</span>
+        <h3>Versión 2</h3>
+        <p>Baseline académica construida sobre el estado consolidado de backend y mobile en `main`, con soporte documental y referencias de diseño activas.</p>
+      </div>
+      <div class="scm-release-card__meta">
+        <span><strong>Fecha de corte:</strong> Sprint 1</span>
+        <span><strong>Estado:</strong> Consolidada</span>
+        <span><strong>Alcance:</strong> Backend + Mobile + Documentación</span>
+      </div>
+    </div>
+
+    | Ítem de configuración | Fuente | Referencia base | Estado | Observación |
+    |---|---|---|---|---|
+    | Backend principal | [Ankarmin/emprendeX-backend](https://github.com/Ankarmin/emprendeX-backend/commits/main/) | [`7e51627`](https://github.com/Ankarmin/emprendeX-backend/commit/7e51627) | Vigente | fix(onboarding): asignar módulos básicos por defecto (May 18 17:05) |
+    | App móvil | [JimSegovia/emprendeX-mobile](https://github.com/JimSegovia/emprendeX-mobile/commits/main/) | [`156bc2e`](https://github.com/JimSegovia/emprendeX-mobile/commit/156bc2e) | Vigente | fix(ui): corregir navegación de retroceso y superposición de menús (May 17 23:44) |
+    | Documentación del proyecto | Sitio Starlight de EmprendeX | Baseline documental actual | Vigente | Reúne Scrum, arquitectura, SCM y trazabilidad |
+    | Diseños base | Figma del proyecto | Mockups y referencias activas del equipo | Vigente | Sirven como soporte visual y criterio de consistencia |
+
+    El seguimiento de esta línea base se realiza mediante el registro continuo de commits, la verificación del estado integrado en `main`, la revisión del equipo sobre los artefactos críticos y la actualización documental cuando un cambio afecta la referencia vigente del sistema.
+  </TabItem>
+
+  <TabItem label="Control de Cambios">
+    ### C5: Flujo de control de cambios
+
+    En EmprendeX el control de cambios se aplicó con un flujo realista y proporcional al tamaño del equipo: una necesidad de cambio se discute, se evalúa técnicamente, se implementa en el repositorio correspondiente, se valida y luego se integra al estado principal del proyecto. Finalmente, el cambio se refleja en la documentación.
+
+    <div class="scm-flow-grid">
+      <article class="scm-flow-step">
+        <h4>1. Detección</h4>
+        <p>Se identifica una necesidad funcional, técnica o documental a partir de avance de sprint, revisión interna o integración pendiente.</p>
+      </article>
+      <article class="scm-flow-step">
+        <h4>2. Discusión</h4>
+        <p>El equipo revisa impacto, urgencia y área afectada antes de ejecutar el cambio.</p>
+      </article>
+      <article class="scm-flow-step">
+        <h4>3. Implementación</h4>
+        <p>Se desarrolla en commit controlado y, cuando corresponde, en una rama específica de trabajo.</p>
+      </article>
+      <article class="scm-flow-step">
+        <h4>4. Integración</h4>
+        <p>El resultado se consolida en `main` por merge o por secuencia controlada de commits.</p>
+      </article>
+      <article class="scm-flow-step">
+        <h4>5. Actualización</h4>
+        <p>Se registra el estado del cambio en la documentación y en la línea base vigente.</p>
+      </article>
+    </div>
+
+    | Etapa | Responsable principal | Evidencia |
+    |---|---|---|
+    | Solicitud / necesidad de cambio | Equipo de desarrollo / coordinación | Discusión técnica y decisión de implementación |
+    | Evaluación y priorización | Coordinación del equipo / responsables técnicos | Validación del impacto sobre backend, mobile o docs |
+    | Implementación | Desarrollador responsable | Commit o rama de trabajo |
+    | Integración | Responsable del merge o autor del cambio | Merge a `main` o consolidación en rama principal |
+    | Cierre documental | Equipo de documentación / coordinación | Actualización del sitio documental |
+
+    La estrategia de ramas no fue uniforme en todos los repositorios, pero sí existieron evidencias claras en mobile, por ejemplo:
+
+    - [PR #1 - `Feat/pnpm migration`](https://github.com/JimSegovia/emprendeX-mobile/pull/1) sobre la rama `feat/pnpm-migration`.
+    - [PR #2 - `Feat(CI - CD): Configuración del Pipeline Ci y creación de la carpeta CD`](https://github.com/JimSegovia/emprendeX-mobile/pull/2) sobre la rama `Config_pipeline`.
+
+    <Aside type="caution" title="Trazabilidad real del proyecto">
+      Estos repositorios no usan **GitHub Issues** como mecanismo formal de control de cambio. Por eso la trazabilidad del proyecto se sostiene principalmente con **commits, ramas, pull requests y revisión del equipo**, no con tickets nativos de GitHub.
+    </Aside>
+  </TabItem>
+
+  <TabItem label="Versiones y Release Notes">
+    ### C7 y C8: Descripción de la versión y notas de release
+
+    <div class="scm-release-card">
+      <div>
+        <span class="scm-release-card__eyebrow">Release académico</span>
+        <h3>Versión 2</h3>
+        <p>Entrega formal del sistema basada en el estado de `main` al cierre del Sprint 1, con documentación técnica y funcional consolidada para evaluación académica.</p>
+      </div>
+      <div class="scm-release-card__meta">
+        <span><strong>Fecha:</strong> Sprint 1</span>
+        <span><strong>Estado:</strong> Liberada académicamente</span>
+        <span><strong>Repos:</strong> Backend + Mobile</span>
+      </div>
+    </div>
+
+    La Versión 2 incluye componentes del backend, la app móvil y el soporte documental necesario para explicar el comportamiento del sistema, su estructura y sus cambios más importantes.
+
+    <div class="scm-note-grid">
+      <article class="scm-note-card">
+        <h4>Nuevas funcionalidades</h4>
+        <ul>
+          <li>Backend: [módulo de autenticación — registro, login y sesión JWT](https://github.com/Ankarmin/emprendeX-backend/commit/6cb93ad).</li>
+          <li>Backend: [login con JWT](https://github.com/Ankarmin/emprendeX-backend/commit/8116518).</li>
+          <li>Backend: [validación de sesión y refresh token](https://github.com/Ankarmin/emprendeX-backend/commit/500c5da).</li>
+          <li>Backend: [módulo de onboarding — configuración de negocio](https://github.com/Ankarmin/emprendeX-backend/commit/d38cff2).</li>
+          <li>Backend: [selección de módulos del sistema](https://github.com/Ankarmin/emprendeX-backend/commit/c5ac77b).</li>
+          <li>Backend: [flujo completo de registro de negocio](https://github.com/Ankarmin/emprendeX-backend/commit/dfd68b6).</li>
+          <li>Backend: [módulo de catálogo — CRUD de productos y servicios](https://github.com/Ankarmin/emprendeX-backend/commit/ef0c417).</li>
+          <li>Backend: [entidad de productos y servicios](https://github.com/Ankarmin/emprendeX-backend/commit/3969a3e).</li>
+          <li>Backend: [creación de productos](https://github.com/Ankarmin/emprendeX-backend/commit/7876b20).</li>
+          <li>Backend: [listado de productos con filtros](https://github.com/Ankarmin/emprendeX-backend/commit/4913a54).</li>
+          <li>Backend: [actualización de productos](https://github.com/Ankarmin/emprendeX-backend/commit/c7518fe).</li>
+          <li>Backend: [eliminación lógica de productos](https://github.com/Ankarmin/emprendeX-backend/commit/18c8e42).</li>
+          <li>Backend: [búsqueda de productos](https://github.com/Ankarmin/emprendeX-backend/commit/0fa2a24).</li>
+          <li>Backend: [CRUD de unidades de medida](https://github.com/Ankarmin/emprendeX-backend/commit/404c705).</li>
+          <li>Backend: [CRUD de categorías](https://github.com/Ankarmin/emprendeX-backend/commit/2f1211b).</li>
+          <li>Backend: [CRUD de unidades y categorías por negocio](https://github.com/Ankarmin/emprendeX-backend/commit/0befdc2).</li>
+          <li>Backend: [módulo de clientes](https://github.com/Ankarmin/emprendeX-backend/commit/57801e7).</li>
+          <li>Backend: [módulo de planes](https://github.com/Ankarmin/emprendeX-backend/commit/a89fd7f).</li>
+          <li>Backend: [módulo de calendario](https://github.com/Ankarmin/emprendeX-backend/commit/b3c4334).</li>
+          <li>Backend: [módulo de operaciones y cotizaciones](https://github.com/Ankarmin/emprendeX-backend/commit/2d4fbf3).</li>
+          <li>Backend: [módulo de ventas](https://github.com/Ankarmin/emprendeX-backend/commit/fb0c150).</li>
+          <li>Backend: [módulo de reportes](https://github.com/Ankarmin/emprendeX-backend/commit/1f229e0).</li>
+          <li>Backend: [módulo de finanzas](https://github.com/Ankarmin/emprendeX-backend/commit/ba453fb).</li>
+          <li>Backend: [flujo contable básico](https://github.com/Ankarmin/emprendeX-backend/commit/f9723ba).</li>
+          <li>Backend: [esquema de base de datos y migraciones](https://github.com/Ankarmin/emprendeX-backend/commit/7ec0440).</li>
+          <li>Mobile: [autenticación — pantalla de login](https://github.com/JimSegovia/emprendeX-mobile/commit/bb65530).</li>
+          <li>Mobile: [integración de login con backend](https://github.com/JimSegovia/emprendeX-mobile/commit/569df2a).</li>
+          <li>Mobile: [pantalla de registro](https://github.com/JimSegovia/emprendeX-mobile/commit/44766bf).</li>
+          <li>Mobile: [recuperación de contraseña](https://github.com/JimSegovia/emprendeX-mobile/commit/3a23446).</li>
+          <li>Mobile: [onboarding — pantalla de bienvenida](https://github.com/JimSegovia/emprendeX-mobile/commit/9a2275d).</li>
+          <li>Mobile: [formulario de datos del negocio](https://github.com/JimSegovia/emprendeX-mobile/commit/8841e3e).</li>
+          <li>Mobile: [selección de módulos](https://github.com/JimSegovia/emprendeX-mobile/commit/6f41eb0).</li>
+          <li>Mobile: [catálogo — listado de productos](https://github.com/JimSegovia/emprendeX-mobile/commit/c295862).</li>
+          <li>Mobile: [formulario de creación de producto](https://github.com/JimSegovia/emprendeX-mobile/commit/5c82adf).</li>
+          <li>Mobile: [detalle de producto](https://github.com/JimSegovia/emprendeX-mobile/commit/92ba97a).</li>
+          <li>Mobile: [gestión de unidades de medida](https://github.com/JimSegovia/emprendeX-mobile/commit/06c7fc9).</li>
+          <li>Mobile: [gestión de categorías](https://github.com/JimSegovia/emprendeX-mobile/commit/d4abcab).</li>
+          <li>Mobile: [módulo de clientes — listado](https://github.com/JimSegovia/emprendeX-mobile/commit/7842ebf).</li>
+          <li>Mobile: [módulo de planes — listado](https://github.com/JimSegovia/emprendeX-mobile/commit/d93cfd8).</li>
+          <li>Mobile: [suscripciones](https://github.com/JimSegovia/emprendeX-mobile/commit/9b1b754).</li>
+          <li>Mobile: [módulo de calendario](https://github.com/JimSegovia/emprendeX-mobile/commit/0493064).</li>
+          <li>Mobile: [operaciones y cotizaciones](https://github.com/JimSegovia/emprendeX-mobile/commit/90a2a9a).</li>
+          <li>Mobile: [formulario de nueva cotización](https://github.com/JimSegovia/emprendeX-mobile/commit/18cbba3).</li>
+          <li>Mobile: [historial de cotizaciones](https://github.com/JimSegovia/emprendeX-mobile/commit/a6f4562).</li>
+          <li>Mobile: [módulo de ventas](https://github.com/JimSegovia/emprendeX-mobile/commit/e318bb8).</li>
+          <li>Mobile: [módulo de reportes](https://github.com/JimSegovia/emprendeX-mobile/commit/66cb67f).</li>
+          <li>Mobile: [dashboard financiero](https://github.com/JimSegovia/emprendeX-mobile/commit/3a1c95f).</li>
+          <li>Mobile: [registro de pagos](https://github.com/JimSegovia/emprendeX-mobile/commit/f23bcb0).</li>
+          <li>Mobile: [vista de cuentas contables](https://github.com/JimSegovia/emprendeX-mobile/commit/f46d294).</li>
+        </ul>
+      </article>
+      <article class="scm-note-card">
+        <h4>Mejoras</h4>
+        <ul>
+          <li>Backend: [asignar módulos básicos por defecto en onboarding](https://github.com/Ankarmin/emprendeX-backend/commit/7e51627).</li>
+          <li>Backend: [entidad de unidades de medida](https://github.com/Ankarmin/emprendeX-backend/commit/4b96492).</li>
+          <li>Backend: [entidad de categorías](https://github.com/Ankarmin/emprendeX-backend/commit/56464b4).</li>
+          <li>Backend: [mensajes de error en español](https://github.com/Ankarmin/emprendeX-backend/commit/af88a1c).</li>
+          <li>Backend: [configuración de marca del negocio](https://github.com/Ankarmin/emprendeX-backend/commit/c5ffc1c).</li>
+          <li>Backend: [respuestas de API con mensajes amigables](https://github.com/Ankarmin/emprendeX-backend/commit/c1e128e).</li>
+          <li>Backend: [formato estandarizado de respuestas HTTP](https://github.com/Ankarmin/emprendeX-backend/commit/42ad656).</li>
+          <li>Backend: [validaciones de entrada en español](https://github.com/Ankarmin/emprendeX-backend/commit/ede0d4a).</li>
+          <li>Backend: [relaciones entre entidades del sistema](https://github.com/Ankarmin/emprendeX-backend/commit/aa5ce4e).</li>
+          <li>Backend: [índices para optimización de consultas](https://github.com/Ankarmin/emprendeX-backend/commit/f6b2768).</li>
+          <li>Backend: [refinamiento de esquema de base de datos](https://github.com/Ankarmin/emprendeX-backend/commit/d1534e6).</li>
+          <li>Mobile: [estructura de navegación principal](https://github.com/JimSegovia/emprendeX-mobile/commit/52e2f5c).</li>
+          <li>Mobile: [layout base con drawer de navegación](https://github.com/JimSegovia/emprendeX-mobile/commit/a0a4de5).</li>
+          <li>Mobile: [menú lateral de navegación](https://github.com/JimSegovia/emprendeX-mobile/commit/d8aa4f1).</li>
+          <li>Mobile: [navegación por tabs inferiores](https://github.com/JimSegovia/emprendeX-mobile/commit/35e37d9).</li>
+          <li>Mobile: [cabecera y barra de estado](https://github.com/JimSegovia/emprendeX-mobile/commit/006eb41).</li>
+          <li>Mobile: [rutas y enrutamiento de módulos](https://github.com/JimSegovia/emprendeX-mobile/commit/1e99825).</li>
+          <li>Mobile: [corrección de navegación de retroceso y superposición de menús](https://github.com/JimSegovia/emprendeX-mobile/commit/156bc2e).</li>
+          <li>Mobile: [componentes de interfaz compartidos](https://github.com/JimSegovia/emprendeX-mobile/commit/8307ab3).</li>
+          <li>Mobile: [responsive y espaciado de pantallas](https://github.com/JimSegovia/emprendeX-mobile/commit/0cc657e).</li>
+          <li>Mobile: [transiciones entre pantallas](https://github.com/JimSegovia/emprendeX-mobile/commit/e0d87a8).</li>
+          <li>Mobile: [cierre de drawer al navegar](https://github.com/JimSegovia/emprendeX-mobile/commit/aec7b9e).</li>
+          <li>Mobile: [plantilla base de pantallas](https://github.com/JimSegovia/emprendeX-mobile/commit/dce7078).</li>
+          <li>Mobile: [protección de rutas según sesión](https://github.com/JimSegovia/emprendeX-mobile/commit/814bfc5).</li>
+          <li>Mobile: [indicadores de carga global](https://github.com/JimSegovia/emprendeX-mobile/commit/5f1c80c).</li>
+          <li>Mobile: [almacenamiento seguro del token](https://github.com/JimSegovia/emprendeX-mobile/commit/5750725).</li>
+          <li>Mobile: [protección de rutas autenticadas](https://github.com/JimSegovia/emprendeX-mobile/commit/83b245a).</li>
+          <li>Mobile: [cierre de sesión](https://github.com/JimSegovia/emprendeX-mobile/commit/b53c210).</li>
+          <li>Mobile: [validación de formularios auth](https://github.com/JimSegovia/emprendeX-mobile/commit/27896a5).</li>
+          <li>Mobile: [manejo de errores de autenticación](https://github.com/JimSegovia/emprendeX-mobile/commit/b8dad00).</li>
+          <li>Mobile: [actualización de la lógica de onboarding](https://github.com/JimSegovia/emprendeX-mobile/commit/9158b78).</li>
+          <li>Mobile: [cambio de texto del botón a Continuar](https://github.com/JimSegovia/emprendeX-mobile/commit/6f48691).</li>
+          <li>Mobile: [integración de onboarding con backend](https://github.com/JimSegovia/emprendeX-mobile/commit/0566587).</li>
+          <li>Mobile: [validación de formularios de negocio](https://github.com/JimSegovia/emprendeX-mobile/commit/7364004).</li>
+          <li>Mobile: [progreso paso a paso del onboarding](https://github.com/JimSegovia/emprendeX-mobile/commit/8d116e9).</li>
+          <li>Mobile: [redirección post-onboarding](https://github.com/JimSegovia/emprendeX-mobile/commit/0201e1f).</li>
+          <li>Mobile: [integración de listado de catálogo con API](https://github.com/JimSegovia/emprendeX-mobile/commit/cbad7ec).</li>
+          <li>Mobile: [edición de productos](https://github.com/JimSegovia/emprendeX-mobile/commit/74c53c9).</li>
+          <li>Mobile: [eliminación de productos](https://github.com/JimSegovia/emprendeX-mobile/commit/d39e76e).</li>
+          <li>Mobile: [filtros y búsqueda en catálogo](https://github.com/JimSegovia/emprendeX-mobile/commit/2aeb451).</li>
+          <li>Mobile: [carga de imágenes de producto](https://github.com/JimSegovia/emprendeX-mobile/commit/49bb152).</li>
+          <li>Mobile: [selector de unidad y categoría](https://github.com/JimSegovia/emprendeX-mobile/commit/f20025e).</li>
+          <li>Mobile: [refinamiento de formulario de producto](https://github.com/JimSegovia/emprendeX-mobile/commit/9a3504d).</li>
+          <li>Mobile: [estados de carga y errores en catálogo](https://github.com/JimSegovia/emprendeX-mobile/commit/66aced0).</li>
+          <li>Mobile: [integración de clientes con backend](https://github.com/JimSegovia/emprendeX-mobile/commit/293d51a).</li>
+          <li>Mobile: [integración de planes con backend](https://github.com/JimSegovia/emprendeX-mobile/commit/77e651a).</li>
+          <li>Mobile: [integración de cotizaciones con backend](https://github.com/JimSegovia/emprendeX-mobile/commit/e58db52).</li>
+          <li>Mobile: [integración de finanzas con backend](https://github.com/JimSegovia/emprendeX-mobile/commit/03cdcd3).</li>
+          <li>Mobile: [paleta de colores y tema corporativo](https://github.com/JimSegovia/emprendeX-mobile/commit/0433216).</li>
+          <li>Mobile: [tipografía y espaciado estandarizados](https://github.com/JimSegovia/emprendeX-mobile/commit/6950e74).</li>
+          <li>Mobile: [feedback visual en interacciones](https://github.com/JimSegovia/emprendeX-mobile/commit/11362bd).</li>
+          <li>Mobile: [estilos de tarjetas y contenedores unificados](https://github.com/JimSegovia/emprendeX-mobile/commit/a21f36e).</li>
+          <li>Mobile: [textos y etiquetas en español](https://github.com/JimSegovia/emprendeX-mobile/commit/7d7594d).</li>
+          <li>Mobile: [ajustes de estilos financieros](https://github.com/JimSegovia/emprendeX-mobile/commit/10e2757).</li>
+        </ul>
+      </article>
+      <article class="scm-note-card">
+        <h4>Ajustes técnicos</h4>
+        <ul>
+          <li>Backend: [inicialización del proyecto NestJS](https://github.com/Ankarmin/emprendeX-backend/commit/b1d699b).</li>
+          <li>Backend: [configuración de dependencias y estructura](https://github.com/Ankarmin/emprendeX-backend/commit/cf93e17).</li>
+          <li>Backend: [esquema inicial de base de datos](https://github.com/Ankarmin/emprendeX-backend/commit/7ec0440).</li>
+          <li>Backend: [migración de usuarios](https://github.com/Ankarmin/emprendeX-backend/commit/69d3525).</li>
+          <li>Backend: [migración de negocios](https://github.com/Ankarmin/emprendeX-backend/commit/8323b8a).</li>
+          <li>Backend: [migración de productos](https://github.com/Ankarmin/emprendeX-backend/commit/982a27e).</li>
+          <li>Backend: [migración de clientes](https://github.com/Ankarmin/emprendeX-backend/commit/d6cfbbc).</li>
+          <li>Backend: [migración de ventas](https://github.com/Ankarmin/emprendeX-backend/commit/6c3b8f4).</li>
+          <li>Backend: [migración de planes](https://github.com/Ankarmin/emprendeX-backend/commit/97558af).</li>
+          <li>Backend: [migración de suscripciones](https://github.com/Ankarmin/emprendeX-backend/commit/8c53074).</li>
+          <li>Backend: [migración de finanzas](https://github.com/Ankarmin/emprendeX-backend/commit/1b297f5).</li>
+          <li>Backend: [migración de cotizaciones](https://github.com/Ankarmin/emprendeX-backend/commit/38a54fa).</li>
+          <li>Backend: [migración de calendario](https://github.com/Ankarmin/emprendeX-backend/commit/61d8e3b).</li>
+          <li>Backend: [migración de reportes](https://github.com/Ankarmin/emprendeX-backend/commit/7bc3b69).</li>
+          <li>Backend: [pipeline de integración continua](https://github.com/Ankarmin/emprendeX-backend/commit/80b5965).</li>
+          <li>Backend: [configuración de despliegue y workspace](https://github.com/Ankarmin/emprendeX-backend/commit/8f5664f).</li>
+          <li>Backend: [actualización de tests e2e e integración de módulos](https://github.com/Ankarmin/emprendeX-backend/commit/f87da81).</li>
+          <li>Mobile: [inicialización del proyecto React Native / Expo](https://github.com/JimSegovia/emprendeX-mobile/commit/0a3fe65).</li>
+          <li>Mobile: [configuración de dependencias y estructura](https://github.com/JimSegovia/emprendeX-mobile/commit/10399f0).</li>
+          <li>Mobile: [configuración de entorno y tooling](https://github.com/JimSegovia/emprendeX-mobile/commit/1cb056e).</li>
+          <li>Mobile: [pipeline CI/CD y carpeta CD](https://github.com/JimSegovia/emprendeX-mobile/commit/899306b).</li>
+          <li>Mobile: [merge de pipeline CI/CD a main](https://github.com/JimSegovia/emprendeX-mobile/commit/3af51e4).</li>
+          <li>Mobile: [configuración de workspace y tooling mobile](https://github.com/JimSegovia/emprendeX-mobile/commit/2f09947).</li>
+        </ul>
+      </article>
+    </div>
+
+    <Aside type="note" title="Limitaciones conocidas del release">
+      La Versión 2 se documenta como un **release académico** respaldado por commits y por el estado de `main` al cierre del Sprint 1, pero no cuenta todavía con un esquema formal de **GitHub Releases** o **tags versionados** dentro de los repositorios observados.
+    </Aside>
+  </TabItem>
+
+</Tabs>

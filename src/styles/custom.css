@@ -733,3 +733,116 @@ html[data-theme='dark'] .team-member-card__body h3 {
 .emprendex-logo-dark { display: none; }
 :root[data-theme='dark'] .emprendex-logo-light { display: none; }
 :root[data-theme='dark'] .emprendex-logo-dark { display: block; }
+
+.scm-info-grid,
+.scm-flow-grid,
+.scm-note-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.scm-info-grid,
+.scm-note-grid {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.scm-flow-grid {
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.scm-info-card,
+.scm-flow-step,
+.scm-note-card,
+.scm-release-card {
+  border: 1px solid rgba(122, 60, 255, 0.16);
+  border-radius: 1.45rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 243, 255, 0.94));
+  box-shadow: 0 20px 48px rgba(21, 27, 50, 0.10);
+}
+
+.scm-info-card,
+.scm-flow-step,
+.scm-note-card {
+  padding: 1rem 1.05rem;
+}
+
+.scm-info-card h4,
+.scm-flow-step h4,
+.scm-note-card h4,
+.scm-release-card h3 {
+  margin-top: 0;
+}
+
+.scm-info-card h4,
+.scm-flow-step h4,
+.scm-note-card h4 {
+  margin-bottom: 0.55rem;
+}
+
+.scm-release-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.2rem 1.25rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.scm-release-card h3 {
+  margin-bottom: 0.55rem;
+}
+
+.scm-release-card p {
+  margin: 0;
+}
+
+.scm-release-card__eyebrow {
+  display: inline-flex;
+  margin-bottom: 0.65rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(122, 60, 255, 0.12);
+  color: var(--ex-brand-purple);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scm-release-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.scm-release-card__meta span {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(22, 43, 92, 0.08);
+  color: var(--ex-brand-navy);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+html[data-theme='dark'] .scm-info-card,
+html[data-theme='dark'] .scm-flow-step,
+html[data-theme='dark'] .scm-note-card,
+html[data-theme='dark'] .scm-release-card {
+  border-color: rgba(184, 156, 255, 0.16);
+  background: linear-gradient(180deg, rgba(18, 24, 44, 0.96), rgba(11, 17, 33, 0.96));
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.30);
+}
+
+html[data-theme='dark'] .scm-release-card__meta span {
+  background: rgba(255, 255, 255, 0.08);
+  color: #eef2ff;
+}
+
+/* Traceability table - full width */
+.scm-traceability {
+  width: 100%;
+  margin-inline: 0;
+}
+
+.scm-traceability__table-wrap {
+  width: 100%;
+}

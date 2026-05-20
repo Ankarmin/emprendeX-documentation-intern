@@ -1,0 +1,238 @@
+---
+interface ReferenceLink {
+  label: string;
+  url: string;
+  note?: string;
+}
+
+interface TraceabilityRow {
+  id: string;
+  references: ReferenceLink[];
+  status: string;
+}
+
+interface Props {
+  rows: TraceabilityRow[];
+}
+
+const { rows } = Astro.props;
+---
+
+<div class="scm-traceability">
+  <div class="scm-traceability__table-wrap">
+    <table class="scm-traceability__table">
+      <thead>
+        <tr>
+          <th>ID Funcionalidad</th>
+          <th>Rama/Commit asociado</th>
+          <th>Estado Actual</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            <td>
+              <strong>{row.id}</strong>
+            </td>
+            <td>
+              <div class="scm-traceability__refs">
+                {row.references.map((reference) => (
+                  <a href={reference.url} target="_blank" rel="noopener noreferrer" class="scm-traceability__ref">
+                    <span>{reference.label}</span>
+                    {reference.note && <small>{reference.note}</small>}
+                  </a>
+                ))}
+              </div>
+            </td>
+            <td>
+              <span class="scm-traceability__status">{row.status}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="scm-traceability__cards">
+    {rows.map((row) => (
+      <article class="scm-traceability__card">
+        <div class="scm-traceability__card-row">
+          <span class="scm-traceability__card-label">ID Funcionalidad</span>
+          <strong>{row.id}</strong>
+        </div>
+        <div class="scm-traceability__card-row">
+          <span class="scm-traceability__card-label">Rama/Commit asociado</span>
+          <div class="scm-traceability__refs">
+            {row.references.map((reference) => (
+              <a href={reference.url} target="_blank" rel="noopener noreferrer" class="scm-traceability__ref">
+                <span>{reference.label}</span>
+                {reference.note && <small>{reference.note}</small>}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div class="scm-traceability__card-row">
+          <span class="scm-traceability__card-label">Estado Actual</span>
+          <span class="scm-traceability__status">{row.status}</span>
+        </div>
+      </article>
+    ))}
+  </div>
+</div>
+
+<style>
+  .scm-traceability {
+    margin-top: 1rem;
+  }
+
+  .scm-traceability__table-wrap {
+    overflow-x: auto;
+    width: 100%;
+    border: 1px solid rgba(122, 60, 255, 0.16);
+    border-radius: 1.4rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 243, 255, 0.95));
+    box-shadow: 0 20px 50px rgba(21, 27, 50, 0.10);
+    box-sizing: border-box;
+  }
+
+  .scm-traceability__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 38rem;
+  }
+
+  .scm-traceability__table th,
+  .scm-traceability__table td {
+    padding: 0.75rem 0.85rem;
+    border-bottom: 1px solid rgba(122, 60, 255, 0.10);
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .scm-traceability__table thead th {
+    color: #271b56;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: rgba(122, 60, 255, 0.08);
+  }
+
+  .scm-traceability__table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .scm-traceability__status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0f5132;
+    background: rgba(47, 175, 106, 0.14);
+  }
+
+  .scm-traceability__refs {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .scm-traceability__ref {
+    display: grid;
+    gap: 0.08rem;
+    padding: 0.65rem 0.8rem;
+    border-radius: 0.9rem;
+    border: 1px solid rgba(122, 60, 255, 0.12);
+    background: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+  }
+
+  .scm-traceability__ref span {
+    color: #1f2440;
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+
+  .scm-traceability__ref small {
+    color: #646b88;
+    font-size: 0.78rem;
+  }
+
+  .scm-traceability__cards {
+    display: none;
+  }
+
+  .scm-traceability__card {
+    padding: 1rem;
+    border: 1px solid rgba(122, 60, 255, 0.16);
+    border-radius: 1.2rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 243, 255, 0.95));
+    box-shadow: 0 18px 40px rgba(21, 27, 50, 0.10);
+  }
+
+  .scm-traceability__card + .scm-traceability__card {
+    margin-top: 0.9rem;
+  }
+
+  .scm-traceability__card-row + .scm-traceability__card-row {
+    margin-top: 0.85rem;
+  }
+
+  .scm-traceability__card-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: #6a42cf;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  :global(html[data-theme='dark']) .scm-traceability__table-wrap,
+  :global(html[data-theme='dark']) .scm-traceability__card {
+    border-color: rgba(184, 156, 255, 0.16);
+    background: linear-gradient(180deg, rgba(18, 24, 44, 0.96), rgba(11, 17, 33, 0.96));
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.30);
+  }
+
+  :global(html[data-theme='dark']) .scm-traceability__table thead th {
+    color: #efe8ff;
+    background: rgba(122, 60, 255, 0.18);
+  }
+
+  :global(html[data-theme='dark']) .scm-traceability__table th,
+  :global(html[data-theme='dark']) .scm-traceability__table td {
+    border-bottom-color: rgba(184, 156, 255, 0.12);
+  }
+
+  :global(html[data-theme='dark']) .scm-traceability__status {
+    color: #b9f4d1;
+    background: rgba(47, 175, 106, 0.18);
+  }
+
+  :global(html[data-theme='dark']) .scm-traceability__ref {
+    border-color: rgba(184, 156, 255, 0.14);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  :global(html[data-theme='dark']) .scm-traceability__ref span {
+    color: #eef2ff;
+  }
+
+  :global(html[data-theme='dark']) .scm-traceability__ref small {
+    color: #b9c1dd;
+  }
+
+  @media (max-width: 50rem) {
+    .scm-traceability__table-wrap {
+      display: none;
+    }
+
+    .scm-traceability__cards {
+      display: block;
+    }
+  }
+</style>
