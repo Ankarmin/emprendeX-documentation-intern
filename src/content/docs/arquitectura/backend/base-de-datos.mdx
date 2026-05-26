@@ -1,0 +1,323 @@
+---
+title: Base de Datos
+description: Modelo de datos, diagrama de entidad-relación (DER) y diseño relacional de la plataforma EmprendeX.
+---
+
+import { Image } from 'astro:assets';
+import dbDiagram from '../../../../assets/base-de-datos.png';
+import { Card, CardGrid, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+La base de datos de **EmprendeX** está diseñada bajo un modelo relacional robusto sobre **PostgreSQL**, hospedada en la plataforma **Railway**. El esquema está modularizado para soportar operaciones multi-inquilino (multi-tenant) a través de la segregación de datos por `id_negocio`.
+
+---
+
+## Decisiones Clave de Arquitectura
+
+<CardGrid stagger>
+  <Card title="Identificadores Únicos" icon="seti:lock">
+    Se adoptó el uso estricto de **UUIDv4** (`DEFAULT gen_random_uuid()`) como clave primaria en todas las tablas para mitigar riesgos de seguridad por enumeración y facilitar la sincronización offline u otros entornos de base de datos distribuidos.
+  </Card>
+  <Card title="Precisión Monetaria" icon="seti:salesforce">
+    Para importes contables, totales de ventas y stock se utiliza el tipo de dato **DECIMAL(10, 2)** en lugar de floats o doubles, asegurando la precisión aritmética exigida en procesos contables y financieros.
+  </Card>
+  <Card title="Integridad Referencial" icon="seti:db">
+    El esquema aplica restricciones de claves foráneas (`FOREIGN KEY`) estrictas para evitar registros huérfanos, controlando las dependencias transaccionales entre módulos de operaciones y contabilidad.
+  </Card>
+  <Card title="Zona Horaria Unificada" icon="seti:clock">
+    Todos los campos de fecha y hora se almacenan con el tipo **TIMESTAMP** sin zona horaria, asumiendo siempre el estándar **UTC** en base de datos. La conversión a hora local se realiza exclusivamente en el frontend.
+  </Card>
+</CardGrid>
+
+---
+
+## Diagrama de Entidad-Relación (DER)
+
+El siguiente diagrama representa el esquema relacional actual de la base de datos de EmprendeX. Los módulos están delimitados por colores y agrupados de manera lógica por sus respectivas áreas de negocio.
+
+<div class="db-diagram-container">
+  <a href="https://lucid.app/lucidchart/ce0016a5-01fc-430f-b29b-29b9c8ad0c54/edit?viewport_loc=-1078%2C-1724%2C2843%2C1303%2C0_0&invitationId=inv_9ee1d051-8b5e-4a30-b4a3-360ca674b231" target="_blank" title="Abrir en Lucidchart para editar" class="db-diagram-link">
+    <Image src={dbDiagram} alt="Diagrama de Entidad-Relación de la Base de Datos EmprendeX" class="db-diagram-image" />
+    <span class="db-diagram-badge">Abrir en Lucidchart ↗</span>
+  </a>
+</div>
+
+<Aside type="tip" title="Consejo de visualización">
+  Haz clic en la imagen superior para abrir el diagrama interactivo de Lucidchart, donde podrás realizar acercamientos, inspeccionar relaciones y consultar detalles adicionales sobre los campos.
+</Aside>
+
+---
+
+## Diccionario de Datos por Módulos
+
+Selecciona una de las pestañas a continuación para inspeccionar la estructura detallada de las tablas que componen cada módulo del sistema:
+
+<Tabs>
+  <TabItem label="📂 Registros" icon="seti:folder">
+    Este módulo aloja la información de la estructura multi-inquilino: clientes (dueños de negocios), negocios administrados, usuarios, planes de suscripción y los módulos de software habilitados.
+
+    ### Tabla: `Clientes`
+    Representa a la persona natural o jurídica que contrata el servicio de EmprendeX.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_cliente` | UUID | PK, Default `gen_random_uuid()` | Identificador único del cliente. |
+    | `documento` | VARCHAR(20) | NOT NULL, UNIQUE | Documento de identidad fiscal (DNI, RUC, etc.). |
+    | `tipo_documento` | ENUM | NOT NULL | Tipo de documento (`'DNI'`, `'RUC'`, `'CE'`, `'PASAPORTE'`). |
+    | `nombre_negocio` | VARCHAR(255) | NULL | Nombre comercial sugerido para el negocio. |
+    | `razon_social` | VARCHAR(255) | NULL | Denominación social legal de la empresa. |
+    | `celular` | VARCHAR(20) | NOT NULL | Número de contacto telefónico. |
+    | `direccion` | TEXT | NULL | Dirección fiscal o física registrada. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de creación del registro en el sistema. |
+
+    ### Tabla: `Negocios`
+    Representa a la empresa o negocio creado por el cliente, aislando los datos transaccionales.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_negocio` | UUID | PK, Default `gen_random_uuid()` | Identificador único del negocio (Tenant ID). |
+    | `id_cliente` | UUID | FK (Clientes), NOT NULL | Cliente propietario del negocio. |
+    | `nombre_negocio` | VARCHAR(255) | NOT NULL | Nombre comercial del negocio. |
+    | `rubro` | VARCHAR(100) | NOT NULL | Actividad comercial principal (ej. Comercio, Servicios). |
+
+    ### Tabla: `Usuarios`
+    Cuentas de usuario que tienen acceso a un negocio determinado.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_usuario` | UUID | PK, Default `gen_random_uuid()` | Identificador único del usuario de la plataforma. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio al que pertenece el usuario. |
+    | `nombres` | VARCHAR(100) | NOT NULL | Nombres del usuario. |
+    | `apellidos` | VARCHAR(100) | NOT NULL | Apellidos del usuario. |
+    | `correo` | VARCHAR(150) | NOT NULL, UNIQUE | Correo electrónico (utilizado como login). |
+    | `celular` | VARCHAR(20) | NOT NULL | Teléfono móvil. |
+    | `contrasena` | VARCHAR(255) | NOT NULL | Hash de seguridad de la contraseña (`bcrypt`). |
+    | `rol` | ENUM | NOT NULL | Rol asignado (`'ADMIN'`, `'VENDEDOR'`, `'CONTADOR'`). |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de registro del usuario. |
+
+    ### Tabla: `Modulos`
+    Módulos funcionales de la aplicación que se pueden activar para un negocio.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_modulo` | UUID | PK, Default `gen_random_uuid()` | Identificador único del módulo del sistema. |
+    | `nombre_modulo` | VARCHAR(100) | NOT NULL, UNIQUE | Nombre descriptivo (ej. Facturación, Contabilidad). |
+    | `codigo` | VARCHAR(50) | NOT NULL | Código identificador técnico (ej. `VENT`, `CONT`, `FIN`). |
+    | `tipo_modulo` | VARCHAR(50) | NOT NULL | Clasificación funcional del módulo. |
+
+    ### Tabla: `Negocios_Modulos`
+    Tabla intermedia que registra qué módulos funcionales tiene activos un negocio determinado.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_negocio_modulo` | UUID | PK, Default `gen_random_uuid()` | Identificador de la asignación. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio asociado. |
+    | `id_modulo` | UUID | FK (Modulos), NOT NULL | Módulo asignado. |
+    | `estado` | ENUM | NOT NULL, Default `'activo'` | Estado del módulo (`'activo'`, `'inactivo'`, `'bloqueado'`). |
+    | `fecha_actualizacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de la última actualización de estado. |
+
+    ### Tabla: `Planes`
+    Planes de suscripción ofrecidos por la plataforma EmprendeX.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_plan` | UUID | PK, Default `gen_random_uuid()` | Identificador único del plan comercial. |
+    | `nombre` | VARCHAR(100) | NOT NULL, UNIQUE | Nombre del plan (ej. Básico, Premium, Ilimitado). |
+    | `descripcion` | TEXT | NULL | Detalle de las características que incluye el plan. |
+    | `precio_mensual` | DECIMAL(10, 2) | NOT NULL | Costo de facturación mensual del plan. |
+
+    ### Tabla: `Suscripciones`
+    Registra el historial y vigencia de los planes contratados por cada negocio.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_suscripcion` | UUID | PK, Default `gen_random_uuid()` | Identificador de suscripción. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio suscrito. |
+    | `id_plan` | UUID | FK (Planes), NOT NULL | Plan contratado. |
+    | `fecha_inicio` | DATE | NOT NULL | Fecha de inicio de vigencia de la suscripción. |
+    | `fecha_fin` | DATE | NOT NULL | Fecha de vencimiento del período actual. |
+    | `estado` | ENUM | NOT NULL | Estado de la suscripción (`'activa'`, `'vencida'`, `'cancelada'`). |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de contratación. |
+    | `fecha_actualizacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Última modificación en la suscripción. |
+
+    ### Tabla: `Planes_Modulos`
+    Configuración de módulos que están predefinidos y habilitados dentro de cada plan.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_modulo_plan` | UUID | PK, Default `gen_random_uuid()` | Identificador único de la regla del plan. |
+    | `id_plan` | UUID | FK (Planes), NOT NULL | Plan que contiene la regla. |
+    | `id_modulo` | UUID | FK (Modulos), NOT NULL | Módulo asignado al plan. |
+    | `estado` | BOOLEAN | NOT NULL, Default `true` | Indica si el módulo está habilitado en este plan. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de creación del registro. |
+    | `fecha_actualizacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de actualización del registro. |
+  </TabItem>
+
+  <TabItem label="📦 Productos / Servicios" icon="seti:json">
+    Gestiona el inventario de bienes físicos y el catálogo de servicios ofrecidos por cada negocio.
+
+    ### Tabla: `Items`
+    Entidad generalizadora para agrupar tanto productos como servicios del negocio.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_item` | UUID | PK, Default `gen_random_uuid()` | Identificador único del ítem. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio al que pertenece el ítem. |
+    | `tipo_item` | ENUM | NOT NULL | Tipo de registro (`'Producto'`, `'Servicio'`). |
+    | `nombre` | VARCHAR(255) | NOT NULL | Nombre comercial. |
+    | `descripcion` | TEXT | NULL | Descripción o especificaciones técnicas. |
+    | `sku` | VARCHAR(50) | NOT NULL | Stock Keeping Unit o código interno de inventario. |
+    | `precio` | DECIMAL(10, 2) | NOT NULL, Default `0.00` | Precio de venta estándar sin impuestos. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de ingreso del ítem. |
+
+    ### Tabla: `Productos`
+    Detalle específico para ítems de tipo Producto (requieren control físico de existencias).
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_producto` | UUID | PK, Default `gen_random_uuid()` | Identificador del producto físico. |
+    | `id_item` | UUID | FK (Items), NOT NULL | Enlace directo a los atributos generales del Ítem. |
+    | `id_unidad` | UUID | FK (Unidades), NOT NULL | Unidad de medida (ej. Kilos, Cajas). |
+    | `stock` | DECIMAL(10, 2) | NOT NULL, Default `0.00` | Stock actual en inventario. |
+    | `id_referencial` | VARCHAR(255) | NULL | ID de referencia externa. |
+
+    ### Tabla: `Servicios`
+    Detalle específico para ítems de tipo Servicio (intangibles, no manejan stock).
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_servicio` | UUID | PK, Default `gen_random_uuid()` | Identificador del servicio. |
+    | `id_item` | UUID | FK (Items), NOT NULL | Enlace directo a los atributos generales del Ítem. |
+    | `categoria` | VARCHAR(100) | NULL | Clasificación técnica del servicio. |
+    | `id_referencial` | VARCHAR(255) | NULL | ID de referencia externa. |
+
+    ### Tabla: `Categorias`
+    Categorías comerciales creadas para agrupar ítems dentro de un negocio.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_categoria` | UUID | PK, Default `gen_random_uuid()` | Identificador de la categoría. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio propietario de la categoría. |
+    | `nombre_categoria` | VARCHAR(100) | NOT NULL | Nombre descriptivo de la categoría. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de creación de la categoría. |
+
+    ### Tabla: `Unidades`
+    Unidades de medida aplicables a los productos físicos.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_unidad` | UUID | PK, Default `gen_random_uuid()` | Identificador de la unidad. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio al que pertenece la unidad. |
+    | `nombre_unidad` | VARCHAR(50) | NOT NULL | Nombre/Símbolo de la unidad (ej. `UND`, `KG`, `L`). |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de registro de la unidad. |
+  </TabItem>
+
+  <TabItem label="📈 Operaciones" icon="seti:salesforce">
+    Representa el flujo transaccional de ventas, desde presupuestos informales hasta órdenes en firme.
+
+    ### Tabla: `Cotizaciones`
+    Documenta propuestas y cotizaciones previas a una venta formal enviadas a los clientes.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_cotizacion` | UUID | PK, Default `gen_random_uuid()` | Identificador único de la cotización. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio que emite la cotización. |
+    | `id_cliente` | UUID | FK (Clientes), NOT NULL | Cliente destinatario de la cotización. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de emisión de la cotización. |
+    | `fecha_expiracion` | TIMESTAMP | NULL | Fecha de validez límite de la cotización. |
+    | `metodo_entrega` | VARCHAR(100) | NULL | Método de despacho cotizado (ej. Delivery, Recojo). |
+    | `total` | DECIMAL(10, 2) | NOT NULL, Default `0.00` | Importe total cotizado. |
+    | `id_referencial` | VARCHAR(255) | NULL | ID de referencia externa. |
+
+    ### Tabla: `Pedidos`
+    Representa una orden de compra o pedido formal en el sistema.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_pedido` | UUID | PK, Default `gen_random_uuid()` | Identificador único del pedido de venta. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio que registra la venta. |
+    | `estado` | ENUM | NOT NULL, Default `'pendiente'` | Estado de atención (`'pendiente'`, `'pagado'`, `'cancelado'`). |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha y hora en la que se generó el pedido. |
+    | `total` | DECIMAL(10, 2) | NOT NULL, Default `0.00` | Monto final total del pedido. |
+    | `id_referencial` | VARCHAR(255) | NULL | Código o identificador del pedido externo. |
+
+    ### Tabla: `Detalles_operacion`
+    Líneas de detalle asociadas a un pedido o una cotización (esquema unificado mediante `id_operacion`).
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_detalle` | UUID | PK, Default `gen_random_uuid()` | Identificador único de la línea de detalle. |
+    | `id_operacion` | UUID | FK (Pedidos/Cotizaciones), NOT NULL | Referencia al ID del Pedido o Cotización asociado. |
+    | `id_item` | UUID | FK (Items), NOT NULL | Ítem (producto o servicio) incluido en la operación. |
+    | `cantidad` | DECIMAL(10, 2) | NOT NULL, Default `1.00` | Cantidad de unidades operadas. |
+    | `descuento` | DECIMAL(10, 2) | NOT NULL, Default `0.00` | Monto de descuento directo aplicado a la línea. |
+  </TabItem>
+
+  <TabItem label="💰 Contabilidad" icon="seti:db">
+    Módulo para controlar cobros, pagos, egresos del negocio y clasificación de cuentas de gastos.
+
+    ### Tabla: `Metodos_Pago`
+    Catálogo de medios de pago aceptados para realizar las transacciones.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_metodo` | UUID | PK, Default `gen_random_uuid()` | Identificador único del método de pago. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio que registra el método. |
+    | `nombre` | VARCHAR(100) | NOT NULL | Nombre comercial del método (ej. Efectivo, Tarjeta, Yape). |
+
+    ### Tabla: `Pagos`
+    Registra el recaudo de ingresos derivado de pedidos concretados.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_pago` | UUID | PK, Default `gen_random_uuid()` | Identificador del pago recibido. |
+    | `id_pedido` | UUID | FK (Pedidos), NOT NULL | Pedido amortizado o liquidado. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de ejecución del pago. |
+    | `estado` | ENUM | NOT NULL, Default `'pendiente'` | Estado de conciliación (`'pagado'`, `'pendiente'`, `'reembolsado'`). |
+    | `total_pagado` | DECIMAL(10, 2) | NOT NULL | Importe total cobrado. |
+    | `id_referencial` | VARCHAR(255) | NULL | ID de la transacción financiera (ej. número de operación). |
+
+    ### Tabla: `Detalles_pago`
+    Detalle del medio de pago utilizado para un ingreso (soporta cobros con múltiples métodos).
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_detalle_pago` | UUID | PK, Default `gen_random_uuid()` | Identificador del desglose de pago. |
+    | `id_pago` | UUID | FK (Pagos), NOT NULL | Pago global al que pertenece. |
+    | `id_metodo` | UUID | FK (Metodos_Pago), NOT NULL | Medio de pago utilizado. |
+    | `subtotal` | DECIMAL(10, 2) | NOT NULL | Importe cobrado mediante este método específico. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de la operación del desglose. |
+
+    ### Tabla: `Gastos`
+    Registra los egresos operativos o administrativos realizados por el negocio.
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_gasto` | UUID | PK, Default `gen_random_uuid()` | Identificador único del gasto registrado. |
+    | `id_categoria_financiera` | UUID | FK (Categorias_Financieras), NOT NULL | Clasificación del egreso para contabilidad. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha en la que se efectuó el egreso. |
+    | `descripcion` | TEXT | NULL | Justificación o glosa descriptiva del gasto. |
+    | `total` | DECIMAL(10, 2) | NOT NULL | Monto total egresado. |
+    | `id_referencial` | VARCHAR(255) | NULL | Número de comprobante de compra o factura asociada. |
+
+    ### Tabla: `Detalles_gasto`
+    Detalle del medio de pago con el que se financió el egreso (soporta pagos de egresos con múltiples métodos).
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_detalle_gasto` | UUID | PK, Default `gen_random_uuid()` | Identificador del desglose de gasto. |
+    | `id_gasto` | UUID | FK (Gastos), NOT NULL | Gasto global al que pertenece. |
+    | `id_metodo` | UUID | FK (Metodos_Pago), NOT NULL | Medio de pago con el que se financió. |
+    | `subtotal` | DECIMAL(10, 2) | NOT NULL | Importe pagado con este método específico. |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de la operación. |
+
+    ### Tabla: `Categorias_Financieras`
+    Configuración de la clasificación de cuentas de egresos (plan de cuentas simplificado).
+    
+    | Columna | Tipo | Restricciones | Descripción |
+    | :--- | :--- | :--- | :--- |
+    | `id_categoria_financiera` | UUID | PK, Default `gen_random_uuid()` | Identificador único de la categoría de gasto. |
+    | `id_negocio` | UUID | FK (Negocios), NOT NULL | Negocio que configura la categoría. |
+    | `nombre` | VARCHAR(100) | NOT NULL | Nombre de la categoría (ej. Servicios Básicos, Alquileres). |
+    | `fecha_creacion` | TIMESTAMP | DEFAULT `CURRENT_TIMESTAMP` | Fecha de alta de la categoría. |
+  </TabItem>
+</Tabs>
