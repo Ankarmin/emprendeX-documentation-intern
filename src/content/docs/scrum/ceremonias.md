@@ -9,7 +9,7 @@ Las ceremonias Scrum son los eventos estructurados que permiten al equipo inspec
 
 ---
 
-## Artefactos Scrum
+## Scrum Artifacts
 
 <CardGrid>
   <Card title="Product Backlog" icon="list-format">
@@ -18,14 +18,14 @@ Las ceremonias Scrum son los eventos estructurados que permiten al equipo inspec
   <Card title="Sprint Backlog" icon="document">
     Subconjunto del Product Backlog seleccionado para el Sprint actual. Incluye el plan para lograr el Sprint Goal.
   </Card>
-  <Card title="Incremento" icon="rocket">
+  <Card title="Increment" icon="rocket">
     El producto entregable al final de cada Sprint. Debe cumplir la Definición de Hecho y ser potencialmente shippeable.
   </Card>
 </CardGrid>
 
 ---
 
-## Ceremonias
+## Scrum Ceremonies
 
 ### 1. Sprint Planning
 
@@ -45,18 +45,19 @@ Las ceremonias Scrum son los eventos estructurados que permiten al equipo inspec
 
 ### 2. Daily Scrum
 
-**¿Cuándo?** Todos los días durante el Sprint.  
-**¿Cuánto dura?** Máximo 15 minutos.  
-**¿Quiénes participan?** El equipo de desarrollo (el SM facilita).
+**¿Cuándo?** Comunicación diaria asíncrona.  
+**¿Quiénes participan?** Todo el equipo de desarrollo.
 
-Cada miembro responde:
-- ✅ **¿Qué hice desde el último Daily?**
+<Aside type="note" title="Adaptación del Daily Scrum">
+  Debido a la naturaleza virtual del proyecto y a que los miembros del equipo cursan diferentes materias y tienen horarios cruzados, realizar reuniones presenciales o síncronas diarias resultaba inviable. 
+  
+  Como adaptación, el equipo adoptó un **esquema asíncrono y continuo a través de un canal activo de WhatsApp**. En este medio, los integrantes reportan de forma diaria sus avances, coordinan integraciones rápidas y reportan impedimentos para que el Scrum Master los gestione de inmediato.
+</Aside>
+
+Cada miembro responde en el canal de comunicación activa:
+- ✅ **¿Qué hice desde el último reporte?**
 - 📋 **¿Qué planeo hacer hoy?**
 - 🚧 **¿Tengo algún impedimento?**
-
-<Aside type="note" title="Registro">
-  Los impedimentos detectados en el Daily se registran en el Sprint actual (ver documentación de Sprints) y el Scrum Master es responsable de resolverlos.
-</Aside>
 
 ---
 
@@ -76,7 +77,7 @@ Cada miembro responde:
 
 ---
 
-### 4. Retrospectiva
+### 4. Sprint Retrospective
 
 **¿Cuándo?** Después de la Sprint Review, al final del Sprint.  
 **¿Cuánto dura?** (X hora/s).  
@@ -94,7 +95,7 @@ Cada miembro responde:
 
 ---
 
-### 5. Refinamiento del Backlog
+### 5. Backlog Refinement
 
 **¿Cuándo?** A mitad del Sprint (no es una ceremonia formal en Scrum, pero es una buena práctica).  
 **¿Cuánto dura?** Máximo 10% del tiempo del Sprint.

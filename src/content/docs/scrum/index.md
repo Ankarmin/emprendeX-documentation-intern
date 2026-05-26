@@ -409,6 +409,14 @@ Dado que el Sprint 0 fue una fase de preparación, no se comprometieron historia
 
 > [Pendiente: Se documentará tras la finalización del sprint]
 
+---
+
+#### 📄 5. Backlog Refinement
+
+Se llevó a cabo una sesión de refinamiento para detallar los requerimientos funcionales, refinar los flujos del ciclo comercial, y coordinar la integración de librerías como `react-native-keyboard-aware-scroll-view` para mejorar la UX de los formularios.
+
+Para ver el detalle completo y las evidencias de la sesión, visita la página de [Backlog Refinement](/scrum/sprints/sprint-2/backlog-refinement/).
+
 </details>
 
 ---
