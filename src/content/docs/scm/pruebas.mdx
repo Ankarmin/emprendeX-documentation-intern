@@ -1,0 +1,159 @@
+---
+title: Verificación y Pruebas (QA)
+description: Informe consolidado de aseguramiento de calidad (QA) y automatización de pruebas del Sprint 2 para EmprendeX.
+---
+
+import { Aside, Card, CardGrid, Steps } from '@astrojs/starlight/components';
+
+## Aseguramiento de Calidad (QA) y Verificación en SCM
+
+El aseguramiento de calidad es fundamental para garantizar que los elementos de configuración que componen nuestra **Línea Base V2** sean estables, integrados y funcionales. Esta sección detalla el plan de pruebas, los resultados de la ejecución manual y automatizada, y el control de los hallazgos en el **Sprint 2** del proyecto EmprendeX.
+
+<Aside type="tip" title="Responsable de Calidad">
+  Este informe y la suite de automatización de pruebas fueron diseñados y ejecutados por **Yessly Josselyn Poma De la Cruz** (QA Engineer).
+</Aside>
+
+---
+
+## 1. Resumen Ejecutivo del Sprint 2
+
+Las actividades de verificación durante este ciclo se centraron en:
+* **Pruebas funcionales** de las Historias de Usuario: **HU-06, HU-10, HU-11, HU-12, HU-16**.
+* **Pruebas de regresión** sobre las funcionalidades del Sprint 1 (Login tradicional, CRUD de cotizaciones, clientes y productos).
+* **Pruebas de integración** entre el frontend móvil (React Native + Expo) y el backend desplegado (NestJS + Railway).
+* **Automatización de pruebas E2E** utilizando **Appium y WebdriverIO** ejecutados sobre un dispositivo físico real (Honor X6a Plus, Android 14).
+
+### Estado General del Aseguramiento
+
+| Indicador | Resultado |
+| :--- | :--- |
+| **Total de casos de prueba ejecutados** | 21 |
+| **Pruebas exitosas** | 5 |
+| **Pruebas fallidas** | 2 |
+| **Observaciones documentadas** | 2 |
+| **Bloqueadas / Pendientes por infraestructura** | 12 |
+| **Bugs reportados** | 4 (1 crítico, 2 medios, 1 bajo) |
+
+> **Nota de Estabilidad:** El sistema se validó como funcional en sus flujos troncales (login, dashboard, cotizaciones). Sin embargo, se identificaron bloqueos en la HU-11 (cambio de estado de pedidos) y la HU-16 (login con Google), las cuales fueron reportadas inmediatamente a desarrollo.
+
+---
+
+## 2. Estrategia y Herramientas
+
+Adoptamos una estrategia combinada para maximizar la cobertura del modelo de negocio en el tiempo disponible.
+
+| Tipo de Prueba | Enfoque | Herramienta |
+| :--- | :--- | :--- |
+| **Exploratoria** | Familiarización inicial con los flujos de usuario. | Dispositivo móvil + APK |
+| **Basada en casos** | Ejecución sistemática de Casos de Prueba (TC) por HU. | Google Sheets (Matriz de Casos) |
+| **Automatizada E2E** | Verificación de flujos críticos del usuario final (login, dashboard, cotización). | Appium + WebdriverIO |
+| **API / Backend** | Validación independiente de endpoints del servidor. | Postman + Curl |
+| **Regresión** | Verificación de que los cambios no afecten módulos previos. | Manual + scripts de automatización |
+
+### Ecosistema de Herramientas Utilizado
+
+* **Jira (Proyecto EmprendeX):** Gestión de incidentes y asignación de bugs.
+* **Google Sheets:** Diseño y seguimiento de matrices de casos de prueba.
+* **Postman:** Pruebas y validaciones directas del contrato de la API.
+* **Appium + WebdriverIO:** Automatización y scripting de pruebas funcionales móviles.
+* **Appium Inspector:** Localización e identificación de selectores UI en Android.
+* **ADB (Android Debug Bridge):** Conexión remota y depuración con el dispositivo físico.
+* **Loom / Capturas:** Captura y almacenamiento de evidencias de QA.
+
+---
+
+## 3. Automatización de Pruebas E2E (Appium + WebdriverIO)
+
+Se implementó una suite de automatización E2E en un entorno de ejecución real de Windows apuntando a un dispositivo físico.
+
+### Stack Tecnológico del Entorno
+* **Frontend:** React Native (Expo)
+* **Backend:** NestJS / Railway
+* **Base de Datos:** PostgreSQL
+* **Dispositivo de Pruebas:** Honor X6a Plus (Android 14)
+* **Herramientas de automatización:** Appium v3.4.2 + WebdriverIO v8
+
+### Configuración del Entorno (`wdio.conf.js`)
+
+Las capacidades se configuraron para levantar la app de forma segura sin resetear datos intermedios si no es necesario:
+
+```javascript
+// Fragmento de capacidades en wdio.conf.js
+capabilities: [{
+  platformName: 'Android',
+  'appium:appPackage': 'com.jimbryan.emprendeX',
+  'appium:appActivity': 'com.jimbryan.emprendeX.MainActivity',
+  'appium:automationName': 'UiAutomator2',
+  'appium:udid': 'AK7BCP4509402554',
+  'appium:noReset': true
+}]
+```
+
+### Script de Prueba E2E (`dashboard.spec.js`)
+
+Se automatizó la navegación crítica y validación del panel de control de usuario. Se utilizaron selectores robustos por posición y validación de coincidencia de textos:
+
+```javascript
+// dashboard.spec.js
+describe('Flujos de Navegación en EmprendeX', () => {
+  it('Debería iniciar sesión con credenciales válidas', async () => {
+    // Selectores blindados por posición
+    const campoCorreo = await $('(//android.widget.EditText)[1]');
+    const campoPassword = await $('(//android.widget.EditText)[2]');
+    const botonIngresar = await $('//*[@text="Iniciar sesión"]');
+    
+    await campoCorreo.setValue('test@emprendex.com');
+    await campoPassword.setValue('CONTRASEÑA');
+    await botonIngresar.click();
+  });
+
+  it('Debería visualizar el Dashboard y saludo al usuario', async () => {
+    const saludoDashboard = await $('//*[contains(@text, "Yessly")]');
+    await expect(saludoDashboard).toBeDisplayed();
+  });
+});
+```
+
+### Resultados de Ejecución
+
+La ejecución de la suite automatizada se completó exitosamente en **25.6 segundos** con 4 pruebas aprobadas en el dispositivo móvil:
+
+```bash
+[Android #0-0] RUNNING in Android(14) on Android
+[Android #0-0] 🚀 Iniciando pruebas automatizadas - EmprendeX
+[Android #0-0] 🔓 Iniciando sesión...
+[Android #0-0] 4 passing (25.6s)
+Spec Files: 1 passed, 1 total (100% completed)
+```
+
+---
+
+## 4. Control de Hallazgos y Bugs Detectados
+
+Durante el ciclo de pruebas del Sprint 2, se detectaron los siguientes incidentes de software, los cuales se registraron en Jira:
+
+### Tabla de Bugs de Software
+
+| ID | HU Relacionada | Descripción | Severidad | Estado actual |
+| :--- | :--- | :--- | :--- | :--- |
+| **H-01** | HU-11 (Estados) | No se puede cambiar el estado del pedido (el componente selector no funciona). | **Crítica** | Reportado |
+| **H-02** | HU-12 (Adelantos) | El slider de opciones de pago rápido se corta visualmente en dispositivos medianos. | **Media** | Reportado |
+| **H-03** | HU-16 (Login Google) | Autenticación con Google no implementada en frontend. | **Media** | Reportado |
+| **H-04** | HU-06 (Clientes) | Falta la sección de historial de cotizaciones en la ficha detallada del cliente. | **Baja** | Observación |
+
+### Hallazgos de Experiencia de Usuario (UX) e Infraestructura
+
+* **Estado Zombie en Selectores de Cotización:** Los selectores retienen valores vacíos al realizar una segunda cotización consecutiva. *Recomendación:* Resetear el estado al desmontar el componente.
+* **Teclado Obstructivo en Formularios:** El teclado del celular oculta los botones de acción "Continuar" y "Guardar". *Recomendación:* Implementar `KeyboardAvoidingView` en los layouts de formulario de React Native.
+* **Unicidad de Campos en Base de Datos:** Se pueden crear múltiples cuentas de cliente usando el mismo número celular. *Recomendación:* Aplicar una restricción `UNIQUE` a nivel de base de datos.
+* **Error de Ortografía (Typo):** Texto visible "Configuracin" en lugar de "Configuración". (Reportado).
+* **Inestabilidad del Entorno de Staging (Railway):** Incidentes de red ("Application not found - Error 404") en el backend de Railway bloquearon temporalmente las validaciones de la HU-15. *Mitigación:* Se estructuró un plan de contingencia para correr el backend en local si el servidor en la nube no responde.
+
+---
+
+## 5. Matrices de Pruebas del Proyecto
+
+Para un desglose completo de cada caso de prueba, su descripción, entradas de prueba y criterios de éxito, consulta las hojas de cálculo compartidas:
+
+* 📊 [Matriz de Pruebas - Sprint 01](https://docs.google.com/spreadsheets/d/11Ijh47bjBN6ztnlQr0kplrbIFt3xgasZBwGxTgMVUko/edit?gid=0#gid=0)
+* 📊 [Matriz de Pruebas - Sprint 02](https://docs.google.com/spreadsheets/d/1Ltzq_ddfGtfOGyBpJOm-fQEALkr3Q7zQFGJWmpVF8vY/edit?gid=0#gid=0)

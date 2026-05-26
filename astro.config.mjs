@@ -227,6 +227,7 @@ export default defineConfig({
           items: [
             { label: 'Gestión de Configuración', link: '/scm/' },
             { label: 'Trazabilidad con GitHub', link: '/scm/trazabilidad/' },
+            { label: 'Verificación y Pruebas', link: '/scm/pruebas/' },
           ],
         },
         {
