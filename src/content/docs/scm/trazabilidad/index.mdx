@@ -1,6 +1,6 @@
 ---
 title: Trazabilidad con GitHub
-description: Matriz de trazabilidad completa de la Versión 2 de EmprendeX, conectando cada funcionalidad con sus commits reales en GitHub.
+description: Matriz de trazabilidad completa de las versiones de EmprendeX, conectando cada funcionalidad con sus commits reales en GitHub.
 ---
 
 import ScmTraceabilityTable from '../../../../components/ScmTraceabilityTable.astro';
@@ -721,10 +721,153 @@ export const traceRows = [
     ],
     status: 'Completado en main',
   },
+  {
+    id: 'F16 - Migración a Monorepo y DevOps (V3)',
+    references: [
+      {
+        label: 'Web: refactor(api): migrar backend a apps/api dentro del monorepo',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/7ea8767',
+        note: 'Estructuración del backend en apps/api',
+      },
+      {
+        label: 'Web: feat(web): agregar base inicial de la aplicacion web (Next.js 16)',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/ddb418a',
+        note: 'Scaffold inicial de la aplicación cliente en apps/web',
+      },
+      {
+        label: 'Web: feat(docker): agregar configuracion local para api y postgres',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/c8eed42',
+        note: 'Docker Compose para entorno de desarrollo local',
+      },
+      {
+        label: 'Web: chore(ci): agregar pipelines y validaciones del monorepo',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/04cb6d5',
+        note: 'Configuración de GitHub Actions para validaciones del monorepo',
+      },
+      {
+        label: 'Web: Fix: Configuración pipelines para CI',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/35537a2da0747acdcb54c98df4649fd05c5ece31',
+        note: 'Ajustes en los scripts de pipelines del monorepo',
+      },
+      {
+        label: 'Web: Delete .github/workflows/cd.yml',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/41682b8',
+        note: 'Eliminación de CD obsoleto',
+      },
+      {
+        label: 'Web: chore(lockfile): depurar dependencias obsoletas del monorepo',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/7767420',
+        note: 'Limpieza y optimización del lockfile',
+      },
+      {
+        label: 'Web: fix(config): priorizar railway y fallback local para postgres',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/42c827e',
+        note: 'Conexión dinámica de base de datos',
+      },
+      {
+        label: 'Web: chore(workspace): agregar configuracion compartida de vscode',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/74f246f',
+        note: 'Configuración de workspace recomendada',
+      },
+      {
+        label: 'Web: chore(agents): agregar skills locales y lockfile',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/66d157d',
+        note: 'Instalación de skills para desarrollo asistido',
+      },
+      {
+        label: 'Web: docs(readme): documentar el monorepo y el entorno local',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/621ffb7',
+        note: 'Documentación del setup con pnpm y turbo',
+      },
+      {
+        label: 'Web: chore(repo): eliminar automatizaciones y artefactos heredados',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/d00f73d',
+        note: 'Limpieza de código y flujos antiguos',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F17 - Identidad de Marca y Release Móvil v3.0.0 (V3)',
+    references: [
+      {
+        label: 'Mobile: Merge pull request #3 de JimSegovia/Realease/APK (release v3.0.0)',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/6e693912e9a71375a53168cdfe5b2c7237aa8889',
+        note: 'Integración final para release v3.0.0',
+      },
+      {
+        label: 'Mobile: Release/Generación APK',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/72f7e9314be8916a8db09c90ea493bb8a396bb42',
+        note: 'Compilación y generación del APK de distribución',
+      },
+      {
+        label: 'Mobile: feat: Implementar funcionalidades clave y conciencia de teclado',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/6c0aea2354b2af516de78c12f53913240fc9669a',
+        note: 'Integración de KeyboardAwareScrollView para mejorar entrada de texto',
+      },
+      {
+        label: "Mobile: feat(configuracion): agrega descripción para 'Orden del sidebar'",
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/de0d095f631c8c8d797e9cfa5cea7b8f4ec5263f',
+        note: 'Descripción aclaratoria en configuración de sidebar',
+      },
+      {
+        label: 'Mobile: fix(modules): corrige error tipográfico en label de configuración',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/404e89b520acb10a389232d97fb99407f1f59654',
+        note: 'Corrección de typos menores',
+      },
+      {
+        label: 'Mobile: feat(configuracion): alternar api entre local y railway',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/72ac8f8798a64da5e748eca811c6bb8c1714a247',
+        note: 'Opción para conmutar entornos de backend',
+      },
+      {
+        label: 'Mobile: style(home): reemplazar datos simulados por valores en cero',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/f051be4a94c416a40ea134de4c50696df7dcaa29',
+        note: 'Eliminación de mock de saldos iniciales',
+      },
+      {
+        label: 'Mobile: fix(app): corregir referencias y cargas de productos y contabilidad',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/a2a74222097b2e7818b56438e07b6ab59a87e66c',
+        note: 'Corrección de referencias de carga en la aplicación',
+      },
+      {
+        label: 'Mobile: fix(productos): ajustar unidades al nuevo esquema sin abreviaturas',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/e94ba69072fc89e0c29c39da30c6d9647fa6291c',
+        note: 'Corrección de unidades en listados de productos',
+      },
+      {
+        label: 'Mobile: feat(configuracion): centralizar la url de la api para entorno local',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/ac8245746e80bfa119cc6025c08ba72a9b21447f',
+        note: 'Variable central de endpoint de desarrollo',
+      },
+    ],
+    status: 'Completado en main',
+  },
+  {
+    id: 'F18 - Gestión Contable Avanzada (V3)',
+    references: [
+      {
+        label: 'Web: feat(contabilidad): agregar crud de metodos y categorias financieras',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/d9ab226',
+        note: 'API para la gestión de métodos y categorías de pago',
+      },
+      {
+        label: 'Mobile: feat(contabilidad): permitir gestionar metodos y categorias',
+        url: 'https://github.com/JimSegovia/emprendeX-mobile/commit/56cc118df43bb16fcc1e15b9f9ba77b51c2a55e7',
+        note: 'Interfaz móvil para la gestión de métodos y categorías de contabilidad',
+      },
+      {
+        label: 'Web: fix(api): alinear catalogo y contabilidad con el esquema real',
+        url: 'https://github.com/Ankarmin/emprendeX-web/commit/1c9b5f2',
+        note: 'Corrección de base de datos para contabilidad',
+      },
+    ],
+    status: 'Completado en main',
+  },
 ];
 
 ## Trazabilidad con GitHub
 
-La siguiente matriz conecta cada funcionalidad de la Versión 2 con su evidencia real en GitHub. Se incluyen **todos los commits** de los repositorios [`emprendeX-web`](https://github.com/Ankarmin/emprendeX-web/commits/main/) y [`emprendeX-mobile`](https://github.com/JimSegovia/emprendeX-mobile/commits/main/) hasta el **19 de mayo de 2026**.
+La siguiente matriz conecta cada funcionalidad de la Versión 2 y Versión 3 con su evidencia real en GitHub. Se incluyen **todos los commits** de los repositorios [`emprendeX-web`](https://github.com/Ankarmin/emprendeX-web/commits/main/) y [`emprendeX-mobile`](https://github.com/JimSegovia/emprendeX-mobile/commits/main/) hasta el **26 de mayo de 2026**.
 
 <ScmTraceabilityTable rows={traceRows} />

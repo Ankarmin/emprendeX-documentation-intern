@@ -382,6 +382,60 @@ La gestión de configuración en EmprendeX se apoyó en repositorios GitHub, con
     <Aside type="note" title="Limitaciones conocidas del release">
       La Versión 2 se documenta como un **release académico** respaldado por commits y por el estado de `main` al cierre del Sprint 1, pero no cuenta todavía con un esquema formal de **GitHub Releases** o **tags versionados** dentro de los repositorios observados.
     </Aside>
+
+    <hr style="border-top: 1px dashed var(--sl-color-hairline); margin: 3rem 0;" />
+
+    <div class="scm-release-card">
+      <div>
+        <span class="scm-release-card__eyebrow">Release inicial</span>
+        <h3>Versión 1</h3>
+        <p>Configuración del entorno inicial y establecimiento del scaffold básico para los repositorios de EmprendeX (API NestJS y aplicación móvil React Native/Expo).</p>
+      </div>
+      <div class="scm-release-card__meta">
+        <span><strong>Fecha:</strong> Sprint 0 (12 de mayo de 2026)</span>
+        <span><strong>Estado:</strong> Consolidada (Línea Base Académica Inicial)</span>
+        <span><strong>Repos:</strong> backend (NestJS) + mobile (Expo)</span>
+      </div>
+    </div>
+
+    La Versión 1 sentó las bases y los cimientos sobre los cuales se construyeron los módulos del negocio. A nivel técnico, consistió en inicializaciones en blanco y configuración de herramientas de desarrollo.
+
+    <div class="scm-note-grid" style="margin-bottom: 3rem;">
+      <article class="scm-note-card">
+        <h4>Backend y Base de Datos (NestJS)</h4>
+        <ul>
+          <li><strong>Inicialización:</strong> Configuración del proyecto base usando NestJS CLI con empaquetamiento estándar de node modules.</li>
+          <li><strong>Conectividad local:</strong> Estructuración inicial de variables de entorno y soporte para PostgreSQL local.</li>
+        </ul>
+      </article>
+      <article class="scm-note-card">
+        <h4>App Móvil (React Native/Expo)</h4>
+        <ul>
+          <li><strong>Inicialización:</strong> Setup del proyecto utilizando Expo CLI con soporte para TypeScript.</li>
+          <li><strong>Workspace y Linters:</strong> Estructuración inicial del proyecto, configuración de linters, formateadores de código y utilidades de desarrollo en local.</li>
+        </ul>
+      </article>
+    </div>
+
+    #### Historial de Cambios de la Versión 1 (Commits de Inicialización)
+
+    <div class="scm-note-grid" style="margin-bottom: 3rem;">
+      <article class="scm-note-card">
+        <h4>Cambios en el Backend (Repositorio Web)</h4>
+        <ul>
+          <li>Backend: [inicialización del proyecto NestJS](https://github.com/Ankarmin/emprendeX-web/commit/b1d699b)</li>
+          <li>Backend: [configuración de dependencias y estructura](https://github.com/Ankarmin/emprendeX-web/commit/cf93e17)</li>
+        </ul>
+      </article>
+      <article class="scm-note-card">
+        <h4>Cambios en el Repositorio Móvil</h4>
+        <ul>
+          <li>Mobile: [inicialización del proyecto React Native / Expo](https://github.com/JimSegovia/emprendeX-mobile/commit/0a3fe65)</li>
+          <li>Mobile: [configuración de dependencias y estructura](https://github.com/JimSegovia/emprendeX-mobile/commit/10399f0)</li>
+          <li>Mobile: [configuración de entorno y tooling](https://github.com/JimSegovia/emprendeX-mobile/commit/1cb056e)</li>
+        </ul>
+      </article>
+    </div>
   </TabItem>
 
 </Tabs>
