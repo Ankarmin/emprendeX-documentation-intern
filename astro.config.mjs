@@ -184,7 +184,7 @@ export default defineConfig({
           label: 'El Proyecto',
           items: [
             { label: 'Sobre EmprendeX', link: '/proyecto/sobre-emprendex/' },
-            { label: 'Equipo', link: '/proyecto/equipo/' },
+            // { label: 'Equipo', link: '/proyecto/equipo/' },
           ],
         },
         {
